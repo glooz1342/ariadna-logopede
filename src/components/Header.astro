@@ -24,19 +24,38 @@ const otherLang = lang === 'fr' ? 'en' : 'fr';
 <header>
   <div class="header-inner">
     <a href={`/${lang}`} class="logo">
-      <span class="logo-name">Ariadna</span>
+      <span class="logo-name">Ariadna Balsells</span>
       <span class="logo-role">{lang === 'fr' ? 'Logopède' : 'Speech Therapist'}</span>
     </a>
 
-    <nav>
+    <nav id="main-nav">
       {links.map(link => (
         <a href={link.href} class="nav-link">{link.label}</a>
       ))}
+      <a href={`/${otherLang}`} class="lang-switch mobile-lang">{otherLang.toUpperCase()}</a>
     </nav>
 
-    <a href={`/${otherLang}`} class="lang-switch">{otherLang.toUpperCase()}</a>
+    <div class="header-right">
+      <a href={`/${otherLang}`} class="lang-switch desktop-lang">{otherLang.toUpperCase()}</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </div>
 </header>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('main-nav');
+
+  hamburger?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    hamburger.classList.toggle('open');
+  });
+</script>
 
 <style>
   header {
@@ -58,7 +77,7 @@ const otherLang = lang === 'fr' ? 'en' : 'fr';
   .logo { display: flex; flex-direction: column; line-height: 1.2; }
   .logo-name {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
   }
   .logo-role {
@@ -67,13 +86,18 @@ const otherLang = lang === 'fr' ? 'en' : 'fr';
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-  nav { display: flex; gap: 2rem; }
+  .header-right { display: flex; align-items: center; gap: 1rem; }
+
+  /* Nav */
+  nav { display: flex; gap: 2rem; align-items: center; }
   .nav-link {
     font-size: 0.9rem;
     color: var(--color-text-light);
     transition: color 0.2s;
   }
   .nav-link:hover { color: var(--color-accent); }
+
+  /* Lang switch */
   .lang-switch {
     font-size: 0.8rem;
     font-weight: 500;
@@ -85,4 +109,57 @@ const otherLang = lang === 'fr' ? 'en' : 'fr';
     letter-spacing: 0.05em;
   }
   .lang-switch:hover { border-color: var(--color-accent); color: var(--color-accent); }
+  .mobile-lang { display: none; }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: all 0.3s;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .desktop-lang { display: none; }
+    .mobile-lang { display: block; border: none; padding: 0.75rem 0; }
+
+    nav {
+      display: none;
+      position: absolute;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: white;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0.5rem 2rem 1rem;
+      border-bottom: 1px solid var(--color-border);
+      gap: 0;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    nav.open { display: flex; }
+    .nav-link {
+      width: 100%;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 1rem;
+    }
+  }
 </style>
