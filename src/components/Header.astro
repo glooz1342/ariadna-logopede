@@ -1,0 +1,88 @@
+---
+interface Props { lang: 'fr' | 'en'; }
+const { lang } = Astro.props;
+
+const nav = {
+  fr: [
+    { label: 'Accueil', href: '/fr' },
+    { label: 'À propos', href: '/fr/apropos' },
+    { label: 'Services', href: '/fr/services' },
+    { label: 'Contact', href: '/fr/contact' },
+  ],
+  en: [
+    { label: 'Home', href: '/en' },
+    { label: 'About', href: '/en/about' },
+    { label: 'Services', href: '/en/services' },
+    { label: 'Contact', href: '/en/contact' },
+  ],
+};
+
+const links = nav[lang];
+const otherLang = lang === 'fr' ? 'en' : 'fr';
+---
+
+<header>
+  <div class="header-inner">
+    <a href={`/${lang}`} class="logo">
+      <span class="logo-name">Ariadna</span>
+      <span class="logo-role">{lang === 'fr' ? 'Logopède' : 'Speech Therapist'}</span>
+    </a>
+
+    <nav>
+      {links.map(link => (
+        <a href={link.href} class="nav-link">{link.label}</a>
+      ))}
+    </nav>
+
+    <a href={`/${otherLang}`} class="lang-switch">{otherLang.toUpperCase()}</a>
+  </div>
+</header>
+
+<style>
+  header {
+    background: white;
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo { display: flex; flex-direction: column; line-height: 1.2; }
+  .logo-name {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  .logo-role {
+    font-size: 0.72rem;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  nav { display: flex; gap: 2rem; }
+  .nav-link {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--color-accent); }
+  .lang-switch {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-light);
+    border: 1px solid var(--color-border);
+    padding: 0.3rem 0.75rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .lang-switch:hover { border-color: var(--color-accent); color: var(--color-accent); }
+</style>

@@ -1,0 +1,279 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Ariadna Balsells — Logopède à Bruxelles" lang="fr">
+
+  <!-- Hero -->
+<section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Logopède à Bruxelles</p>
+      <h1>Ariadna Balsells</h1>
+      <p class="hero-sub">
+        Un accompagnement bienveillant et personnalisé pour chaque enfant et chaque adulte,
+        quel que soit son parcours.
+      </p>
+      <div class="hero-actions">
+        <a href="/fr/contact" class="btn-primary">Prendre rendez-vous</a>
+        <a href="/fr/services" class="btn-secondary">Découvrir les services</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="/Ari.jpeg" alt="Ariadna Balsells, logopède à Bruxelles" />
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services">
+    <div class="container">
+      <p class="section-label">Ce que je propose</p>
+      <h2>Domaines d'intervention</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="card-num">01</div>
+          <h3>Troubles du langage oral</h3>
+          <p>Difficultés d'expression, de compréhension ou d'articulation chez l'enfant et l'adulte.</p>
+        </div>
+        <div class="service-card">
+          <div class="card-num">02</div>
+          <h3>Communication Alternative et Augmentée</h3>
+          <p>Mise en place d'outils de CAA pour les personnes ayant des difficultés de communication verbale.</p>
+        </div>
+        <div class="service-card">
+          <div class="card-num">03</div>
+          <h3>Troubles neurodéveloppementaux</h3>
+          <p>Accompagnement des personnes avec TSA, trisomie 21, syndrome génétique ou déficience intellectuelle.</p>
+        </div>
+        <div class="service-card">
+          <div class="card-num">04</div>
+          <h3>Trouble spécifique des apprentisages en mathématiques</h3>
+          <p>Prise en charge des difficultés spécifiques en mathématiques et dans le raisonnement numérique.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About teaser -->
+  <section class="about">
+    <div class="container about-inner">
+      <div class="about-text">
+        <p class="section-label">À propos</p>
+        <h2>Une approche centrée sur la personne</h2>
+        <p>
+          Je suis Ariadna Balsells, logopède basée à Bruxelles. Mon travail s'articule autour 
+          d'une conviction forte : chaque personne a sa propre façon de communiquer, et mon rôle 
+          est de l'accompagner avec respect et créativité.
+        </p>
+        <a href="/fr/apropos" class="btn-outline">En savoir plus</a>
+      </div>
+      <div class="about-deco" aria-hidden="true">
+        <div class="circle-outer">
+          <div class="circle-inner"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Vous souhaitez prendre rendez-vous ?</h2>
+      <p>N'hésitez pas à me contacter pour toute question ou pour planifier une première consultation.</p>
+      <a href="/fr/contact" class="btn-primary">Me contacter</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 7rem 2rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-inner { max-width: 560px; }
+  .hero-photo img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 50%;
+    border: 4px solid rgba(123,158,135,0.25);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    display: block;
+  }
+  .eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+
+  /* ── Buttons ── */
+  .btn-primary {
+    display: inline-block;
+    background: var(--color-accent);
+    color: white;
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--color-accent-dark); }
+
+  .btn-secondary {
+    display: inline-block;
+    color: var(--color-text);
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    border: 1px solid var(--color-border);
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+  .btn-outline {
+    display: inline-block;
+    color: var(--color-accent);
+    padding: 0.75rem 1.75rem;
+    border: 1.5px solid var(--color-accent);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    margin-top: 1.5rem;
+  }
+  .btn-outline:hover { background: var(--color-accent); color: white; }
+
+  /* ── Services ── */
+  .services {
+    background: white;
+    padding: 5rem 0;
+  }
+  .services h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 3rem;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.25s;
+  }
+  .service-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(123,158,135,0.1);
+  }
+  .card-num {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.85rem;
+  }
+  .service-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+    color: var(--color-text);
+  }
+  .service-card p {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    line-height: 1.65;
+  }
+
+  /* ── About ── */
+  .about { padding: 5rem 0; }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-text h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    margin-bottom: 1.25rem;
+  }
+  .about-text p {
+    color: var(--color-text-light);
+    line-height: 1.8;
+  }
+  .about-deco { display: flex; justify-content: center; }
+  .circle-outer {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(123,158,135,0.14), rgba(123,158,135,0.04));
+    border: 1.5px solid rgba(123,158,135,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .circle-inner {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 1px solid rgba(123,158,135,0.15);
+  }
+
+  /* ── CTA ── */
+  .cta {
+    background: white;
+    border-top: 1px solid var(--color-border);
+    padding: 5rem 0;
+    text-align: center;
+  }
+  .cta h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    margin-bottom: 1rem;
+  }
+  .cta p {
+    color: var(--color-text-light);
+    margin-bottom: 2rem;
+  }
+</style>
