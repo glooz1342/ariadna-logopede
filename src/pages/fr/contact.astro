@@ -1,0 +1,215 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Contact — Ariadna Balsells, Logopède" lang="fr">
+
+  <section class="contact-hero">
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h1>Prendre contact</h1>
+      <p class="tagline">Pour toute question ou demande de rendez-vous, n'hésitez pas à me contacter.</p>
+    </div>
+  </section>
+
+  <section class="contact-main">
+    <div class="container contact-grid">
+
+      <div class="contact-info">
+
+        <div class="contact-block whatsapp-highlight">
+          <div class="contact-block-icon">💬</div>
+          <div>
+            <h3>WhatsApp <span class="badge">Recommandé</span></h3>
+            <p class="contact-note">De loin le moyen le plus rapide pour me joindre. Je réponds bien plus vite via WhatsApp que par appel téléphonique.</p>
+            <a href="https://wa.me/32474052583" class="btn-whatsapp" target="_blank" rel="noopener">
+              Envoyer un message WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-block">
+          <div class="contact-block-icon">📞</div>
+          <div>
+            <h3>Téléphone</h3>
+            <p class="contact-note">Disponible, mais je décroche rarement pendant les séances. Préférez WhatsApp pour une réponse rapide.</p>
+            <a href="tel:+32474052583">+32 474 05 25 83</a>
+          </div>
+        </div>
+
+        <div class="contact-block">
+          <div class="contact-block-icon">✉️</div>
+          <div>
+            <h3>E-mail</h3>
+            <a href="mailto:ariadna.logopede@gmail.com">ariadna.logopede@gmail.com</a>
+          </div>
+        </div>
+
+        <div class="contact-block">
+          <div class="contact-block-icon">📍</div>
+          <div>
+            <h3>Cabinet</h3>
+            <p>CAP'S — Centre d'Accompagnement Pédiatrique Spécialisé<br>
+            Pl. de la Sainte-Famille 23<br>
+            1200 Woluwe-Saint-Lambert</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="contact-map">
+        <iframe
+          title="Localisation du cabinet"
+          src="https://maps.google.com/maps?q=Pl.+de+la+Sainte-Famille+23,+1200+Woluwe-Saint-Lambert,+Belgium&output=embed&z=15"
+          width="100%"
+          height="100%"
+          style="border:0; border-radius: 16px;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .contact-hero {
+    padding: 80px 0 40px;
+    text-align: center;
+  }
+
+  .contact-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--color-text);
+    margin: 0.25em 0;
+  }
+
+  .contact-hero .tagline {
+    color: var(--color-muted);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .contact-main {
+    padding: 40px 0 100px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-block {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px;
+    background: var(--color-surface, #f9f7f4);
+    border-radius: 12px;
+  }
+
+  .contact-block-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .contact-block h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .contact-block p, .contact-block a {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .contact-block a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .contact-block a:hover {
+    text-decoration: underline;
+  }
+
+  .contact-note {
+    margin-bottom: 12px !important;
+    font-size: 0.875rem !important;
+    font-style: italic;
+  }
+
+  .whatsapp-highlight {
+    border: 2px solid #25D366;
+    background: #f0fdf4;
+  }
+
+  .badge {
+    background: #25D366;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 10px 20px;
+    background: #25D366;
+    color: white !important;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+    transition: background 0.2s;
+  }
+
+  .btn-whatsapp:hover {
+    background: #1ebe5d;
+  }
+
+  .contact-map {
+    height: 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 100px;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-map {
+      height: 300px;
+      position: static;
+    }
+  }
+</style>
