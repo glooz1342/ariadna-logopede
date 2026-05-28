@@ -5,9 +5,19 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   lang: 'fr' | 'en';
+  description?: string;
 }
 
-const { title, lang } = Astro.props;
+const { title, lang, description } = Astro.props;
+
+const defaultDescription = {
+  fr: "Ariadna Balsells, logopède à Woluwe-Saint-Lambert, Bruxelles. Consultations pour enfants et adultes : langage, parole, lecture et écriture.",
+  en: "Ariadna Balsells, speech therapist in Woluwe-Saint-Lambert, Brussels. Consultations for children and adults: language, speech, reading and writing."
+};
+
+const metaDescription = description ?? defaultDescription[lang];
+const siteUrl = "https://ariadna-logopede.pages.dev";
+const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
 ---
 
 <!doctype html>
@@ -15,7 +25,21 @@ const { title, lang } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary meta -->
     <title>{title}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_BE' : 'en_GB'} />
+    <meta property="og:site_name" content="Ariadna Balsells — Logopède" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
