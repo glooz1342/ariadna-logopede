@@ -1,0 +1,217 @@
+---
+interface Props {
+  lang: 'fr' | 'en';
+  title: string;
+  subtitle: string;
+  pourquoi: string;
+  deroulement: string[];
+  bullets: string[];
+}
+const { lang, title, subtitle, pourquoi, deroulement, bullets } = Astro.props;
+import Layout from './Layout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+---
+
+<Layout title={`${title} — Ariadna Balsells`}>
+  <Header lang={lang} />
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="hero-tag">{lang === 'fr' ? 'Prise en charge' : 'Area of practice'}</p>
+        <h1>{title}</h1>
+        <p class="hero-sub">{subtitle}</p>
+      </div>
+    </section>
+
+    <!-- Pourquoi un suivi -->
+    <section class="section pourquoi">
+      <div class="section-inner">
+        <h2>{lang === 'fr' ? 'Pourquoi un suivi ?' : 'Why seek support?'}</h2>
+        <p>{pourquoi}</p>
+      </div>
+    </section>
+
+    <!-- Déroulé des séances -->
+    <section class="section deroulement">
+      <div class="section-inner">
+        <h2>{lang === 'fr' ? 'Déroulé des séances' : 'How sessions work'}</h2>
+        <ol>
+          {deroulement.map(step => <li>{step}</li>)}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Video + Bullets split -->
+    <section class="section split">
+      <div class="section-inner split-inner">
+        <!-- Video placeholder -->
+        <div class="video-placeholder">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="#7B9E87" stroke-width="1.5"/><path d="M20 16l14 8-14 8V16z" fill="#7B9E87"/></svg>
+          <p>{lang === 'fr' ? 'Vidéo à venir' : 'Video coming soon'}</p>
+        </div>
+
+        <!-- Bullet points -->
+        <div class="bullets">
+          <h3>{lang === 'fr' ? 'En résumé' : 'Key points'}</h3>
+          <ul>
+            {bullets.map(b => <li>{b}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta">
+      <div class="section-inner cta-inner">
+        <h2>{lang === 'fr' ? 'Vous souhaitez prendre rendez-vous ?' : 'Ready to get started?'}</h2>
+        <p>{lang === 'fr' ? 'Contactez-moi pour discuter de votre situation ou réserver une première séance.' : 'Get in touch to discuss your situation or book a first session.'}</p>
+        <a href={`/${lang}/contact`} class="btn">{lang === 'fr' ? 'Me contacter' : 'Contact me'}</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    padding: 4rem 2rem 3rem;
+  }
+  .hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .hero-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+  }
+
+  /* Sections */
+  .section { padding: 3.5rem 2rem; }
+  .section:nth-child(even) { background: var(--color-bg); }
+  .section-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--color-text);
+    margin-bottom: 1.25rem;
+  }
+  p { color: var(--color-text-light); line-height: 1.75; }
+  ol {
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  ol li { color: var(--color-text-light); line-height: 1.6; }
+
+  /* Split */
+  .split-inner {
+    max-width: 960px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  /* Video placeholder */
+  .video-placeholder {
+    aspect-ratio: 9/16;
+    max-height: 480px;
+    background: var(--color-bg);
+    border: 2px dashed var(--color-border);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+  }
+
+  /* Bullets */
+  .bullets h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: var(--color-text);
+    margin-bottom: 1.25rem;
+  }
+  .bullets ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .bullets ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  .bullets ul li::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    margin-top: 0.45em;
+  }
+
+  /* CTA */
+  .cta { background: var(--color-bg); }
+  .cta-inner { text-align: center; }
+  .cta h2 { margin-bottom: 0.75rem; }
+  .cta p { margin-bottom: 1.75rem; }
+  .btn {
+    display: inline-block;
+    background: var(--color-accent);
+    color: white;
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: var(--color-accent-dark); }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .split-inner {
+      grid-template-columns: 1fr;
+    }
+    .video-placeholder {
+      max-height: 360px;
+    }
+  }
+</style>
