@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const urlLang = Astro.url.pathname.startsWith('/en') ? 'en' : 'fr';
 ---
 
-<Layout title="404 — Page introuvable / Not found" lang="fr">
+<Layout title="404 — Page introuvable / Not found" lang={urlLang}>
   <section class="not-found">
     <div class="container">
       <span class="error-code">404</span>
@@ -73,7 +75,7 @@ import Layout from '../layouts/Layout.astro';
   .divider {
     width: 40px;
     height: 1px;
-    background: var(--color-accent );
+    background: var(--color-accent);
     opacity: 0.3;
     margin: 0 auto;
   }

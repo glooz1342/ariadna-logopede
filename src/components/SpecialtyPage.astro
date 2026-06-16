@@ -8,73 +8,63 @@ interface Props {
   bullets: string[];
 }
 const { lang, title, subtitle, pourquoi, deroulement, bullets } = Astro.props;
-import Layout from './Layout.astro';
-import Header from './Header.astro';
-import Footer from './Footer.astro';
 ---
 
-<Layout title={`${title} — Ariadna Balsells`}>
-  <Header lang={lang} />
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-tag">{lang === 'fr' ? 'Prise en charge' : 'Area of practice'}</p>
+    <h1>{title}</h1>
+    <p class="hero-sub">{subtitle}</p>
+  </div>
+</section>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-inner">
-        <p class="hero-tag">{lang === 'fr' ? 'Prise en charge' : 'Area of practice'}</p>
-        <h1>{title}</h1>
-        <p class="hero-sub">{subtitle}</p>
-      </div>
-    </section>
+<!-- Pourquoi un suivi -->
+<section class="section pourquoi">
+  <div class="section-inner">
+    <h2>{lang === 'fr' ? 'Pourquoi un suivi ?' : 'Why seek support?'}</h2>
+    <p>{pourquoi}</p>
+  </div>
+</section>
 
-    <!-- Pourquoi un suivi -->
-    <section class="section pourquoi">
-      <div class="section-inner">
-        <h2>{lang === 'fr' ? 'Pourquoi un suivi ?' : 'Why seek support?'}</h2>
-        <p>{pourquoi}</p>
-      </div>
-    </section>
+<!-- Déroulé des séances -->
+<section class="section deroulement">
+  <div class="section-inner">
+    <h2>{lang === 'fr' ? 'Déroulé des séances' : 'How sessions work'}</h2>
+    <ol>
+      {deroulement.map(step => <li>{step}</li>)}
+    </ol>
+  </div>
+</section>
 
-    <!-- Déroulé des séances -->
-    <section class="section deroulement">
-      <div class="section-inner">
-        <h2>{lang === 'fr' ? 'Déroulé des séances' : 'How sessions work'}</h2>
-        <ol>
-          {deroulement.map(step => <li>{step}</li>)}
-        </ol>
-      </div>
-    </section>
+<!-- Video + Bullets split -->
+<section class="section split">
+  <div class="section-inner split-inner">
+    <div class="video-placeholder">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="#7B9E87" stroke-width="1.5"/><path d="M20 16l14 8-14 8V16z" fill="#7B9E87"/></svg>
+      <p>{lang === 'fr' ? 'Vidéo à venir' : 'Video coming soon'}</p>
+    </div>
+    <div class="bullets">
+      <h3>{lang === 'fr' ? 'En résumé' : 'Key points'}</h3>
+      <ul>
+        {bullets.map(b => <li>{b}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
 
-    <!-- Video + Bullets split -->
-    <section class="section split">
-      <div class="section-inner split-inner">
-        <!-- Video placeholder -->
-        <div class="video-placeholder">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="#7B9E87" stroke-width="1.5"/><path d="M20 16l14 8-14 8V16z" fill="#7B9E87"/></svg>
-          <p>{lang === 'fr' ? 'Vidéo à venir' : 'Video coming soon'}</p>
-        </div>
+<!-- CTA -->
+<section class="section cta">
+  <div class="section-inner cta-inner">
+    <h2>{lang === 'fr' ? 'Vous souhaitez prendre rendez-vous ?' : 'Ready to get started?'}</h2>
+    <p>{lang === 'fr' ? 'Contactez-moi pour discuter de votre situation ou réserver une première séance.' : 'Get in touch to discuss your situation or book a first session.'}</p>
+    <a href={`/${lang}/contact`} class="btn">{lang === 'fr' ? 'Me contacter' : 'Contact me'}</a>
+  </div>
+</section>
 
-        <!-- Bullet points -->
-        <div class="bullets">
-          <h3>{lang === 'fr' ? 'En résumé' : 'Key points'}</h3>
-          <ul>
-            {bullets.map(b => <li>{b}</li>)}
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section cta">
-      <div class="section-inner cta-inner">
-        <h2>{lang === 'fr' ? 'Vous souhaitez prendre rendez-vous ?' : 'Ready to get started?'}</h2>
-        <p>{lang === 'fr' ? 'Contactez-moi pour discuter de votre situation ou réserver une première séance.' : 'Get in touch to discuss your situation or book a first session.'}</p>
-        <a href={`/${lang}/contact`} class="btn">{lang === 'fr' ? 'Me contacter' : 'Contact me'}</a>
-      </div>
-    </section>
-  </main>
-
-  <Footer lang={lang} />
-</Layout>
+<style>
+  /* ... keep all your existing styles unchanged ... */
+</style>
 
 <style>
   /* Hero */

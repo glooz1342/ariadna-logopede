@@ -1,9 +1,12 @@
----
+astro---
+import Layout from '../../../layouts/Layout.astro';
 import SpecialtyPage from '../../../components/SpecialtyPage.astro';
 ---
+
+<Layout title="Digital Cognition — Ariadna Balsells" lang="en">
 <SpecialtyPage
   lang="en"
-  title="Digital cognition"
+  title="Digital Cognition"
   subtitle="Helping children develop a healthy relationship with screens and build the cognitive skills that go with it."
   pourquoi="Digital technology is a central part of children's lives today. However, unguided screen exposure can affect language development, attention, and executive functions. Speech therapy in digital cognition aims to help children develop an active, balanced relationship with digital tools while strengthening their underlying cognitive abilities."
   deroulement={[
@@ -22,3 +25,4 @@ import SpecialtyPage from '../../../components/SpecialtyPage.astro';
     "Low frustration tolerance away from screens",
   ]}
 />
+</Layout>
