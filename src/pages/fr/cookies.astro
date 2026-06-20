@@ -1,0 +1,97 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Politique de cookies — Ariadna Balsells" lang="fr"
+  description="Politique de cookies du site d'Ariadna Balsells, logopède à Woluwe-Saint-Lambert : cookies utilisés et gestion de vos préférences.">
+
+  <section class="policy">
+    <div class="container">
+      <p class="eyebrow">Confidentialité</p>
+      <h1>Politique de cookies</h1>
+      <p class="lead">
+        Cette page explique quels cookies sont utilisés sur ce site et comment vous pouvez
+        gérer vos préférences à tout moment.
+      </p>
+
+      <h2>Qu'est-ce qu'un cookie ?</h2>
+      <p>
+        Un cookie est un petit fichier déposé sur votre appareil lorsque vous visitez un site
+        web. Il permet par exemple de mémoriser vos préférences ou de mesurer la fréquentation
+        du site. Les cookies dits « essentiels » sont nécessaires au bon fonctionnement du site ;
+        les autres ne sont déposés qu'avec votre accord.
+      </p>
+
+      <h2>Cookies utilisés sur ce site</h2>
+
+      <div class="cookie-cat">
+        <h3>Essentiels</h3>
+        <p>
+          Un seul cookie essentiel est utilisé pour mémoriser votre choix concernant les cookies
+          (<code>cookie_consent</code>). Il est conservé environ 6 mois et ne sert qu'à éviter de
+          vous redemander votre préférence à chaque visite. Il ne nécessite pas votre consentement.
+        </p>
+      </div>
+
+      <div class="cookie-cat">
+        <h3>Mesure d'audience — Google Analytics</h3>
+        <p>
+          Avec votre accord, Google Analytics est utilisé pour comprendre comment les visiteurs
+          arrivent sur le site et quelles pages ils consultent. Ces informations sont agrégées et
+          aident à améliorer le site. Ces cookies ne sont déposés que si vous les acceptez.
+        </p>
+      </div>
+
+      <div class="cookie-cat">
+        <h3>Carte — Google Maps</h3>
+        <p>
+          La page Contact affiche une carte fournie par Google Maps. Tant que vous n'avez pas
+          accepté les cookies, la carte reste masquée et un lien vous permet de l'ouvrir
+          directement sur Google Maps. Une fois les cookies acceptés, la carte s'affiche sur la page.
+        </p>
+      </div>
+
+      <h2>Gérer mes préférences</h2>
+      <p>
+        Vous pouvez modifier votre choix à tout moment en rouvrant la fenêtre de consentement
+        ci-dessous. Vous pouvez également supprimer les cookies via les réglages de votre navigateur.
+      </p>
+      <button type="button" class="manage-btn" onclick="window.openCookieSettings && window.openCookieSettings()">
+        Modifier mes préférences de cookies
+      </button>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+  .policy { padding: 5rem 0 4rem; }
+  .eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--color-accent); font-weight: 500; margin-bottom: 0.75rem;
+  }
+  h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1rem; }
+  .lead { color: var(--color-text-light); line-height: 1.75; font-size: 1.05rem; margin-bottom: 2.5rem; }
+  h2 {
+    font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-text);
+    margin: 2.5rem 0 1rem;
+  }
+  h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--color-text); }
+  p { color: var(--color-text-light); line-height: 1.75; }
+  code {
+    background: var(--color-bg); border: 1px solid var(--color-border);
+    border-radius: 4px; padding: 0.1em 0.4em; font-size: 0.9em;
+  }
+  .cookie-cat {
+    border-left: 2px solid var(--color-accent);
+    padding-left: 1.25rem; margin-bottom: 1.75rem;
+  }
+  .manage-btn {
+    margin-top: 1rem; padding: 0.85rem 1.75rem;
+    background: var(--color-accent); color: white; border: none;
+    border-radius: 6px; font-size: 0.9rem; font-weight: 500;
+    font-family: inherit; cursor: pointer; transition: background 0.2s;
+  }
+  .manage-btn:hover { background: var(--color-accent-dark); }
+</style>

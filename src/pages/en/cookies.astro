@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Cookie Policy — Ariadna Balsells" lang="en"
+  description="Cookie policy for Ariadna Balsells, speech therapist in Woluwe-Saint-Lambert: which cookies are used and how to manage your preferences.">
+
+  <section class="policy">
+    <div class="container">
+      <p class="eyebrow">Privacy</p>
+      <h1>Cookie Policy</h1>
+      <p class="lead">
+        This page explains which cookies are used on this site and how you can manage your
+        preferences at any time.
+      </p>
+
+      <h2>What is a cookie?</h2>
+      <p>
+        A cookie is a small file stored on your device when you visit a website. It can, for
+        example, remember your preferences or measure site traffic. "Essential" cookies are
+        necessary for the site to work properly; all others are only set with your consent.
+      </p>
+
+      <h2>Cookies used on this site</h2>
+
+      <div class="cookie-cat">
+        <h3>Essential</h3>
+        <p>
+          A single essential cookie is used to remember your cookie choice
+          (<code>cookie_consent</code>). It is kept for about 6 months and only serves to avoid
+          asking you again on every visit. It does not require your consent.
+        </p>
+      </div>
+
+      <div class="cookie-cat">
+        <h3>Audience measurement — Google Analytics</h3>
+        <p>
+          With your consent, Google Analytics is used to understand how visitors arrive at the
+          site and which pages they view. This information is aggregated and helps improve the
+          site. These cookies are only set if you accept them.
+        </p>
+      </div>
+
+      <div class="cookie-cat">
+        <h3>Map — Google Maps</h3>
+        <p>
+          The Contact page displays a map provided by Google Maps. Until you accept cookies, the
+          map stays hidden and a link lets you open it directly on Google Maps. Once cookies are
+          accepted, the map is shown on the page.
+        </p>
+      </div>
+
+      <h2>Manage my preferences</h2>
+      <p>
+        You can change your choice at any time by reopening the consent window below. You can also
+        delete cookies through your browser settings.
+      </p>
+      <button type="button" class="manage-btn" onclick="window.openCookieSettings && window.openCookieSettings()">
+        Change my cookie preferences
+      </button>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+  .policy { padding: 5rem 0 4rem; }
+  .eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--color-accent); font-weight: 500; margin-bottom: 0.75rem;
+  }
+  h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1rem; }
+  .lead { color: var(--color-text-light); line-height: 1.75; font-size: 1.05rem; margin-bottom: 2.5rem; }
+  h2 {
+    font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-text);
+    margin: 2.5rem 0 1rem;
+  }
+  h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--color-text); }
+  p { color: var(--color-text-light); line-height: 1.75; }
+  code {
+    background: var(--color-bg); border: 1px solid var(--color-border);
+    border-radius: 4px; padding: 0.1em 0.4em; font-size: 0.9em;
+  }
+  .cookie-cat {
+    border-left: 2px solid var(--color-accent);
+    padding-left: 1.25rem; margin-bottom: 1.75rem;
+  }
+  .manage-btn {
+    margin-top: 1rem; padding: 0.85rem 1.75rem;
+    background: var(--color-accent); color: white; border: none;
+    border-radius: 6px; font-size: 0.9rem; font-weight: 500;
+    font-family: inherit; cursor: pointer; transition: background 0.2s;
+  }
+  .manage-btn:hover { background: var(--color-accent-dark); }
+</style>

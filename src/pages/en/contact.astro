@@ -81,7 +81,7 @@ import Layout from '../../layouts/Layout.astro';
       <div class="contact-map">
         <iframe
           title="Practice location"
-          src="https://maps.google.com/maps?q=Pl.+de+la+Sainte-Famille+23,+1200+Woluwe-Saint-Lambert,+Belgium&output=embed&z=15"
+          data-consent-src="https://maps.google.com/maps?q=Pl.+de+la+Sainte-Famille+23,+1200+Woluwe-Saint-Lambert,+Belgium&output=embed&z=15"
           width="100%"
           height="100%"
           style="border:0; border-radius: 16px;"
@@ -89,6 +89,11 @@ import Layout from '../../layouts/Layout.astro';
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
+        <div class="consent-placeholder map-placeholder">
+          <p>The map stays hidden until cookies are accepted.</p>
+          <button type="button" class="map-consent-btn" onclick="window.openCookieSettings && window.openCookieSettings()">Accept cookies</button>
+          <a href="https://www.google.com/maps/search/?api=1&query=Pl.+de+la+Sainte-Famille+23,+1200+Woluwe-Saint-Lambert" target="_blank" rel="noopener">Open in Google Maps</a>
+        </div>
       </div>
 
     </div>
@@ -253,7 +258,50 @@ import Layout from '../../layouts/Layout.astro';
     top: 100px;
   }
 
+  .map-placeholder {
+    position: absolute;
+    inset: 0;
+    background: var(--color-bg);
+    border: 1px dashed var(--color-border);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  .map-placeholder p {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin: 0;
+    max-width: 280px;
+  }
+  .map-placeholder a {
+    font-size: 0.85rem;
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+  .map-consent-btn {
+    padding: 0.55rem 1.25rem;
+    background: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .map-consent-btn:hover { background: var(--color-accent-dark); }
+
   @media (max-width: 768px) {
+    .container {
+      padding: 0 1.25rem;
+    }
+
     .contact-grid {
       grid-template-columns: 1fr;
     }
