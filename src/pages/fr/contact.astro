@@ -21,7 +21,7 @@ import Layout from '../../layouts/Layout.astro';
         <div class="contact-block booking-highlight">
           <div class="contact-block-icon">📅</div>
           <div>
-            <h3>Prendre rendez-vous en ligne</h3>
+            <h3>Prendre rendez-vous en ligne <span class="badge">Recommandé</span></h3>
             <p class="contact-note">Réservez directement un créneau selon vos disponibilités : première consultation, TAP, dyscalculie ou CAA.</p>
             <a href="https://cal.com/ariadna-balsells-logopede" class="btn-booking" target="_blank" rel="noopener">
               Réserver un rendez-vous
@@ -32,7 +32,7 @@ import Layout from '../../layouts/Layout.astro';
         <div class="contact-block whatsapp-highlight">
           <div class="contact-block-icon">💬</div>
           <div>
-            <h3>WhatsApp <span class="badge">Recommandé</span></h3>
+            <h3>WhatsApp</h3>
             <p class="contact-note">De loin le moyen le plus rapide pour me joindre. Je réponds bien plus vite via WhatsApp que par appel téléphonique.</p>
             <a href="https://wa.me/32474052583" class="btn-whatsapp" target="_blank" rel="noopener">
               Envoyer un message WhatsApp
@@ -98,9 +98,9 @@ import Layout from '../../layouts/Layout.astro';
 
 <style>
   .container {
-    max-width: 1100px;
+    max-width: 1240px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 2.5rem;
   }
 
   .contact-hero {
@@ -127,8 +127,8 @@ import Layout from '../../layouts/Layout.astro';
 
   .contact-grid {
     display: grid;
-    grid-template-columns: 1.35fr 1fr;
-    gap: 48px;
+    grid-template-columns: 1.7fr 1fr;
+    gap: 56px;
     align-items: start;
   }
 
@@ -186,8 +186,8 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   .whatsapp-highlight {
-    border: 2px solid #25D366;
-    background: #f0fdf4;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface, #f9f7f4);
   }
 
   .booking-highlight {
@@ -214,32 +214,8 @@ import Layout from '../../layouts/Layout.astro';
     background: var(--color-accent-dark);
   }
 
-  .booking-highlight {
-    border: 2px solid var(--color-accent);
-    background: #f4f7f5;
-  }
-
-  .btn-booking {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 8px;
-    padding: 10px 20px;
-    background: var(--color-accent);
-    color: white !important;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-decoration: none !important;
-    transition: background 0.2s;
-  }
-
-  .btn-booking:hover {
-    background: var(--color-accent-dark);
-  }
-
   .badge {
-    background: #25D366;
+    background: var(--color-accent);
     color: white;
     font-size: 0.7rem;
     font-weight: 600;
@@ -269,7 +245,7 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   .contact-map {
-    height: 380px;
+    height: 520px;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
