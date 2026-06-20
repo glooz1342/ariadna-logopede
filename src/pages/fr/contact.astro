@@ -18,6 +18,17 @@ import Layout from '../../layouts/Layout.astro';
 
       <div class="contact-info">
 
+        <div class="contact-block booking-highlight">
+          <div class="contact-block-icon">📅</div>
+          <div>
+            <h3>Prendre rendez-vous en ligne</h3>
+            <p class="contact-note">Réservez directement un créneau selon vos disponibilités : première consultation, TAP, dyscalculie ou CAA.</p>
+            <a href="https://cal.com/ariadna-balsells-logopede" class="btn-booking" target="_blank" rel="noopener">
+              Réserver un rendez-vous
+            </a>
+          </div>
+        </div>
+
         <div class="contact-block whatsapp-highlight">
           <div class="contact-block-icon">💬</div>
           <div>
@@ -56,6 +67,15 @@ import Layout from '../../layouts/Layout.astro';
           </div>
         </div>
 
+        <div class="contact-block">
+          <div class="contact-block-icon">🪪</div>
+          <div>
+            <h3>Informations professionnelles</h3>
+            <p>Numéro INAMI : 6-09831-08-802<br>
+            Numéro BCE : 1033.892.019</p>
+          </div>
+        </div>
+
       </div>
 
       <div class="contact-map">
@@ -77,6 +97,12 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style>
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
   .contact-hero {
     padding: 80px 0 40px;
     text-align: center;
@@ -101,7 +127,7 @@ import Layout from '../../layouts/Layout.astro';
 
   .contact-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.35fr 1fr;
     gap: 48px;
     align-items: start;
   }
@@ -164,6 +190,54 @@ import Layout from '../../layouts/Layout.astro';
     background: #f0fdf4;
   }
 
+  .booking-highlight {
+    border: 2px solid var(--color-accent);
+    background: #f3f7f4;
+  }
+
+  .btn-booking {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 10px 20px;
+    background: var(--color-accent);
+    color: white !important;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+    transition: background 0.2s;
+  }
+
+  .btn-booking:hover {
+    background: var(--color-accent-dark);
+  }
+
+  .booking-highlight {
+    border: 2px solid var(--color-accent);
+    background: #f4f7f5;
+  }
+
+  .btn-booking {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 10px 20px;
+    background: var(--color-accent);
+    color: white !important;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+    transition: background 0.2s;
+  }
+
+  .btn-booking:hover {
+    background: var(--color-accent-dark);
+  }
+
   .badge {
     background: #25D366;
     color: white;
@@ -195,7 +269,7 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   .contact-map {
-    height: 480px;
+    height: 380px;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
@@ -209,7 +283,7 @@ import Layout from '../../layouts/Layout.astro';
     }
 
     .contact-map {
-      height: 300px;
+      height: 260px;
       position: static;
     }
   }

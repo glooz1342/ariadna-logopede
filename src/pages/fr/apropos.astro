@@ -32,7 +32,6 @@ import Layout from '../../layouts/Layout.astro';
 
   <section class="approach">
     <div class="container">
-      <p class="section-label">Ma philosophie</p>
       <h2>Mon approche</h2>
       <div class="pillars">
         <div class="pillar">
@@ -49,67 +48,6 @@ import Layout from '../../layouts/Layout.astro';
           <h3>Ancrée dans la recherche</h3>
           <p>Je lis la littérature scientifique et me forme en continu pour que ma pratique reste à jour. 
           J'aime faire le lien entre ce que la recherche recommande et ce que je vis sur le terrain.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="formation">
-    <div class="container">
-      <p class="section-label">Parcours</p>
-      <h2>Formation & Expérience</h2>
-      <div class="timeline">
-        <div class="timeline-block">
-          <h3>Formation académique</h3>
-          <div class="timeline-items">
-            <div class="timeline-item">
-              <span class="year">2023 – 2025</span>
-              <div>
-                <p class="item-title">Master en Logopédie</p>
-                <p class="item-sub">Spécialisation : Troubles Neurodéveloppementaux & Troubles Sensoriels</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="year">2020 – 2023</span>
-              <div>
-                <p class="item-title">Bachelier en Sciences Psychologiques et de l'Éducation</p>
-                <p class="item-sub">Orientation Logopédie</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-block">
-          <h3>Expérience clinique</h3>
-          <div class="timeline-items">
-            <div class="timeline-item">
-              <span class="year">2026 →</span>
-              <div>
-                <p class="item-title">Logopède indépendante — CAP'S, Bruxelles</p>
-                <p class="item-sub">TSA, troubles génétiques, profils non-oralisants, CAA, TSAM, TSLE</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="year">2025 – 2026</span>
-              <div>
-                <p class="item-title">Institut Decroly Spécialisé T3 — Uccle</p>
-                <p class="item-sub">Troubles du comportement, TDAH/TOP, TSA, TSAM, TSLE, TDL</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="year">2024 – 2025</span>
-              <div>
-                <p class="item-title">Stage — CAP'S, Bruxelles</p>
-                <p class="item-sub">Dyspraxie verbale, TSA, troubles génétiques, CAA, guidance parentale</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="year">2024</span>
-              <div>
-                <p class="item-title">Stage — Clinique de l'Europe Ste-Elisabeth & École du Souverain</p>
-                <p class="item-sub">TSAM, TSLE, TDL, aménagements raisonnables</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -150,8 +88,16 @@ import Layout from '../../layouts/Layout.astro';
       <h2>Formation continue</h2>
       <div class="training-list">
         <div class="training-item">
+          <span class="training-year">2023 – 2025</span>
+          <p>Master en Logopédie — Spécialisation : Troubles Neurodéveloppementaux &amp; Troubles Sensoriels</p>
+        </div>
+        <div class="training-item">
+          <span class="training-year">2020 – 2023</span>
+          <p>Bachelier en Sciences Psychologiques et de l'Éducation — Orientation Logopédie</p>
+        </div>
+        <div class="training-item">
           <span class="training-year">En cours</span>
-          <p>Entretien Motivationnel (Miller & Rollnick)</p>
+          <p>Entretien Motivationnel (Miller &amp; Rollnick)</p>
         </div>
         <div class="training-item">
           <span class="training-year">2026</span>
@@ -212,7 +158,7 @@ import Layout from '../../layouts/Layout.astro';
 
   /* Approach */
   .approach { background: white; padding: 5rem 0; }
-  .approach h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 3rem; }
+  .approach h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 3rem; color: var(--color-accent); }
   .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
   .pillar { border-top: 2px solid var(--color-accent); padding-top: 1.5rem; }
   .pillar h3 { font-size: 1.05rem; margin-bottom: 0.75rem; }
