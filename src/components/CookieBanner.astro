@@ -3,10 +3,8 @@ interface Props { lang: 'fr' | 'en'; }
 const { lang } = Astro.props as Props;
 
 // ── Google Analytics ──
-// TODO: replace G-XXXXXXXXXX below with the real GA4 Measurement ID once the
-// property is created (Google Analytics → Admin → Data Streams → your stream).
-// Until a real ID is set, analytics simply won't load, but the banner and the
-// map still work correctly.
+// TODO: replace the ID below with the real GA4 Measurement ID if it ever changes
+// (Google Analytics → Admin → Data Streams → your stream).
 const GA_MEASUREMENT_ID = "G-YBZBCZ3R3W";
 
 const t = {
@@ -28,7 +26,7 @@ const t = {
 const c = t[lang];
 ---
 
-<div id="cookie-banner" class="cookie-banner" hidden>
+<div id="cookie-banner" class="cookie-banner" data-ga-id={GA_MEASUREMENT_ID}>
   <p class="cookie-text">
     {c.text} <a href={c.policyHref}>{c.policy}</a>
   </p>
@@ -38,27 +36,28 @@ const c = t[lang];
   </div>
 </div>
 
-<script define:vars={{ GA_MEASUREMENT_ID }}>
+<script is:inline data-cfasync="false">
   (function () {
-    const CONSENT_KEY = "cookie_consent";
-    const banner = document.getElementById("cookie-banner");
+    var banner = document.getElementById("cookie-banner");
+    var GA_MEASUREMENT_ID = banner ? banner.getAttribute("data-ga-id") : "";
 
     function getConsent() {
-      const m = document.cookie.match(/(?:^|; )cookie_consent=([^;]+)/);
+      var m = document.cookie.match(/(?:^|; )cookie_consent=([^;]+)/);
       return m ? m[1] : null;
     }
     function setConsent(value) {
-      const sixMonths = 60 * 60 * 24 * 182;
-      document.cookie =
-        CONSENT_KEY + "=" + value + "; path=/; max-age=" + sixMonths + "; SameSite=Lax";
+      var sixMonths = 60 * 60 * 24 * 182;
+      document.cookie = "cookie_consent=" + value + "; path=/; max-age=" + sixMonths + "; SameSite=Lax";
     }
 
+    function showBanner() { if (banner) banner.classList.add("show"); }
+    function hideBanner() { if (banner) banner.classList.remove("show"); }
+
     function loadAnalytics() {
-      // Don't load until a real GA4 ID is configured
       if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID.indexOf("XXXX") !== -1) return;
       if (window.__gaLoaded) return;
       window.__gaLoaded = true;
-      const s = document.createElement("script");
+      var s = document.createElement("script");
       s.async = true;
       s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_MEASUREMENT_ID;
       document.head.appendChild(s);
@@ -70,46 +69,47 @@ const c = t[lang];
     }
 
     function activateEmbeds() {
-      document.querySelectorAll("[data-consent-src]").forEach(function (el) {
-        el.setAttribute("src", el.getAttribute("data-consent-src"));
-        el.removeAttribute("data-consent-src");
-      });
-      document.querySelectorAll(".consent-placeholder").forEach(function (el) {
-        el.style.display = "none";
-      });
+      var gated = document.querySelectorAll("[data-consent-src]");
+      for (var i = 0; i < gated.length; i++) {
+        gated[i].setAttribute("src", gated[i].getAttribute("data-consent-src"));
+        gated[i].removeAttribute("data-consent-src");
+      }
+      var ph = document.querySelectorAll(".consent-placeholder");
+      for (var j = 0; j < ph.length; j++) { ph[j].style.display = "none"; }
     }
 
     function grantAll() {
       setConsent("granted");
-      if (banner) banner.hidden = true;
+      hideBanner();
       loadAnalytics();
       activateEmbeds();
     }
     function denyAll() {
       setConsent("denied");
-      if (banner) banner.hidden = true;
+      hideBanner();
     }
 
-    // Let the policy page / footer re-open the banner to change preferences
-    window.openCookieSettings = function () {
-      if (banner) banner.hidden = false;
-    };
+    // Allow the policy page / map placeholder to re-open the banner
+    window.openCookieSettings = showBanner;
 
-    const consent = getConsent();
+    var consent = getConsent();
     if (consent === "granted") {
       loadAnalytics();
       activateEmbeds();
     } else if (consent !== "denied") {
-      if (banner) banner.hidden = false;
+      showBanner();
     }
 
-    document.getElementById("cookie-accept")?.addEventListener("click", grantAll);
-    document.getElementById("cookie-reject")?.addEventListener("click", denyAll);
+    var acceptBtn = document.getElementById("cookie-accept");
+    var rejectBtn = document.getElementById("cookie-reject");
+    if (acceptBtn) acceptBtn.addEventListener("click", grantAll);
+    if (rejectBtn) rejectBtn.addEventListener("click", denyAll);
   })();
 </script>
 
 <style>
   .cookie-banner {
+    display: none;
     position: fixed;
     bottom: 1rem;
     left: 1rem;
@@ -121,27 +121,20 @@ const c = t[lang];
     border-radius: 14px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14);
     padding: 1.25rem 1.5rem;
-    display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1.25rem;
     z-index: 1000;
   }
+  .cookie-banner.show { display: flex; }
   .cookie-text {
     font-size: 0.85rem;
     color: var(--color-text-light);
     line-height: 1.55;
     margin: 0;
   }
-  .cookie-text a {
-    color: var(--color-accent);
-    text-decoration: underline;
-  }
-  .cookie-actions {
-    display: flex;
-    gap: 0.6rem;
-    flex-shrink: 0;
-  }
+  .cookie-text a { color: var(--color-accent); text-decoration: underline; }
+  .cookie-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
   .cookie-btn {
     padding: 0.6rem 1.25rem;
     border-radius: 6px;
@@ -157,32 +150,18 @@ const c = t[lang];
     color: white;
     border: 1px solid var(--color-accent);
   }
-  .cookie-btn-primary:hover {
-    background: var(--color-accent-dark);
-    border-color: var(--color-accent-dark);
-  }
+  .cookie-btn-primary:hover { background: var(--color-accent-dark); border-color: var(--color-accent-dark); }
   .cookie-btn-secondary {
     background: white;
     color: var(--color-text);
     border: 1px solid var(--color-border);
   }
-  .cookie-btn-secondary:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-  }
+  .cookie-btn-secondary:hover { border-color: var(--color-accent); color: var(--color-accent); }
 
   @media (max-width: 600px) {
-    .cookie-banner {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 1rem;
-      padding: 1.1rem 1.2rem;
-    }
-    .cookie-actions {
-      justify-content: stretch;
-    }
-    .cookie-btn {
-      flex: 1;
-    }
+    .cookie-banner.show { flex-direction: column; align-items: stretch; }
+    .cookie-banner { gap: 1rem; padding: 1.1rem 1.2rem; }
+    .cookie-actions { justify-content: stretch; }
+    .cookie-btn { flex: 1; }
   }
 </style>
