@@ -19,6 +19,46 @@ const defaultDescription = {
 const metaDescription = description ?? defaultDescription[lang];
 const siteUrl = "https://ariadna-logopede.pages.dev";
 const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
+
+// ── FR ↔ EN counterpart pages ──
+// Used for hreflang alternates and the header language switcher,
+// so switching language keeps you on the same page.
+const pathPairs: [string, string][] = [
+  ['/fr', '/en'],
+  ['/fr/apropos', '/en/about'],
+  ['/fr/contact', '/en/contact'],
+  ['/fr/galerie', '/en/gallery'],
+  ['/fr/cookies', '/en/cookies'],
+];
+const pathMap: Record<string, string> = {};
+for (const [fr, en] of pathPairs) {
+  pathMap[fr] = en;
+  pathMap[en] = fr;
+}
+const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const altPath = pathMap[currentPath] ?? (lang === 'fr' ? '/en' : '/fr');
+const frPath = lang === 'fr' ? currentPath : altPath;
+const enPath = lang === 'en' ? currentPath : altPath;
+
+// ── Structured data (local SEO) ──
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  "name": "Ariadna Balsells — Logopède",
+  "description": metaDescription,
+  "url": `${siteUrl}/fr/`,
+  "image": `${siteUrl}/Ari.jpeg`,
+  "telephone": "+32474052583",
+  "email": "ariadna.logopede@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Place de la Sainte-Famille 23",
+    "postalCode": "1200",
+    "addressLocality": "Woluwe-Saint-Lambert",
+    "addressRegion": "Bruxelles",
+    "addressCountry": "BE"
+  }
+};
 ---
 
 <!doctype html>
@@ -32,6 +72,11 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonicalUrl} />
 
+    <!-- Language alternates -->
+    <link rel="alternate" hreflang="fr-BE" href={`${siteUrl}${frPath}/`} />
+    <link rel="alternate" hreflang="en" href={`${siteUrl}${enPath}/`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${frPath}/`} />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
@@ -39,6 +84,11 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
     <meta property="og:description" content={metaDescription} />
     <meta property="og:locale" content={lang === 'fr' ? 'fr_BE' : 'en_GB'} />
     <meta property="og:site_name" content="Ariadna Balsells — Logopède" />
+    <meta property="og:image" content={`${siteUrl}/Ari.jpeg`} />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Structured data for local search -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -46,7 +96,7 @@ const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <Header lang={lang} />
+    <Header lang={lang} altHref={altPath} />
     <main>
       <slot />
     </main>

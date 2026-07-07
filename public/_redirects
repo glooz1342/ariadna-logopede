@@ -1,0 +1,7 @@
+# Root goes to the French home page
+/  /fr/  301
+
+# Old specialty pages (removed June 2026) now live as
+# expandable cards on the home pages
+/fr/prises-en-charge/*  /fr/  301
+/en/areas-of-practice/*  /en/  301

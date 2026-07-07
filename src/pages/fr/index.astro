@@ -25,36 +25,85 @@ import Layout from '../../layouts/Layout.astro';
   </section>
 
   <!-- Services -->
-  <section class="services">
+  <section class="services" id="consultations">
     <div class="container">
       <p class="section-label">Ce que je propose</p>
       <h2>Domaines d'intervention</h2>
       <div class="services-grid">
-        <div class="service-card">
-          <div class="card-num">01</div>
-          <h3>Troubles du langage oral</h3>
-          <p>Difficultés d'expression, de compréhension ou d'articulation chez l'enfant et l'adulte.</p>
-        </div>
-        <div class="service-card">
-          <div class="card-num">02</div>
-          <h3>Communication Alternative et Augmentée</h3>
-          <p>Mise en place d'outils de CAA pour les personnes ayant des difficultés de communication verbale.</p>
-        </div>
-        <div class="service-card">
-          <div class="card-num">03</div>
-          <h3>Troubles neurodéveloppementaux</h3>
-          <p>Accompagnement des personnes avec TSA, trisomie 21, syndrome génétique ou déficience intellectuelle.</p>
-        </div>
-        <div class="service-card">
-          <div class="card-num">04</div>
-          <h3>Trouble spécifique des apprentisages en mathématiques</h3>
-          <p>Prise en charge des difficultés spécifiques en mathématiques et dans le raisonnement numérique.</p>
-        </div>
-        <div class="service-card">
-          <div class="card-num">05</div>
-          <h3>Troubles alimentaires pédiatriques</h3>
-          <p>Accompagnement des enfants présentant des difficultés lors des repas : sélectivité, textures, oralité.</p>
-        </div>
+        <details class="service-card">
+          <summary>
+            <div class="card-num">01</div>
+            <h3>Troubles du langage oral</h3>
+            <p class="card-desc">Difficultés d'expression, de compréhension ou d'articulation chez l'enfant et l'adulte.</p>
+            <span class="card-toggle">Voir des exemples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <ul class="card-bullets">
+            <li>Retard de parole ou de langage</li>
+            <li>Difficultés de compréhension</li>
+            <li>Troubles de l'articulation</li>
+            <li>Bégaiement</li>
+            <li>Manque de vocabulaire</li>
+            <li>Difficultés à construire des phrases</li>
+          </ul>
+        </details>
+        <details class="service-card">
+          <summary>
+            <div class="card-num">02</div>
+            <h3>Communication Alternative et Augmentée</h3>
+            <p class="card-desc">Mise en place d'outils de CAA pour les personnes ayant des difficultés de communication verbale.</p>
+            <span class="card-toggle">Voir des exemples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <ul class="card-bullets">
+            <li>Pictogrammes, gestes et applications de communication</li>
+            <li>Choix de l'outil adapté au profil de chaque personne</li>
+            <li>Accompagnement de la famille dans l'utilisation au quotidien</li>
+            <li>Soutien du développement du langage en parallèle de l'outil</li>
+          </ul>
+        </details>
+        <details class="service-card">
+          <summary>
+            <div class="card-num">03</div>
+            <h3>Troubles neurodéveloppementaux</h3>
+            <p class="card-desc">Accompagnement des personnes avec TSA, trisomie 21, syndrome génétique ou déficience intellectuelle.</p>
+            <span class="card-toggle">Voir des exemples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <ul class="card-bullets">
+            <li>Trouble du spectre de l'autisme (TSA)</li>
+            <li>Trisomie 21 et syndromes génétiques</li>
+            <li>Déficience intellectuelle</li>
+            <li>Travail sur la communication et les interactions sociales</li>
+          </ul>
+        </details>
+        <details class="service-card">
+          <summary>
+            <div class="card-num">04</div>
+            <h3>Trouble spécifique des apprentissages en mathématiques</h3>
+            <p class="card-desc">Prise en charge des difficultés spécifiques en mathématiques et dans le raisonnement numérique.</p>
+            <span class="card-toggle">Voir des exemples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <ul class="card-bullets">
+            <li>Difficultés à compter, calculer ou mémoriser les tables</li>
+            <li>Trouble du sens du nombre et des quantités</li>
+            <li>Difficultés de raisonnement logico-mathématique</li>
+            <li>Répercussions sur les apprentissages scolaires</li>
+          </ul>
+        </details>
+        <details class="service-card">
+          <summary>
+            <div class="card-num">05</div>
+            <h3>Troubles alimentaires pédiatriques</h3>
+            <p class="card-desc">Accompagnement des enfants présentant des difficultés lors des repas : sélectivité, textures, oralité.</p>
+            <span class="card-toggle">Voir des exemples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <ul class="card-bullets">
+            <li>Refus alimentaire sélectif</li>
+            <li>Hypersensibilité aux textures ou saveurs</li>
+            <li>Difficultés de mastication ou déglutition</li>
+            <li>Repas très longs ou agités</li>
+            <li>Peur des aliments nouveaux (néophobie)</li>
+            <li>Troubles liés à la prématurité ou pathologies associées</li>
+          </ul>
+        </details>
       </div>
     </div>
   </section>
@@ -203,18 +252,23 @@ import Layout from '../../layouts/Layout.astro';
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
+  .services-grid { align-items: start; }
   .service-card {
     background: var(--color-bg);
     border: 1px solid var(--color-border);
     border-radius: 12px;
-    padding: 2rem;
     transition: all 0.25s;
   }
   .service-card:hover {
     border-color: var(--color-accent);
-    transform: translateY(-3px);
     box-shadow: 0 10px 28px rgba(123,158,135,0.1);
   }
+  .service-card summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 2rem;
+  }
+  .service-card summary::-webkit-details-marker { display: none; }
   .card-num {
     font-size: 0.75rem;
     font-weight: 600;
@@ -227,10 +281,46 @@ import Layout from '../../layouts/Layout.astro';
     margin-bottom: 0.6rem;
     color: var(--color-text);
   }
-  .service-card p {
+  .card-desc {
     font-size: 0.9rem;
     color: var(--color-text-light);
     line-height: 1.65;
+  }
+  .card-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-accent);
+  }
+  .card-toggle svg { transition: transform 0.2s; }
+  .service-card[open] .card-toggle svg { transform: rotate(180deg); }
+  .card-bullets {
+    list-style: none;
+    padding: 0 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .card-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.88rem;
+    color: var(--color-text-light);
+    line-height: 1.55;
+  }
+  .card-bullets li::before {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    min-width: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    margin-top: 0.42em;
   }
 
   /* ── About ── */

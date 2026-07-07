@@ -25,36 +25,85 @@ import Layout from '../../layouts/Layout.astro';
   </section>
 
   <!-- Services -->
-  <section class="services">
+  <section class="services" id="areas-of-practice">
     <div class="container">
       <p class="section-label">What I offer</p>
       <h2>Areas of practice</h2>
       <div class="services-grid">
-        <div class="service-card">
-          <div class="card-num">01</div>
-          <h3>Oral language disorders</h3>
-          <p>Difficulties with expression, comprehension or articulation in children and adults.</p>
-        </div>
-        <div class="service-card">
-          <div class="card-num">02</div>
-          <h3>Augmentative and Alternative Communication</h3>
-          <p>Setting up AAC tools for people with verbal communication difficulties.</p>
-        </div>
-        <div class="service-card">
-          <div class="card-num">03</div>
-          <h3>Neurodevelopmental disorders</h3>
-          <p>Support for people with ASD, Down syndrome, genetic syndromes or intellectual disabilities.</p>
-        </div>
-        <div class="service-card">
-          <div class="card-num">04</div>
-          <h3>Dyscalculia</h3>
-          <p>Assessment and support for specific learning difficulties in mathematics and numerical reasoning.</p>
-        </div>
-        <div class="service-card">
-          <div class="card-num">05</div>
-          <h3>Paediatric feeding disorders</h3>
-          <p>Support for children with difficulties at mealtimes: food selectivity, textures and oral-motor challenges.</p>
-        </div>
+        <details class="service-card">
+          <summary>
+            <div class="card-num">01</div>
+            <h3>Oral language disorders</h3>
+            <p class="card-desc">Difficulties with expression, comprehension or articulation in children and adults.</p>
+            <span class="card-toggle">See examples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <ul class="card-bullets">
+            <li>Speech or language delay</li>
+            <li>Comprehension difficulties</li>
+            <li>Articulation disorders</li>
+            <li>Stuttering</li>
+            <li>Limited vocabulary</li>
+            <li>Difficulty building sentences</li>
+          </ul>
+        </details>
+        <details class="service-card">
+          <summary>
+            <div class="card-num">02</div>
+            <h3>Augmentative and Alternative Communication</h3>
+            <p class="card-desc">Setting up AAC tools for people with verbal communication difficulties.</p>
+            <span class="card-toggle">See examples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <ul class="card-bullets">
+            <li>Pictograms, gestures and communication apps</li>
+            <li>Choosing the right tool for each person's profile</li>
+            <li>Supporting families in day-to-day use</li>
+            <li>Developing language alongside the tool</li>
+          </ul>
+        </details>
+        <details class="service-card">
+          <summary>
+            <div class="card-num">03</div>
+            <h3>Neurodevelopmental disorders</h3>
+            <p class="card-desc">Support for people with ASD, Down syndrome, genetic syndromes or intellectual disabilities.</p>
+            <span class="card-toggle">See examples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <ul class="card-bullets">
+            <li>Autism spectrum disorder (ASD)</li>
+            <li>Down syndrome and genetic syndromes</li>
+            <li>Intellectual disability</li>
+            <li>Work on communication and social interaction</li>
+          </ul>
+        </details>
+        <details class="service-card">
+          <summary>
+            <div class="card-num">04</div>
+            <h3>Dyscalculia</h3>
+            <p class="card-desc">Assessment and support for specific learning difficulties in mathematics and numerical reasoning.</p>
+            <span class="card-toggle">See examples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <ul class="card-bullets">
+            <li>Difficulty counting, calculating or memorising tables</li>
+            <li>Impaired number sense and understanding of quantities</li>
+            <li>Difficulties with logical-mathematical reasoning</li>
+            <li>Impact on school learning</li>
+          </ul>
+        </details>
+        <details class="service-card">
+          <summary>
+            <div class="card-num">05</div>
+            <h3>Paediatric feeding disorders</h3>
+            <p class="card-desc">Support for children with difficulties at mealtimes: food selectivity, textures and oral-motor challenges.</p>
+            <span class="card-toggle">See examples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </summary>
+          <ul class="card-bullets">
+            <li>Selective food refusal</li>
+            <li>Hypersensitivity to textures or flavours</li>
+            <li>Chewing or swallowing difficulties</li>
+            <li>Very long or distressing mealtimes</li>
+            <li>Fear of new foods (food neophobia)</li>
+            <li>Difficulties linked to prematurity or associated conditions</li>
+          </ul>
+        </details>
       </div>
     </div>
   </section>
@@ -180,18 +229,23 @@ import Layout from '../../layouts/Layout.astro';
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
+  .services-grid { align-items: start; }
   .service-card {
     background: var(--color-bg);
     border: 1px solid var(--color-border);
     border-radius: 12px;
-    padding: 2rem;
     transition: all 0.25s;
   }
   .service-card:hover {
     border-color: var(--color-accent);
-    transform: translateY(-3px);
     box-shadow: 0 10px 28px rgba(123,158,135,0.1);
   }
+  .service-card summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 2rem;
+  }
+  .service-card summary::-webkit-details-marker { display: none; }
   .card-num {
     font-size: 0.75rem;
     font-weight: 600;
@@ -199,8 +253,52 @@ import Layout from '../../layouts/Layout.astro';
     letter-spacing: 0.08em;
     margin-bottom: 0.85rem;
   }
-  .service-card h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
-  .service-card p { font-size: 0.9rem; color: var(--color-text-light); line-height: 1.65; }
+  .service-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+    color: var(--color-text);
+  }
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    line-height: 1.65;
+  }
+  .card-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-accent);
+  }
+  .card-toggle svg { transition: transform 0.2s; }
+  .service-card[open] .card-toggle svg { transform: rotate(180deg); }
+  .card-bullets {
+    list-style: none;
+    padding: 0 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .card-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.88rem;
+    color: var(--color-text-light);
+    line-height: 1.55;
+  }
+  .card-bullets li::before {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    min-width: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    margin-top: 0.42em;
+  }
   .about { padding: 5rem 0; }
   .about-inner {
     display: grid;
