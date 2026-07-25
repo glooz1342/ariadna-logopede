@@ -1,0 +1,317 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { ROSA_URL } from '../../../data/booking';
+
+// ⚠️ À FAIRE VALIDER PAR ARI : intitulés des consultations, descriptions,
+// durées, tarifs et conditions de remboursement. Rien de tout cela n'est
+// affiché tant qu'Ari ne l'a pas confirmé.
+const consultations = [
+  {
+    num: '01',
+    title: 'Première consultation',
+    desc: "Un premier rendez-vous pour faire connaissance, comprendre votre demande et définir ensemble la suite du parcours.",
+    bullets: [
+      'Échange sur le parcours et les difficultés observées',
+      'Réponses à vos questions',
+      "Orientation vers le bilan ou la prise en charge la plus adaptée",
+    ],
+  },
+  {
+    num: '02',
+    title: 'Troubles alimentaires pédiatriques (TAP)',
+    desc: "Bilan et accompagnement des enfants présentant des difficultés lors des repas : sélectivité, textures, oralité.",
+    bullets: [
+      'Observation des repas et de l’oralité',
+      'Travail progressif sur les textures et les nouveaux aliments',
+      'Accompagnement des parents au quotidien',
+    ],
+  },
+  {
+    num: '03',
+    title: 'Trouble spécifique des apprentissages en mathématiques',
+    desc: "Bilan et prise en charge des difficultés en mathématiques et en raisonnement numérique.",
+    bullets: [
+      'Évaluation du sens du nombre et des quantités',
+      'Travail sur le calcul et le raisonnement logico-mathématique',
+      'Lien avec les apprentissages scolaires',
+    ],
+  },
+  {
+    num: '04',
+    title: 'Communication Alternative et Augmentée (CAA)',
+    desc: "Mise en place d’outils de communication pour les personnes ayant des difficultés de communication verbale.",
+    bullets: [
+      'Choix de l’outil adapté au profil de chaque personne',
+      'Pictogrammes, gestes et applications de communication',
+      'Accompagnement de la famille dans l’utilisation au quotidien',
+    ],
+  },
+];
+---
+
+<Layout title="Consultation en cabinet — Ariadna Balsells" lang="fr"
+  description="Consultations de logopédie en cabinet à Woluwe-Saint-Lambert : première consultation, troubles alimentaires pédiatriques, dyscalculie et CAA. Prise de rendez-vous en ligne.">
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow section-label">Consultation</p>
+      <h1>En cabinet</h1>
+      <p class="tagline">
+        Les consultations se déroulent au CAP'S, à Woluwe-Saint-Lambert, dans un espace
+        pensé pour les enfants et leur famille.
+      </p>
+      <a href={ROSA_URL.fr} class="btn-primary" target="_blank" rel="noopener">Prendre rendez-vous en ligne</a>
+    </div>
+  </section>
+
+  <section class="types">
+    <div class="container">
+      <p class="section-label">Ce que vous pouvez réserver</p>
+      <h2>Types de consultations</h2>
+      <div class="types-grid">
+        {consultations.map(c => (
+          <article class="type-card">
+            <div class="card-num">{c.num}</div>
+            <h3>{c.title}</h3>
+            <p class="card-desc">{c.desc}</p>
+            <ul class="card-bullets">
+              {c.bullets.map(b => <li>{b}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <p class="helper">
+        Vous ne savez pas quel type de consultation choisir ? Réservez une première
+        consultation : nous ferons le point ensemble.
+      </p>
+    </div>
+  </section>
+
+  <section class="practical">
+    <div class="container practical-grid">
+      <div class="practical-block">
+        <h3>Où ?</h3>
+        <p>
+          CAP'S — Centre d'Accompagnement Pédiatrique Spécialisé<br />
+          Pl. de la Sainte-Famille 23<br />
+          1200 Woluwe-Saint-Lambert
+        </p>
+      </div>
+      <div class="practical-block">
+        <h3>Bon à savoir</h3>
+        {/* ⚠️ À FAIRE VALIDER PAR ARI (prescription, mutuelle, annulation, tarifs) */}
+        <ul>
+          <li>Une prescription médicale est généralement nécessaire pour un bilan logopédique.</li>
+          <li>Pensez à apporter les documents utiles : rapports scolaires, bilans précédents.</li>
+          <li>En cas d'empêchement, prévenez-moi au plus tôt afin de libérer le créneau.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Réserver un créneau</h2>
+      <p>
+        Mes rendez-vous se prennent en ligne via Rosa, ma plateforme de réservation.
+        Vous y voyez mes disponibilités en temps réel.
+      </p>
+      <a href={ROSA_URL.fr} class="btn-primary" target="_blank" rel="noopener">Prendre rendez-vous en ligne</a>
+      <p class="cta-alt">
+        Vous préférez une consultation à domicile ?
+        <a href="/fr/consultation/a-domicile">Remplissez le formulaire de demande</a>.
+      </p>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── Hero ── */
+  .page-hero { padding: 5rem 0 3rem; }
+  .page-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 0.6rem;
+  }
+  .tagline {
+    color: var(--color-text-light);
+    font-size: 1.05rem;
+    max-width: 620px;
+    line-height: 1.7;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--color-accent);
+    color: white;
+    padding: 0.8rem 1.9rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 1.75rem;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--color-accent-dark); }
+
+  /* ── Types ── */
+  .types {
+    background: white;
+    padding: 4.5rem 0;
+  }
+  .types h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 2.5rem;
+  }
+  .types-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .type-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.25s;
+  }
+  .type-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 28px rgba(123,158,135,0.1);
+  }
+  .card-num {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.85rem;
+  }
+  .type-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+    color: var(--color-text);
+  }
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    line-height: 1.65;
+  }
+  .card-bullets {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .card-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.86rem;
+    color: var(--color-text-light);
+    line-height: 1.55;
+  }
+  .card-bullets li::before {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    min-width: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    margin-top: 0.42em;
+  }
+  .helper {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+
+  /* ── Practical ── */
+  .practical { padding: 4.5rem 0 2rem; }
+  .practical-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .practical-block h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.9rem;
+  }
+  .practical-block p,
+  .practical-block li {
+    font-size: 0.92rem;
+    color: var(--color-text-light);
+    line-height: 1.75;
+  }
+  .practical-block ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .practical-block li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+  .practical-block li::before {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    min-width: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    margin-top: 0.6em;
+  }
+
+  /* ── CTA ── */
+  .cta {
+    padding: 4rem 0 5rem;
+    text-align: center;
+  }
+  .cta h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 0.75rem;
+  }
+  .cta p {
+    color: var(--color-text-light);
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: 0.95rem;
+  }
+  .cta-alt {
+    margin-top: 1.5rem !important;
+    font-size: 0.88rem !important;
+  }
+  .cta-alt a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 1.25rem; }
+    .types-grid,
+    .practical-grid { grid-template-columns: 1fr; }
+    .page-hero { padding: 3.5rem 0 2rem; }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { ROSA_URL } from '../../data/booking';
 ---
 
 <Layout title="Contact — Ariadna Balsells" lang="en"
@@ -22,10 +23,11 @@ import Layout from '../../layouts/Layout.astro';
           <div class="contact-block-icon">📅</div>
           <div>
             <h3>Book an appointment online <span class="badge">Recommended</span></h3>
-            <p class="contact-note">Book a slot directly based on your availability: first consultation, feeding (TAP), dyscalculia or AAC.</p>
-            <a href="https://cal.com/ariadna-balsells-logopede" class="btn-booking" target="_blank" rel="noopener">
-              Book an appointment
+            <p class="contact-note">Appointments are booked through <strong>Rosa</strong>, my online booking platform. You can see my availability in real time and pick the type of consultation: first consultation, paediatric feeding, dyscalculia or AAC.</p>
+            <a href={ROSA_URL.en} class="btn-booking" target="_blank" rel="noopener">
+              Book on Rosa
             </a>
+            <p class="contact-subnote">For a home consultation, please use the <a href="/en/consultation/at-home">request form</a>.</p>
           </div>
         </div>
 
@@ -37,15 +39,6 @@ import Layout from '../../layouts/Layout.astro';
             <a href="https://wa.me/32474052583" class="btn-whatsapp" target="_blank" rel="noopener">
               Send a WhatsApp message
             </a>
-          </div>
-        </div>
-
-        <div class="contact-block">
-          <div class="contact-block-icon">📞</div>
-          <div>
-            <h3>Phone</h3>
-            <p class="contact-note">Available, but I rarely pick up during sessions. WhatsApp is much preferred for a quick reply.</p>
-            <a href="tel:+32474052583">+32 474 05 25 83</a>
           </div>
         </div>
 
@@ -188,6 +181,15 @@ import Layout from '../../layouts/Layout.astro';
     margin-bottom: 12px !important;
     font-size: 0.875rem !important;
     font-style: italic;
+  }
+
+  .contact-subnote {
+    margin-top: 12px !important;
+    font-size: 0.82rem !important;
+  }
+
+  .contact-subnote a {
+    text-decoration: underline;
   }
 
   .whatsapp-highlight {

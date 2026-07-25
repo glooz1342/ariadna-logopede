@@ -1,0 +1,315 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { ROSA_URL } from '../../../data/booking';
+
+// ⚠️ TO BE CONFIRMED BY ARI: consultation names, descriptions, durations,
+// fees and reimbursement conditions.
+const consultations = [
+  {
+    num: '01',
+    title: 'First consultation',
+    desc: 'A first appointment to get to know each other, understand your request and decide together on the next steps.',
+    bullets: [
+      'A conversation about the background and the difficulties observed',
+      'Answers to your questions',
+      'Guidance towards the most suitable assessment or therapy',
+    ],
+  },
+  {
+    num: '02',
+    title: 'Paediatric feeding disorders',
+    desc: 'Assessment and support for children with difficulties at mealtimes: food selectivity, textures and oral-motor challenges.',
+    bullets: [
+      'Observation of mealtimes and oral-motor skills',
+      'Gradual work on textures and new foods',
+      'Day-to-day support for parents',
+    ],
+  },
+  {
+    num: '03',
+    title: 'Dyscalculia',
+    desc: 'Assessment and support for specific learning difficulties in mathematics and numerical reasoning.',
+    bullets: [
+      'Assessment of number sense and understanding of quantities',
+      'Work on calculation and logical-mathematical reasoning',
+      'Connection with school learning',
+    ],
+  },
+  {
+    num: '04',
+    title: 'Augmentative and Alternative Communication (AAC)',
+    desc: 'Setting up communication tools for people with verbal communication difficulties.',
+    bullets: [
+      "Choosing the right tool for each person's profile",
+      'Pictograms, gestures and communication apps',
+      'Supporting families in day-to-day use',
+    ],
+  },
+];
+---
+
+<Layout title="Consultation at the practice — Ariadna Balsells" lang="en"
+  description="Speech therapy consultations at the practice in Woluwe-Saint-Lambert: first consultation, paediatric feeding disorders, dyscalculia and AAC. Book online.">
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-label">Consultation</p>
+      <h1>At the practice</h1>
+      <p class="tagline">
+        Consultations take place at CAP'S in Woluwe-Saint-Lambert, in a space designed
+        for children and their families.
+      </p>
+      <a href={ROSA_URL.en} class="btn-primary" target="_blank" rel="noopener">Book an appointment online</a>
+    </div>
+  </section>
+
+  <section class="types">
+    <div class="container">
+      <p class="section-label">What you can book</p>
+      <h2>Types of consultation</h2>
+      <div class="types-grid">
+        {consultations.map(c => (
+          <article class="type-card">
+            <div class="card-num">{c.num}</div>
+            <h3>{c.title}</h3>
+            <p class="card-desc">{c.desc}</p>
+            <ul class="card-bullets">
+              {c.bullets.map(b => <li>{b}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <p class="helper">
+        Not sure which one to choose? Book a first consultation and we'll work it out together.
+      </p>
+    </div>
+  </section>
+
+  <section class="practical">
+    <div class="container practical-grid">
+      <div class="practical-block">
+        <h3>Where?</h3>
+        <p>
+          CAP'S — Centre d'Accompagnement Pédiatrique Spécialisé<br />
+          Pl. de la Sainte-Famille 23<br />
+          1200 Woluwe-Saint-Lambert
+        </p>
+      </div>
+      <div class="practical-block">
+        <h3>Good to know</h3>
+        {/* ⚠️ TO BE CONFIRMED BY ARI (prescription, insurance, cancellation, fees) */}
+        <ul>
+          <li>A medical prescription is usually required for a speech therapy assessment.</li>
+          <li>Bring along any useful documents: school reports, previous assessments.</li>
+          <li>If you cannot make it, let me know as early as possible so the slot can be freed up.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Book a slot</h2>
+      <p>
+        Appointments are booked online through Rosa, my booking platform, where you can
+        see my availability in real time.
+      </p>
+      <a href={ROSA_URL.en} class="btn-primary" target="_blank" rel="noopener">Book an appointment online</a>
+      <p class="cta-alt">
+        Would you prefer a home visit?
+        <a href="/en/consultation/at-home">Fill in the request form</a>.
+      </p>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── Hero ── */
+  .page-hero { padding: 5rem 0 3rem; }
+  .page-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 0.6rem;
+  }
+  .tagline {
+    color: var(--color-text-light);
+    font-size: 1.05rem;
+    max-width: 620px;
+    line-height: 1.7;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--color-accent);
+    color: white;
+    padding: 0.8rem 1.9rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 1.75rem;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--color-accent-dark); }
+
+  /* ── Types ── */
+  .types {
+    background: white;
+    padding: 4.5rem 0;
+  }
+  .types h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 2.5rem;
+  }
+  .types-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .type-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.25s;
+  }
+  .type-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 28px rgba(123,158,135,0.1);
+  }
+  .card-num {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.85rem;
+  }
+  .type-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+    color: var(--color-text);
+  }
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    line-height: 1.65;
+  }
+  .card-bullets {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .card-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.86rem;
+    color: var(--color-text-light);
+    line-height: 1.55;
+  }
+  .card-bullets li::before {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    min-width: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    margin-top: 0.42em;
+  }
+  .helper {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+
+  /* ── Practical ── */
+  .practical { padding: 4.5rem 0 2rem; }
+  .practical-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+  .practical-block h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.9rem;
+  }
+  .practical-block p,
+  .practical-block li {
+    font-size: 0.92rem;
+    color: var(--color-text-light);
+    line-height: 1.75;
+  }
+  .practical-block ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .practical-block li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+  .practical-block li::before {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    min-width: 7px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    margin-top: 0.6em;
+  }
+
+  /* ── CTA ── */
+  .cta {
+    padding: 4rem 0 5rem;
+    text-align: center;
+  }
+  .cta h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 0.75rem;
+  }
+  .cta p {
+    color: var(--color-text-light);
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: 0.95rem;
+  }
+  .cta-alt {
+    margin-top: 1.5rem !important;
+    font-size: 0.88rem !important;
+  }
+  .cta-alt a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 1.25rem; }
+    .types-grid,
+    .practical-grid { grid-template-columns: 1fr; }
+    .page-hero { padding: 3.5rem 0 2rem; }
+  }
+</style>

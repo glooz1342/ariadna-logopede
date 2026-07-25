@@ -6,18 +6,38 @@ interface Props {
 }
 const { lang, altHref } = Astro.props as Props;
 
-const nav = {
+/** A sub-item in a dropdown. No href = not clickable yet (e.g. "coming soon"). */
+type NavChild = { label: string; href?: string; note?: string };
+type NavItem = { label: string; href: string; children?: NavChild[] };
+
+const nav: Record<'fr' | 'en', NavItem[]> = {
   fr: [
     { label: 'Accueil', href: '/fr' },
     { label: 'À propos', href: '/fr/apropos' },
-    { label: 'Consultations', href: '/fr/#consultations' },
+    {
+      label: 'Consultation',
+      href: '/fr/#consultations',
+      children: [
+        { label: 'En cabinet', href: '/fr/consultation/en-cabinet' },
+        { label: 'À domicile', href: '/fr/consultation/a-domicile' },
+        { label: 'En ligne', note: 'à venir' },
+      ],
+    },
     { label: 'Galerie', href: '/fr/galerie' },
     { label: 'Contact', href: '/fr/contact' },
   ],
   en: [
     { label: 'Home', href: '/en' },
     { label: 'About', href: '/en/about' },
-    { label: 'Areas of practice', href: '/en/#areas-of-practice' },
+    {
+      label: 'Consultation',
+      href: '/en/#areas-of-practice',
+      children: [
+        { label: 'At the practice', href: '/en/consultation/at-the-practice' },
+        { label: 'At home', href: '/en/consultation/at-home' },
+        { label: 'Online', note: 'coming soon' },
+      ],
+    },
     { label: 'Gallery', href: '/en/gallery' },
     { label: 'Contact', href: '/en/contact' },
   ],
@@ -39,7 +59,25 @@ const langSwitchHref = altHref ?? `/${otherLang}`;
     </a>
 
     <nav id="main-nav">
-      {links.map(link => (
+      {links.map(link => link.children ? (
+        <div class="nav-item has-dropdown">
+          <a href={link.href} class="nav-link nav-parent" aria-haspopup="true">
+            {link.label}
+            <svg class="caret" width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="dropdown">
+            <div class="dropdown-panel">
+              {link.children.map(child => child.href ? (
+                <a href={child.href} class="dropdown-link">{child.label}</a>
+              ) : (
+                <span class="dropdown-link is-soon" aria-disabled="true">
+                  {child.label}<em class="soon-badge">{child.note}</em>
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : (
         <a href={link.href} class="nav-link">{link.label}</a>
       ))}
       <a href={langSwitchHref} class="lang-switch mobile-lang">{otherLang.toUpperCase()}</a>
@@ -124,6 +162,71 @@ const langSwitchHref = altHref ?? `/${otherLang}`;
   }
   .nav-link:hover { color: var(--color-accent); }
 
+  /* ── Dropdown (desktop) ── */
+  .nav-item { position: relative; }
+  .nav-parent {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .caret { transition: transform 0.2s; flex-shrink: 0; }
+  .has-dropdown:hover .caret,
+  .has-dropdown:focus-within .caret { transform: rotate(180deg); }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    /* transparent bridge so the menu survives the gap under the label */
+    padding-top: 14px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease, visibility 0.18s;
+  }
+  .has-dropdown:hover .dropdown,
+  .has-dropdown:focus-within .dropdown {
+    opacity: 1;
+    visibility: visible;
+  }
+  .dropdown-panel {
+    min-width: 190px;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .dropdown-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+  a.dropdown-link:hover {
+    background: var(--color-bg);
+    color: var(--color-accent);
+  }
+  .is-soon { color: #A6A6A6; cursor: default; }
+  .soon-badge {
+    font-style: normal;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+    background: rgba(123,158,135,0.12);
+    border-radius: 99px;
+    padding: 1px 8px;
+    white-space: nowrap;
+  }
+
   /* Lang switch */
   .lang-switch {
     font-size: 0.8rem;
@@ -180,6 +283,8 @@ const langSwitchHref = altHref ?? `/${otherLang}`;
       border-bottom: 1px solid var(--color-border);
       gap: 0;
       box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      max-height: calc(100vh - 72px);
+      overflow-y: auto;
     }
     nav.open { display: flex; }
     .nav-link {
@@ -187,6 +292,38 @@ const langSwitchHref = altHref ?? `/${otherLang}`;
       padding: 0.75rem 0;
       border-bottom: 1px solid var(--color-border);
       font-size: 1rem;
+    }
+
+    /* No hover on touch: sub-items are simply always visible, indented. */
+    .nav-item {
+      width: 100%;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .caret { display: none; }
+    .nav-parent {
+      border-bottom: none;
+      padding-bottom: 0.4rem;
+    }
+    .dropdown {
+      position: static;
+      transform: none;
+      padding-top: 0;
+      opacity: 1;
+      visibility: visible;
+    }
+    .dropdown-panel {
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      padding: 0 0 0.35rem;
+      min-width: 0;
+    }
+    .dropdown-link {
+      justify-content: flex-start;
+      padding: 0.5rem 0 0.5rem 1rem;
+      border-left: 2px solid var(--color-border);
+      border-radius: 0;
+      font-size: 0.95rem;
     }
   }
 </style>
