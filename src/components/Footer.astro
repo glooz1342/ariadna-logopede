@@ -6,8 +6,11 @@ const { lang } = Astro.props;
 <footer>
   <div class="footer-inner">
     <div class="footer-left">
-      <p class="footer-name">Ariadna Balsells</p>
-      <p class="footer-role">{lang === 'fr' ? 'Logopède · Bruxelles' : 'Speech Therapist · Brussels'}</p>
+      <img src="/logo-mark.svg" alt="" width="30" height="32" class="footer-mark" />
+      <div class="footer-text">
+        <p class="footer-name">Ariadna Balsells</p>
+        <p class="footer-role">{lang === 'fr' ? 'Logopède · Bruxelles' : 'Speech Therapist · Brussels'}</p>
+      </div>
     </div>
     <div class="footer-right">
       <p class="footer-copy">© {new Date().getFullYear()} Ariadna Balsells</p>
@@ -42,6 +45,17 @@ const { lang } = Astro.props;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+  .footer-mark {
+    width: 30px;
+    height: auto;
+    flex-shrink: 0;
+    display: block;
   }
   .footer-name {
     font-family: var(--font-heading);
@@ -81,4 +95,9 @@ const { lang } = Astro.props;
     transition: color 0.2s;
   }
   .social-icon:hover { color: var(--color-accent); }
+
+  @media (max-width: 600px) {
+    .footer-mark { width: 24px; }
+    .footer-left { gap: 0.5rem; }
+  }
 </style>
