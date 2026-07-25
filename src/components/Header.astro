@@ -31,8 +31,11 @@ const langSwitchHref = altHref ?? `/${otherLang}`;
 <header>
   <div class="header-inner">
     <a href={`/${lang}`} class="logo">
-      <span class="logo-name">Ariadna Balsells</span>
-      <span class="logo-role">{lang === 'fr' ? 'Logopède' : 'Speech Therapist'}</span>
+      <img src="/logo-mark.svg" alt="" width="34" height="37" class="logo-mark" />
+      <span class="logo-text">
+        <span class="logo-name">Ariadna Balsells</span>
+        <span class="logo-role">{lang === 'fr' ? 'Logopède' : 'Speech Therapist'}</span>
+      </span>
     </a>
 
     <nav id="main-nav">
@@ -96,7 +99,9 @@ const langSwitchHref = altHref ?? `/${otherLang}`;
     align-items: center;
     justify-content: space-between;
   }
-  .logo { display: flex; flex-direction: column; line-height: 1.2; }
+  .logo { display: flex; align-items: center; gap: 0.65rem; line-height: 1.2; }
+  .logo-mark { width: 34px; height: auto; flex-shrink: 0; display: block; }
+  .logo-text { display: flex; flex-direction: column; }
   .logo-name {
     font-family: var(--font-heading);
     font-size: 1.1rem;
