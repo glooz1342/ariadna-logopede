@@ -1,5 +1,42 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import DomainCard from '../../components/DomainCard.astro';
+
+// ── Domaines d'intervention ──
+// APERÇU : le premier encadré remplace les 5 anciennes cartes dépliantes.
+// Les deux autres (apprentissages / alimentation-oralité) restent à rédiger
+// par Ari sur le même modèle — il suffit d'ajouter un objet à cette liste.
+const domaines = [
+  {
+    title: 'Communication et langage',
+    intro: "L'accompagnement du langage, de la parole et de la communication chez l'enfant — d'une difficulté spécifique à un trouble neurodéveloppemental.",
+    headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
+    rows: [
+      {
+        term: 'Retard de parole et de langage',
+        plain: "Il <strong>parle peu, tard, ou moins bien</strong> que les enfants de son âge ?",
+      },
+      {
+        term: 'Trouble développemental du langage',
+        sub: '(TDL)',
+        plain: "Il <strong>cherche ses mots</strong>, construit mal ses phrases ou <strong>comprend difficilement les consignes</strong> — et ça persiste ?",
+      },
+      {
+        term: 'Dyspraxie verbale',
+        plain: "Il sait ce qu'il veut dire, mais sa bouche peine à enchaîner les sons, et <strong>on le comprend mal</strong> ?",
+      },
+    ],
+    assoc: {
+      lead: "J'accompagne aussi le langage et la communication lorsqu'ils sont affectés par une condition associée :",
+      chips: [
+        'Trouble du spectre de l\'autisme (TSA)',
+        'Trisomie 21 et syndromes génétiques',
+        'Déficience intellectuelle',
+      ],
+    },
+    note: "Soutenir la communication étant au cœur de ce domaine, il est fréquent que la mise en place d'un outil de <strong>communication alternative &amp; améliorée (CAA)</strong> — pictogrammes, gestes ou applications — devienne l'un des objectifs du suivi, selon le profil de l'enfant.",
+  },
+];
 ---
 
 <Layout title="Ariadna Balsells — Logopède à Bruxelles" lang="fr"
@@ -29,81 +66,17 @@ import Layout from '../../layouts/Layout.astro';
     <div class="container">
       <p class="section-label">Ce que je propose</p>
       <h2>Domaines d'intervention</h2>
-      <div class="services-grid">
-        <details class="service-card">
-          <summary>
-            <div class="card-num">01</div>
-            <h3>Troubles du langage oral</h3>
-            <p class="card-desc">Difficultés d'expression, de compréhension ou d'articulation chez l'enfant et l'adulte.</p>
-            <span class="card-toggle">Voir des exemples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </summary>
-          <ul class="card-bullets">
-            <li>Retard de parole ou de langage</li>
-            <li>Difficultés de compréhension</li>
-            <li>Troubles de l'articulation</li>
-            <li>Bégaiement</li>
-            <li>Manque de vocabulaire</li>
-            <li>Difficultés à construire des phrases</li>
-          </ul>
-        </details>
-        <details class="service-card">
-          <summary>
-            <div class="card-num">02</div>
-            <h3>Communication Alternative et Augmentée</h3>
-            <p class="card-desc">Mise en place d'outils de CAA pour les personnes ayant des difficultés de communication verbale.</p>
-            <span class="card-toggle">Voir des exemples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </summary>
-          <ul class="card-bullets">
-            <li>Pictogrammes, gestes et applications de communication</li>
-            <li>Choix de l'outil adapté au profil de chaque personne</li>
-            <li>Accompagnement de la famille dans l'utilisation au quotidien</li>
-            <li>Soutien du développement du langage en parallèle de l'outil</li>
-          </ul>
-        </details>
-        <details class="service-card">
-          <summary>
-            <div class="card-num">03</div>
-            <h3>Troubles neurodéveloppementaux</h3>
-            <p class="card-desc">Accompagnement des personnes avec TSA, trisomie 21, syndrome génétique ou déficience intellectuelle.</p>
-            <span class="card-toggle">Voir des exemples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </summary>
-          <ul class="card-bullets">
-            <li>Trouble du spectre de l'autisme (TSA)</li>
-            <li>Trisomie 21 et syndromes génétiques</li>
-            <li>Déficience intellectuelle</li>
-            <li>Travail sur la communication et les interactions sociales</li>
-          </ul>
-        </details>
-        <details class="service-card">
-          <summary>
-            <div class="card-num">04</div>
-            <h3>Trouble spécifique des apprentissages en mathématiques</h3>
-            <p class="card-desc">Prise en charge des difficultés spécifiques en mathématiques et dans le raisonnement numérique.</p>
-            <span class="card-toggle">Voir des exemples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </summary>
-          <ul class="card-bullets">
-            <li>Difficultés à compter, calculer ou mémoriser les tables</li>
-            <li>Trouble du sens du nombre et des quantités</li>
-            <li>Difficultés de raisonnement logico-mathématique</li>
-            <li>Répercussions sur les apprentissages scolaires</li>
-          </ul>
-        </details>
-        <details class="service-card">
-          <summary>
-            <div class="card-num">05</div>
-            <h3>Troubles alimentaires pédiatriques</h3>
-            <p class="card-desc">Accompagnement des enfants présentant des difficultés lors des repas : sélectivité, textures, oralité.</p>
-            <span class="card-toggle">Voir des exemples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </summary>
-          <ul class="card-bullets">
-            <li>Refus alimentaire sélectif</li>
-            <li>Hypersensibilité aux textures ou saveurs</li>
-            <li>Difficultés de mastication ou déglutition</li>
-            <li>Repas très longs ou agités</li>
-            <li>Peur des aliments nouveaux (néophobie)</li>
-            <li>Troubles liés à la prématurité ou pathologies associées</li>
-          </ul>
-        </details>
+      <div class="domaines">
+        {domaines.map(d => (
+          <DomainCard
+            title={d.title}
+            intro={d.intro}
+            headings={d.headings}
+            rows={d.rows}
+            assoc={d.assoc}
+            note={d.note}
+          />
+        ))}
       </div>
     </div>
   </section>
@@ -247,80 +220,10 @@ import Layout from '../../layouts/Layout.astro';
     font-size: clamp(1.6rem, 3vw, 2.2rem);
     margin-bottom: 3rem;
   }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-  .services-grid { align-items: start; }
-  .service-card {
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    transition: all 0.25s;
-  }
-  .service-card:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 10px 28px rgba(123,158,135,0.1);
-  }
-  .service-card summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 2rem;
-  }
-  .service-card summary::-webkit-details-marker { display: none; }
-  .card-num {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    letter-spacing: 0.08em;
-    margin-bottom: 0.85rem;
-  }
-  .service-card h3 {
-    font-size: 1.05rem;
-    margin-bottom: 0.6rem;
-    color: var(--color-text);
-  }
-  .card-desc {
-    font-size: 0.9rem;
-    color: var(--color-text-light);
-    line-height: 1.65;
-  }
-  .card-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 1rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--color-accent);
-  }
-  .card-toggle svg { transition: transform 0.2s; }
-  .service-card[open] .card-toggle svg { transform: rotate(180deg); }
-  .card-bullets {
-    list-style: none;
-    padding: 0 2rem 1.75rem;
+  .domaines {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
-  }
-  .card-bullets li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
-    font-size: 0.88rem;
-    color: var(--color-text-light);
-    line-height: 1.55;
-  }
-  .card-bullets li::before {
-    content: '';
-    display: block;
-    width: 7px;
-    height: 7px;
-    min-width: 7px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    margin-top: 0.42em;
+    gap: 2rem;
   }
 
   /* ── About ── */
