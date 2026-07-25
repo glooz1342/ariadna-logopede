@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ariadna-logopede.pages.dev',
+  site: 'https://ariadna-logopede.be',
   integrations: [
     sitemap({
       i18n: {
