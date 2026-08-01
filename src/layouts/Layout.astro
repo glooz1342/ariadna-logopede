@@ -59,6 +59,27 @@ const schema = {
     "addressLocality": "Woluwe-Saint-Lambert",
     "addressRegion": "Bruxelles",
     "addressCountry": "BE"
+  },
+  // Corroborating profiles. Google uses sameAs to tie this site to the
+  // same real-world entity as the Instagram and Rosa pages, which is
+  // what a search for her name needs in order to resolve.
+  "sameAs": [
+    "https://www.instagram.com/logopede.ari/",
+    "https://www.rosa.be/fr/hp/ariadna-balsells-mencaroni-poiani/"
+  ],
+  "areaServed": {
+    "@type": "City",
+    "name": "Bruxelles"
+  },
+  "availableLanguage": ["fr", "en", "es"],
+  // Names the practitioner as a Person, distinct from the practice, so
+  // a query on her name has an entity to match.
+  "founder": {
+    "@type": "Person",
+    "name": "Ariadna Balsells",
+    "jobTitle": "Logopède",
+    "url": `${siteUrl}/fr/apropos/`,
+    "sameAs": ["https://www.instagram.com/logopede.ari/"]
   }
 };
 ---
