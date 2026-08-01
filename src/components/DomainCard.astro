@@ -246,10 +246,14 @@ const {
     border-radius: 12px;
     padding: 0.95rem 1rem;
   }
+  /* The featured condition is always lavender, whatever the domain tint,
+     so the most common condition reads the same across every encadré. */
   .cond.featured {
-    background: var(--tint-soft);
-    border-color: var(--tint);
-    border-left: 3px solid var(--tint-edge);
+    background: #EDE7F5;
+    background: color-mix(in srgb, var(--color-tint-lavender) 55%, white);
+    border-color: var(--color-tint-lavender);
+    border-left: 3px solid #A99BC4;
+    border-left: 3px solid color-mix(in srgb, var(--color-tint-lavender) 70%, var(--deep) 18%);
   }
   .cond h4 {
     margin: 0 0 0.3rem;
