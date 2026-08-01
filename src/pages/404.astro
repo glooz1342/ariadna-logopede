@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 const urlLang = Astro.url.pathname.startsWith('/en') ? 'en' : 'fr';
 ---
 
-<Layout title="404 — Page introuvable / Not found" lang={urlLang}>
+<Layout title="404 | Page introuvable / Not found" lang={urlLang}>
   <section class="not-found">
     <div class="container">
       <span class="error-code">404</span>
