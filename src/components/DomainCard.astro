@@ -2,26 +2,26 @@
 /**
  * "Encadré" card for the Domaines d'intervention section.
  *
- * Layout follows Ari's mockup: a two-column table pairing the clinical
- * label with a plain-language question a parent would recognise, then
- * optional associated-condition chips and a closing note.
+ * Structure follows Ari's mockup exactly: a shared two-column header,
+ * the clinical terms on the left, a separate list of plain-language
+ * observations on the right (the two columns are not paired row by
+ * row), then the associated-condition cards and an optional closing
+ * note.
  *
- * `intro`, `plain` and `note` accept inline <strong> tags, so they are rendered
+ * `intro` and `note` accept inline <strong> tags, so they are rendered
  * with set:html. Only ever pass hard-coded copy from this repo.
  */
-export interface DomainRow {
+export interface DomainTerm {
   /** Clinical name, e.g. "Trouble développemental du langage". */
   term: string;
   /** Small print under the term, e.g. an acronym. */
   sub?: string;
-  /** Parent-facing rephrasing. May contain <strong>. */
-  plain: string;
 }
 
 export interface AssocCondition {
   /** Condition name, e.g. "Trisomie 21". */
   title: string;
-  /** One-line description of how it is accompanied. */
+  /** One line on how it is accompanied. */
   desc?: string;
   /** Highlights the card; use for the most common condition. */
   featured?: boolean;
@@ -29,61 +29,80 @@ export interface AssocCondition {
 
 export interface Props {
   title: string;
+  /** Emoji shown before the title, as in Ari's mockup. */
+  icon?: string;
+  /** May contain <strong>. */
   intro: string;
-  /** Column headings above the rows. */
+  /** Column headings above the two lists. */
   headings: [string, string];
-  rows: DomainRow[];
-  /** Optional block of associated conditions. */
+  /** Left column: clinical terms. */
+  terms: DomainTerm[];
+  /** Right column: parent-facing observations. Not paired with terms. */
+  observations: string[];
   assoc?: { lead: string; conditions: AssocCondition[] };
-  /** Optional closing note in a tinted box. May contain <strong>. */
+  /** Closing note in a tinted box. May contain <strong>. */
   note?: string;
   /** Accent tint for this domain. One per encadré. */
   tint?: 'lavender' | 'mint';
 }
 
-const { title, intro, headings, rows, assoc, note, tint = 'lavender' } = Astro.props;
+const {
+  title, icon, intro, headings, terms, observations, assoc, note,
+  tint = 'lavender',
+} = Astro.props;
 ---
 
 <article class={`encadre tint-${tint}`}>
-  <h3>{title}</h3>
+  <h3>
+    {icon && <span class="ico" aria-hidden="true">{icon}</span>}
+    {title}
+  </h3>
   <p class="encadre-intro" set:html={intro} />
 
-  <dl class="rows">
-    <dt class="col-head" aria-hidden="true">{headings[0]}</dt>
-    <dd class="col-head" aria-hidden="true">{headings[1]}</dd>
-
-    {rows.map(row => (
-      <>
-        <dt class="term">
-          {row.term}
-          {row.sub && <small>{row.sub}</small>}
-        </dt>
-        <dd class="plain" set:html={row.plain} />
-      </>
-    ))}
-  </dl>
+  <div class="intake">
+    <div class="col-head" aria-hidden="true">
+      <span>{headings[0]}</span>
+      <span>{headings[1]}</span>
+    </div>
+    <div class="two-col">
+      <div class="tcol">
+        <p class="mh">{headings[0]}</p>
+        {terms.map(t => (
+          <div class="tItem">
+            {t.term}
+            {t.sub && <small>{t.sub}</small>}
+          </div>
+        ))}
+      </div>
+      <div class="ocol">
+        <p class="mh">{headings[1]}</p>
+        <ul class="olist">
+          {observations.map(o => <li>{o}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
 
   {assoc && (
     <div class="assoc">
       <p class="assoc-lead">{assoc.lead}</p>
-      <ul class="conds">
+      <div class="assoc-grid">
         {assoc.conditions.map(c => (
-          <li class={c.featured ? 'cond featured' : 'cond'}>
+          <div class={c.featured ? 'cond featured' : 'cond'}>
             <h4>{c.title}</h4>
             {c.desc && <p>{c.desc}</p>}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   )}
 
-  {note && <p class="note" set:html={note} />}
+  {note && <p class="transversal" set:html={note} />}
 </article>
 
 <style>
   .encadre {
     --deep: #2C2C2C;
-
     --tint: var(--color-tint-lavender);
     --tint-soft: #EDE7F5;
     --tint-soft: color-mix(in srgb, var(--color-tint-lavender) 55%, white);
@@ -94,6 +113,7 @@ const { title, intro, headings, rows, assoc, note, tint = 'lavender' } = Astro.p
     border: 1px solid var(--color-border);
     border-radius: 18px;
     padding: 2.4rem 2.5rem 2.1rem;
+    margin-bottom: 1.6rem;
     box-shadow: 0 1px 2px rgba(44,44,44,0.04), 0 18px 40px -28px rgba(44,44,44,0.20);
   }
 
@@ -111,81 +131,104 @@ const { title, intro, headings, rows, assoc, note, tint = 'lavender' } = Astro.p
     font-weight: 500;
     color: var(--deep);
     margin: 0 0 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
+  .encadre h3 .ico { font-size: 1.5rem; line-height: 1; }
 
   .encadre-intro {
     font-size: 1rem;
     color: var(--color-text-light);
-    margin: 0 0 1.6rem;
-    max-width: 52ch;
+    margin: 0 0 1.5rem;
+    max-width: 64ch;
     line-height: 1.6;
   }
+  .encadre-intro :global(strong) { font-weight: 600; color: var(--color-text); }
 
-  /* ── Rows ── */
-  .rows {
-    display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    margin: 0;
+  /* ── Intake: shared header, two independent columns ── */
+  .intake {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.4rem;
   }
-
-  .rows dt,
-  .rows dd {
-    margin: 0;
-    padding: 1rem 0;
+  .col-head {
+    display: grid;
+    grid-template-columns: 0.95fr 1.1fr;
+    gap: 2.75rem;
+    padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--color-border);
   }
-  .rows dt { padding-right: 1.5rem; }
-
-  .col-head {
-    font-size: 0.68rem;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: var(--color-accent-dark);
-    font-weight: 600;
-    padding-top: 0 !important;
-    padding-bottom: 0.6rem !important;
-  }
-
-  .term {
+  .col-head span {
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--deep);
-    font-size: 1rem;
-    line-height: 1.4;
   }
-  .term small {
+  .two-col {
+    display: grid;
+    grid-template-columns: 0.95fr 1.1fr;
+    gap: 2.75rem;
+    padding-top: 0.25rem;
+  }
+  .mh {
+    display: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin: 0 0 0.75rem;
+  }
+
+  .tItem {
+    padding: 0.875rem 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--deep);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+  .tItem:last-child { border-bottom: none; }
+  .tItem small {
     display: block;
     font-weight: 500;
     color: var(--color-text-light);
     font-size: 0.82rem;
-    margin-top: 0.15rem;
+    margin-top: 2px;
   }
 
-  .plain {
+  .ocol { padding-top: 0.5rem; }
+  ul.olist { list-style: none; margin: 0; padding: 0; }
+  ul.olist li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
     color: var(--color-text-light);
     font-size: 0.97rem;
-    line-height: 1.6;
   }
-  .plain :global(strong) {
-    color: var(--color-text);
-    font-weight: 600;
+  ul.olist li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 0.5em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tint-edge);
   }
 
   /* ── Associated conditions ── */
-  .assoc { margin-top: 1.6rem; }
+  .assoc { margin-top: 1.75rem; }
   .assoc-lead {
     font-size: 0.97rem;
     color: var(--color-text);
-    margin: 0 0 0.9rem;
-    max-width: 56ch;
+    margin: 0 0 0.4rem;
+    max-width: 62ch;
     line-height: 1.6;
   }
-  .conds {
+  .assoc-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
     gap: 0.75rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    margin-top: 0.875rem;
   }
   .cond {
     background: var(--color-bg);
@@ -212,8 +255,8 @@ const { title, intro, headings, rows, assoc, note, tint = 'lavender' } = Astro.p
   }
 
   /* ── Closing note ── */
-  .note {
-    margin: 1.6rem 0 0;
+  .transversal {
+    margin-top: 1.75rem;
     background: var(--tint-soft);
     border: 1px solid var(--tint);
     border-radius: 12px;
@@ -222,17 +265,14 @@ const { title, intro, headings, rows, assoc, note, tint = 'lavender' } = Astro.p
     color: var(--deep);
     line-height: 1.6;
   }
-  .note :global(strong) { font-weight: 600; }
+  .transversal :global(strong) { font-weight: 600; }
 
-  @media (max-width: 700px) {
+  @media (max-width: 600px) {
     .encadre { padding: 1.75rem 1.4rem; }
-    .rows { grid-template-columns: 1fr; }
     .col-head { display: none; }
-    .rows dt {
-      padding: 0.9rem 0 0.15rem;
-      border-bottom: none;
-    }
-    .rows dd { padding: 0 0 0.9rem; }
-    .plain { font-size: 0.93rem; }
+    .two-col { grid-template-columns: 1fr; gap: 1.6rem; }
+    .mh { display: block; }
+    .ocol { padding-top: 0; }
+    .assoc-grid { grid-template-columns: 1fr; }
   }
 </style>

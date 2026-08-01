@@ -9,23 +9,20 @@ import DomainCard from '../../components/DomainCard.astro';
 const domaines = [
   {
     title: 'Communication et langage',
+    icon: '💬',
     tint: 'lavender' as const,
-    intro: "L'accompagnement du langage, de la parole et de la communication chez l'enfant — d'une difficulté spécifique à un trouble neurodéveloppemental.",
+    intro: "L'accompagnement du langage, de la parole et de la communication chez l'enfant, qu'il s'agisse d'une difficulté spécifique ou d'un trouble neurodéveloppemental.",
     headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
-    rows: [
-      {
-        term: 'Retard de parole et de langage',
-        plain: "Il <strong>parle peu, tard, ou moins bien</strong> que les enfants de son âge ?",
-      },
-      {
-        term: 'Trouble développemental du langage',
-        sub: '(TDL)',
-        plain: "Il <strong>cherche ses mots</strong>, construit mal ses phrases ou <strong>comprend difficilement les consignes</strong> — et ça persiste ?",
-      },
-      {
-        term: 'Dyspraxie verbale',
-        plain: "Il sait ce qu'il veut dire, mais sa bouche peine à enchaîner les sons, et <strong>on le comprend mal</strong> ?",
-      },
+    terms: [
+      { term: 'Retard de parole et de langage' },
+      { term: 'Trouble développemental du langage', sub: '(TDL)' },
+      { term: 'Dyspraxie verbale' },
+    ],
+    observations: [
+      "Il parle peu, tard ou moins bien que les enfants de son âge",
+      "Il cherche ses mots ou construit mal ses phrases",
+      "Il comprend difficilement les consignes",
+      "On a du mal à le comprendre quand il parle",
     ],
     assoc: {
       lead: "J'accompagne aussi le langage et la communication lorsqu'ils sont affectés par une condition associée :",
@@ -49,28 +46,24 @@ const domaines = [
         },
       ],
     },
-    note: "Soutenir la communication étant au cœur de ce domaine, il est fréquent que la mise en place d'un outil de <strong>communication alternative &amp; améliorée (CAA)</strong> — pictogrammes, gestes ou applications — devienne l'un des objectifs du suivi, selon le profil de l'enfant.",
+    note: "Soutenir la communication étant au cœur de ce domaine, il est fréquent que la mise en place d'un outil de <strong>communication alternative &amp; améliorée (CAA)</strong> devienne l'un des objectifs du suivi, selon le profil de l'enfant.",
   },
   {
     title: 'Alimentation',
+    icon: '🍽️',
     tint: 'mint' as const,
     intro: "L'accompagnement des <strong>troubles alimentaires pédiatriques (TAP)</strong> chez l'enfant, du nourrisson au plus grand, dans leurs dimensions sensorielle, motrice et comportementale.",
     headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
-    rows: [
-      {
-        term: 'Sélectivité alimentaire',
-        plain: "Il ne mange qu'<strong>une poignée d'aliments</strong>, toujours les mêmes ?",
-      },
-      {
-        term: 'Hyper- ou hyposensibilité sensorielle',
-        sub: '(textures, odeurs, goûts)',
-        plain: "Certaines textures ou odeurs le <strong>dégoûtent</strong> au point qu'il recrache ou repousse l'assiette — ou au contraire il <strong>ne sent pas bien</strong> les aliments et se remplit trop la bouche ?",
-      },
-      {
-        term: 'Difficultés de mastication et de déglutition',
-        sub: '(dysphagie)',
-        plain: "Il <strong>garde les aliments en bouche</strong>, s'étouffe, ou les repas n'en finissent pas ?",
-      },
+    terms: [
+      { term: 'Sélectivité alimentaire' },
+      { term: 'Hyper- ou hyposensibilité sensorielle', sub: '(textures, odeurs, goûts)' },
+      { term: 'Difficultés de mastication et de déglutition', sub: '(dysphagie)' },
+    ],
+    observations: [
+      "Il ne mange que quelques aliments, toujours les mêmes",
+      "Certaines textures ou odeurs le dégoûtent au point qu'il recrache ou repousse l'assiette",
+      "Ou au contraire il ne sent pas bien les aliments et se remplit trop la bouche",
+      "Il garde les aliments en bouche, s'étouffe ou les repas n'en finissent pas",
     ],
     assoc: {
       lead: "J'accompagne aussi l'alimentation lorsqu'elle est fragilisée par une condition associée :",
@@ -131,9 +124,11 @@ const domaines = [
             title={d.title}
             intro={d.intro}
             headings={d.headings}
-            rows={d.rows}
+            terms={d.terms}
+            observations={d.observations}
             assoc={d.assoc}
             note={d.note}
+            icon={d.icon}
             tint={d.tint}
           />
         ))}
