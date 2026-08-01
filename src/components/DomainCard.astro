@@ -6,7 +6,7 @@
  * label with a plain-language question a parent would recognise, then
  * optional associated-condition chips and a closing note.
  *
- * `plain` and `note` accept inline <strong> tags, so they are rendered
+ * `intro`, `plain` and `note` accept inline <strong> tags, so they are rendered
  * with set:html. Only ever pass hard-coded copy from this repo.
  */
 export interface DomainRow {
@@ -18,6 +18,15 @@ export interface DomainRow {
   plain: string;
 }
 
+export interface AssocCondition {
+  /** Condition name, e.g. "Trisomie 21". */
+  title: string;
+  /** One-line description of how it is accompanied. */
+  desc?: string;
+  /** Highlights the card; use for the most common condition. */
+  featured?: boolean;
+}
+
 export interface Props {
   title: string;
   intro: string;
@@ -25,17 +34,19 @@ export interface Props {
   headings: [string, string];
   rows: DomainRow[];
   /** Optional block of associated conditions. */
-  assoc?: { lead: string; chips: string[] };
+  assoc?: { lead: string; conditions: AssocCondition[] };
   /** Optional closing note in a tinted box. May contain <strong>. */
   note?: string;
+  /** Accent tint for this domain. One per encadré. */
+  tint?: 'lavender' | 'mint';
 }
 
-const { title, intro, headings, rows, assoc, note } = Astro.props;
+const { title, intro, headings, rows, assoc, note, tint = 'lavender' } = Astro.props;
 ---
 
-<article class="encadre">
+<article class={`encadre tint-${tint}`}>
   <h3>{title}</h3>
-  <p class="encadre-intro">{intro}</p>
+  <p class="encadre-intro" set:html={intro} />
 
   <dl class="rows">
     <dt class="col-head" aria-hidden="true">{headings[0]}</dt>
@@ -55,8 +66,13 @@ const { title, intro, headings, rows, assoc, note } = Astro.props;
   {assoc && (
     <div class="assoc">
       <p class="assoc-lead">{assoc.lead}</p>
-      <ul class="chips">
-        {assoc.chips.map(chip => <li class="chip">{chip}</li>)}
+      <ul class="conds">
+        {assoc.conditions.map(c => (
+          <li class={c.featured ? 'cond featured' : 'cond'}>
+            <h4>{c.title}</h4>
+            {c.desc && <p>{c.desc}</p>}
+          </li>
+        ))}
       </ul>
     </div>
   )}
@@ -68,11 +84,25 @@ const { title, intro, headings, rows, assoc, note } = Astro.props;
   .encadre {
     --deep: #2C2C2C;
 
+    --tint: var(--color-tint-lavender);
+    --tint-soft: #EDE7F5;
+    --tint-soft: color-mix(in srgb, var(--color-tint-lavender) 55%, white);
+    --tint-edge: #A99BC4;
+    --tint-edge: color-mix(in srgb, var(--color-tint-lavender) 70%, var(--deep) 18%);
+
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: 18px;
     padding: 2.4rem 2.5rem 2.1rem;
     box-shadow: 0 1px 2px rgba(44,44,44,0.04), 0 18px 40px -28px rgba(44,44,44,0.20);
+  }
+
+  .encadre.tint-mint {
+    --tint: var(--color-tint-mint);
+    --tint-soft: #E9F4EE;
+    --tint-soft: color-mix(in srgb, var(--color-tint-mint) 55%, white);
+    --tint-edge: #9DC7B0;
+    --tint-edge: color-mix(in srgb, var(--color-tint-mint) 70%, var(--deep) 18%);
   }
 
   .encadre h3 {
@@ -149,31 +179,43 @@ const { title, intro, headings, rows, assoc, note } = Astro.props;
     max-width: 56ch;
     line-height: 1.6;
   }
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
+  .conds {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+    gap: 0.75rem;
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  .chip {
-    background: white;
+  .cond {
+    background: var(--color-bg);
     border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 0.95rem 1rem;
+  }
+  .cond.featured {
+    background: var(--tint-soft);
+    border-color: var(--tint);
+    border-left: 3px solid var(--tint-edge);
+  }
+  .cond h4 {
+    margin: 0 0 0.3rem;
+    font-size: 0.92rem;
+    font-weight: 600;
     color: var(--deep);
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 0.45rem 0.9rem;
-    border-radius: 999px;
+  }
+  .cond p {
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--color-text-light);
+    line-height: 1.5;
   }
 
   /* ── Closing note ── */
   .note {
     margin: 1.6rem 0 0;
-    background: #EDE7F5;
-    background: color-mix(in srgb, var(--color-tint-lavender) 55%, white);
-    border: 1px solid #D2C7E5;
-    border: 1px solid var(--color-tint-lavender);
+    background: var(--tint-soft);
+    border: 1px solid var(--tint);
     border-radius: 12px;
     padding: 1rem 1.1rem;
     font-size: 0.94rem;

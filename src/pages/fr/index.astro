@@ -9,6 +9,7 @@ import DomainCard from '../../components/DomainCard.astro';
 const domaines = [
   {
     title: 'Communication et langage',
+    tint: 'lavender' as const,
     intro: "L'accompagnement du langage, de la parole et de la communication chez l'enfant — d'une difficulté spécifique à un trouble neurodéveloppemental.",
     headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
     rows: [
@@ -28,13 +29,71 @@ const domaines = [
     ],
     assoc: {
       lead: "J'accompagne aussi le langage et la communication lorsqu'ils sont affectés par une condition associée :",
-      chips: [
-        'Trouble du spectre de l\'autisme (TSA)',
-        'Trisomie 21 et syndromes génétiques',
-        'Déficience intellectuelle',
+      conditions: [
+        {
+          title: "Trouble du spectre de l'autisme (TSA)",
+          desc: 'Soutenir les interactions et développer la communication, verbale ou non.',
+          featured: true,
+        },
+        {
+          title: 'Trisomie 21',
+          desc: 'Accompagner le langage et la parole tout au long du développement.',
+        },
+        {
+          title: 'Syndromes génétiques',
+          desc: "Adapter l'accompagnement du langage à chaque profil.",
+        },
+        {
+          title: 'Déficience intellectuelle',
+          desc: "Adapter la communication au rythme et aux capacités de l'enfant.",
+        },
       ],
     },
     note: "Soutenir la communication étant au cœur de ce domaine, il est fréquent que la mise en place d'un outil de <strong>communication alternative &amp; améliorée (CAA)</strong> — pictogrammes, gestes ou applications — devienne l'un des objectifs du suivi, selon le profil de l'enfant.",
+  },
+  {
+    title: 'Alimentation',
+    tint: 'mint' as const,
+    intro: "L'accompagnement des <strong>troubles alimentaires pédiatriques (TAP)</strong> chez l'enfant, du nourrisson au plus grand, dans leurs dimensions sensorielle, motrice et comportementale.",
+    headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
+    rows: [
+      {
+        term: 'Sélectivité alimentaire',
+        plain: "Il ne mange qu'<strong>une poignée d'aliments</strong>, toujours les mêmes ?",
+      },
+      {
+        term: 'Hyper- ou hyposensibilité sensorielle',
+        sub: '(textures, odeurs, goûts)',
+        plain: "Certaines textures ou odeurs le <strong>dégoûtent</strong> au point qu'il recrache ou repousse l'assiette — ou au contraire il <strong>ne sent pas bien</strong> les aliments et se remplit trop la bouche ?",
+      },
+      {
+        term: 'Difficultés de mastication et de déglutition',
+        sub: '(dysphagie)',
+        plain: "Il <strong>garde les aliments en bouche</strong>, s'étouffe, ou les repas n'en finissent pas ?",
+      },
+    ],
+    assoc: {
+      lead: "J'accompagne aussi l'alimentation lorsqu'elle est fragilisée par une condition associée :",
+      conditions: [
+        {
+          title: "Trouble du spectre de l'autisme (TSA)",
+          desc: "La sélectivité y est très fréquente. J'élargis le répertoire au rythme de l'enfant, selon son profil sensoriel.",
+          featured: true,
+        },
+        {
+          title: 'Trisomie 21',
+          desc: 'Soutenir la mastication et la déglutition, souvent fragilisées.',
+        },
+        {
+          title: 'Syndromes génétiques',
+          desc: "Soutenir l'alimentation selon les particularités du syndrome.",
+        },
+        {
+          title: 'Prématurité et parcours médical',
+          desc: 'Restaurer les compétences alimentaires après une sonde, un RGO ou un séjour hospitalier.',
+        },
+      ],
+    },
   },
 ];
 ---
@@ -75,6 +134,7 @@ const domaines = [
             rows={d.rows}
             assoc={d.assoc}
             note={d.note}
+            tint={d.tint}
           />
         ))}
       </div>
@@ -146,7 +206,7 @@ const domaines = [
     object-fit: cover;
     object-position: center top;
     border-radius: 50%;
-    border: 4px solid rgba(123,158,135,0.25);
+    border: 4px solid var(--color-tint-mint);
     box-shadow: 0 20px 60px rgba(0,0,0,0.08);
     display: block;
   }
@@ -247,8 +307,8 @@ const domaines = [
     width: 280px;
     height: 280px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(123,158,135,0.14), rgba(123,158,135,0.04));
-    border: 1.5px solid rgba(123,158,135,0.2);
+    background: linear-gradient(135deg, var(--color-tint-mint), color-mix(in srgb, var(--color-tint-mint) 25%, white));
+    border: 1.5px solid var(--color-tint-mint);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -257,7 +317,7 @@ const domaines = [
     width: 180px;
     height: 180px;
     border-radius: 50%;
-    border: 1px solid rgba(123,158,135,0.15);
+    border: 1px solid color-mix(in srgb, var(--color-tint-mint) 70%, white);
   }
 
   /* ── CTA ── */
