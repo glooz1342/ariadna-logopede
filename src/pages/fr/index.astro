@@ -88,6 +88,46 @@ const domaines = [
       ],
     },
   },
+  {
+    title: 'Cognition mathématique',
+    icon: '🧮',
+    tint: 'blue' as const,
+    intro: "L'accompagnement des troubles de la <strong>cognition mathématique</strong> chez l'enfant : un terme générique qui regroupe l'ensemble des difficultés en mathématiques, dont le trouble d'apprentissage en mathématiques (TAM), qui remplace aujourd'hui « dyscalculie ».",
+    headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
+    terms: [
+      { term: "Trouble d'apprentissage en mathématiques", sub: '(TAM, anciennement « dyscalculie »)' },
+      { term: 'Cognition numérique', sub: '(sens du nombre, transcodage)' },
+      { term: 'Cognition arithmétique', sub: '(calcul, résolution de problèmes)' },
+    ],
+    observations: [
+      "Il <strong>compte encore sur ses doigts</strong> et mémorise mal les <strong>tables</strong>",
+      "<strong>Poser une opération</strong>, lire l'heure ou rendre la monnaie lui posent problème",
+      "Il <strong>peine à résoudre les problèmes</strong> et à estimer les quantités",
+      "Ses <strong>résultats en maths</strong> ne suivent pas, malgré le travail fourni",
+    ],
+    assoc: {
+      lead: "Le TAM est rarement isolé. J'en tiens compte face aux troubles fréquemment associés :",
+      conditions: [
+        {
+          title: 'Troubles du langage écrit (dyslexie, dysorthographie)',
+          desc: 'La comorbidité la plus fréquente du TAM.',
+          featured: true,
+        },
+        {
+          title: 'Trouble développemental du langage (TDL)',
+          desc: 'Le langage soutient le raisonnement et les énoncés de problèmes.',
+        },
+        {
+          title: 'TDAH',
+          desc: "L'attention et les fonctions exécutives pèsent sur les apprentissages.",
+        },
+        {
+          title: 'Trouble développemental de la coordination (TDC)',
+          desc: "Impact possible sur l'écriture des nombres et la géométrie.",
+        },
+      ],
+    },
+  },
 ];
 ---
 
