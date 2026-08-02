@@ -1,5 +1,134 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import DomainCard from '../../components/DomainCard.astro';
+
+// ── Areas of practice ──
+// English counterpart of the FR encadrés. DRAFT TRANSLATION — awaiting
+// Ari's sign-off on the clinical terminology (DLD, PFD, MLD) before this
+// is treated as final copy.
+const domains = [
+  {
+    title: 'Communication and language',
+    icon: '💬',
+    tint: 'lavender' as const,
+    intro: "Support with language, speech and communication in children, whether the difficulty is specific or part of a neurodevelopmental disorder.",
+    headings: ['I support', 'What you may notice in your child'] as [string, string],
+    terms: [
+      { term: 'Speech and language delay' },
+      { term: 'Developmental Language Disorder', sub: '(DLD)' },
+      { term: 'Childhood apraxia of speech', sub: '(verbal dyspraxia)' },
+    ],
+    observations: [
+      'They speak little, started late, or less clearly than other children their age',
+      'They search for words or struggle to build sentences',
+      'They find it hard to follow instructions',
+      'People struggle to understand them when they speak',
+    ],
+    assoc: {
+      lead: 'I also support language and communication when they are affected by an associated condition:',
+      conditions: [
+        {
+          title: 'Autism spectrum disorder (ASD)',
+          desc: 'Supporting interaction and developing communication, verbal or not.',
+          featured: true,
+        },
+        {
+          title: 'Down syndrome',
+          desc: 'Supporting language and speech throughout development.',
+        },
+        {
+          title: 'Genetic syndromes',
+          desc: 'Adapting language support to each profile.',
+        },
+        {
+          title: 'Intellectual disability',
+          desc: "Adapting communication to the child's pace and abilities.",
+        },
+      ],
+    },
+    note: "As supporting communication is central to this area, setting up an <strong>augmentative and alternative communication (AAC)</strong> tool often becomes one of the goals of therapy, depending on the child's profile.",
+  },
+  {
+    title: 'Feeding',
+    icon: '🍽️',
+    tint: 'mint' as const,
+    intro: "Support with <strong>paediatric feeding disorders (PFD)</strong> in children, from infancy upwards, across their sensory, motor and behavioural dimensions.",
+    headings: ['I support', 'What you may notice in your child'] as [string, string],
+    terms: [
+      { term: 'Food selectivity' },
+      { term: 'Sensory hyper- or hyposensitivity', sub: '(textures, smells, tastes)' },
+      { term: 'Chewing and swallowing difficulties', sub: '(dysphagia)' },
+    ],
+    observations: [
+      'They eat only a few foods, always the same ones',
+      'Certain textures or smells put them off to the point of spitting food out or pushing the plate away',
+      'Or conversely they barely feel the food and overfill their mouth',
+      'They hold food in their mouth, choke, or meals drag on and on',
+    ],
+    assoc: {
+      lead: 'I also support feeding when it is made harder by an associated condition:',
+      conditions: [
+        {
+          title: 'Autism spectrum disorder (ASD)',
+          desc: "Selectivity is very common here. I widen the range of foods at the child's pace, according to their sensory profile.",
+          featured: true,
+        },
+        {
+          title: 'Down syndrome',
+          desc: 'Supporting chewing and swallowing, which are often fragile.',
+        },
+        {
+          title: 'Genetic syndromes',
+          desc: 'Supporting feeding according to the particularities of the syndrome.',
+        },
+        {
+          title: 'Prematurity and medical history',
+          desc: 'Restoring feeding skills after tube feeding, reflux or a hospital stay.',
+        },
+      ],
+    },
+  },
+  {
+    title: 'Mathematical cognition',
+    icon: '🧮',
+    tint: 'blue' as const,
+    intro: "Support with difficulties in <strong>mathematical cognition</strong> in children: an umbrella term covering the whole range of difficulties in mathematics, including mathematics learning disorder (MLD), which today replaces ‘dyscalculia’.",
+    headings: ['I support', 'What you may notice in your child'] as [string, string],
+    terms: [
+      { term: 'Mathematics learning disorder', sub: "(MLD, formerly ‘dyscalculia’)" },
+      { term: 'Numerical cognition', sub: '(number sense, transcoding)' },
+      { term: 'Arithmetic cognition', sub: '(calculation, problem solving)' },
+    ],
+    observations: [
+      'They <strong>still count on their fingers</strong> and struggle to memorise <strong>times tables</strong>',
+      '<strong>Setting out a sum</strong>, telling the time or giving change are a problem',
+      'They <strong>struggle to solve word problems</strong> and to estimate quantities',
+      'Their <strong>results in maths</strong> lag behind, despite the effort they put in',
+    ],
+    assoc: {
+      lead: 'MLD is rarely isolated. I take account of the disorders it is frequently associated with:',
+      conditions: [
+        {
+          title: 'Written language disorders (dyslexia, dysorthographia)',
+          desc: 'The most common co-occurrence with MLD.',
+          featured: true,
+        },
+        {
+          title: 'Developmental Language Disorder (DLD)',
+          desc: 'Language underpins reasoning and the wording of problems.',
+        },
+        {
+          title: 'ADHD',
+          desc: 'Attention and executive function weigh on learning.',
+        },
+        {
+          title: 'Developmental Coordination Disorder (DCD)',
+          desc: 'Possible impact on writing numbers and on geometry.',
+        },
+      ],
+    },
+  },
+];
 ---
 
 <Layout title="Ariadna Balsells | Speech Therapist in Brussels" lang="en"
@@ -28,81 +157,20 @@ import Layout from '../../layouts/Layout.astro';
     <div class="container">
       <p class="section-label">What I offer</p>
       <h2>Areas of practice</h2>
-      <div class="services-grid">
-        <details class="service-card">
-          <summary>
-            <div class="card-num">01</div>
-            <h3>Oral language disorders</h3>
-            <p class="card-desc">Difficulties with expression, comprehension or articulation in children.</p>
-            <span class="card-toggle">See examples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </summary>
-          <ul class="card-bullets">
-            <li>Speech or language delay</li>
-            <li>Comprehension difficulties</li>
-            <li>Articulation disorders</li>
-            <li>Stuttering</li>
-            <li>Limited vocabulary</li>
-            <li>Difficulty building sentences</li>
-          </ul>
-        </details>
-        <details class="service-card">
-          <summary>
-            <div class="card-num">02</div>
-            <h3>Augmentative and Alternative Communication</h3>
-            <p class="card-desc">Setting up AAC tools for children with verbal communication difficulties.</p>
-            <span class="card-toggle">See examples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </summary>
-          <ul class="card-bullets">
-            <li>Pictograms, gestures and communication apps</li>
-            <li>Choosing the right tool for each child's profile</li>
-            <li>Supporting families in day-to-day use</li>
-            <li>Developing language alongside the tool</li>
-          </ul>
-        </details>
-        <details class="service-card">
-          <summary>
-            <div class="card-num">03</div>
-            <h3>Neurodevelopmental disorders</h3>
-            <p class="card-desc">Support for children with ASD, Down syndrome, genetic syndromes or intellectual disabilities.</p>
-            <span class="card-toggle">See examples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </summary>
-          <ul class="card-bullets">
-            <li>Autism spectrum disorder (ASD)</li>
-            <li>Down syndrome and genetic syndromes</li>
-            <li>Intellectual disability</li>
-            <li>Work on communication and social interaction</li>
-          </ul>
-        </details>
-        <details class="service-card">
-          <summary>
-            <div class="card-num">04</div>
-            <h3>Dyscalculia</h3>
-            <p class="card-desc">Assessment and support for specific learning difficulties in mathematics and numerical reasoning.</p>
-            <span class="card-toggle">See examples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </summary>
-          <ul class="card-bullets">
-            <li>Difficulty counting, calculating or memorising tables</li>
-            <li>Impaired number sense and understanding of quantities</li>
-            <li>Difficulties with logical-mathematical reasoning</li>
-            <li>Impact on school learning</li>
-          </ul>
-        </details>
-        <details class="service-card">
-          <summary>
-            <div class="card-num">05</div>
-            <h3>Paediatric feeding disorders</h3>
-            <p class="card-desc">Support for children with difficulties at mealtimes: food selectivity, textures and oral-motor challenges.</p>
-            <span class="card-toggle">See examples <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </summary>
-          <ul class="card-bullets">
-            <li>Selective food refusal</li>
-            <li>Hypersensitivity to textures or flavours</li>
-            <li>Chewing or swallowing difficulties</li>
-            <li>Very long or distressing mealtimes</li>
-            <li>Fear of new foods (food neophobia)</li>
-            <li>Difficulties linked to prematurity or associated conditions</li>
-          </ul>
-        </details>
+      <div class="domains">
+        {domains.map(d => (
+          <DomainCard
+            title={d.title}
+            intro={d.intro}
+            headings={d.headings}
+            terms={d.terms}
+            observations={d.observations}
+            assoc={d.assoc}
+            note={d.note}
+            icon={d.icon}
+            tint={d.tint}
+          />
+        ))}
       </div>
     </div>
   </section>
@@ -223,80 +291,10 @@ import Layout from '../../layouts/Layout.astro';
   .btn-outline:hover { background: var(--color-accent); color: white; }
   .services { background: white; padding: 5rem 0; }
   .services h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 3rem; }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-  .services-grid { align-items: start; }
-  .service-card {
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 12px;
-    transition: all 0.25s;
-  }
-  .service-card:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 10px 28px rgba(44,44,44,0.10);
-  }
-  .service-card summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 2rem;
-  }
-  .service-card summary::-webkit-details-marker { display: none; }
-  .card-num {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    letter-spacing: 0.08em;
-    margin-bottom: 0.85rem;
-  }
-  .service-card h3 {
-    font-size: 1.05rem;
-    margin-bottom: 0.6rem;
-    color: var(--color-text);
-  }
-  .card-desc {
-    font-size: 0.9rem;
-    color: var(--color-text-light);
-    line-height: 1.65;
-  }
-  .card-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 1rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--color-accent);
-  }
-  .card-toggle svg { transition: transform 0.2s; }
-  .service-card[open] .card-toggle svg { transform: rotate(180deg); }
-  .card-bullets {
-    list-style: none;
-    padding: 0 2rem 1.75rem;
+  .domains {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
-  }
-  .card-bullets li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
-    font-size: 0.88rem;
-    color: var(--color-text-light);
-    line-height: 1.55;
-  }
-  .card-bullets li::before {
-    content: '';
-    display: block;
-    width: 7px;
-    height: 7px;
-    min-width: 7px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    margin-top: 0.42em;
+    gap: 2rem;
   }
   .about { padding: 5rem 0; }
   .about-inner {
@@ -347,7 +345,6 @@ import Layout from '../../layouts/Layout.astro';
     .hero-actions { justify-content: center; }
 
     .services { padding: 3rem 0; }
-    .services-grid { grid-template-columns: 1fr; }
 
     .about { padding: 3rem 0; }
     .about-inner { grid-template-columns: 1fr; gap: 2rem; }
