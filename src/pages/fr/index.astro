@@ -185,11 +185,6 @@ const domaines = [
         </p>
         <a href="/fr/apropos" class="btn-outline">En savoir plus</a>
       </div>
-      <div class="about-deco" aria-hidden="true">
-        <div class="circle-outer">
-          <div class="circle-inner"></div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -311,10 +306,7 @@ const domaines = [
   /* ── About ── */
   .about { padding: 5rem 0; }
   .about-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    max-width: 700px;
   }
   .about-text h2 {
     font-size: clamp(1.5rem, 2.5vw, 2rem);
@@ -324,24 +316,6 @@ const domaines = [
     color: var(--color-text-light);
     line-height: 1.8;
   }
-  .about-deco { display: flex; justify-content: center; }
-  .circle-outer {
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--color-tint-mint), color-mix(in srgb, var(--color-tint-mint) 25%, white));
-    border: 1.5px solid var(--color-tint-mint);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .circle-inner {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 1px solid color-mix(in srgb, var(--color-tint-mint) 70%, white);
-  }
-
   /* ── CTA ── */
   .cta {
     background: white;
@@ -368,8 +342,6 @@ const domaines = [
     .services { padding: 3rem 0; }
 
     .about { padding: 3rem 0; }
-    .about-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .about-deco { display: none; }
 
     .cta { padding: 3rem 0; }
 
