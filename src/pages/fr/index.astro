@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { ROSA_URL } from '../../data/booking';
 import DomainCard from '../../components/DomainCard.astro';
 
 // ── Domaines d'intervention ──
@@ -143,7 +144,7 @@ const domaines = [
         J'accompagne les enfants dans le développement du langage, de la communication et dans l'apprentissage des mathématiques.
       </p>
       <div class="hero-actions">
-        <a href="/fr/contact" class="btn-primary">Prendre rendez-vous</a>
+        <a href={ROSA_URL.fr} class="btn-primary" target="_blank" rel="noopener">Prendre rendez-vous en ligne</a>
         <a href="/fr/apropos" class="btn-secondary">À propos de moi</a>
       </div>
     </div>

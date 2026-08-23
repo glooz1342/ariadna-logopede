@@ -14,6 +14,7 @@ const { lang } = Astro.props;
     </div>
     <div class="footer-right">
       <p class="footer-copy">© {new Date().getFullYear()} Ariadna Balsells</p>
+      <p class="footer-credit">{lang === 'fr' ? 'Site réalisé par Jonathan Geurts' : 'Site by Jonathan Geurts'}</p>
       <a href={lang === 'fr' ? '/fr/cookies' : '/en/cookies'} class="footer-link">{lang === 'fr' ? 'Confidentialité & cookies' : 'Privacy & cookies'}</a>
       <div class="socials">
         <a href="https://wa.me/32474052583" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-icon">
@@ -76,6 +77,11 @@ const { lang } = Astro.props;
   .footer-copy {
     font-size: 0.8rem;
     color: var(--color-text-light);
+  }
+  .footer-credit {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+    opacity: 0.8;
   }
   .footer-link {
     font-size: 0.8rem;
