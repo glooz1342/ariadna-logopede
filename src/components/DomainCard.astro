@@ -54,11 +54,17 @@ const {
 ---
 
 <article class={`encadre tint-${tint}`}>
-  <h3>
-    {icon && <span class="ico" aria-hidden="true">{icon}</span>}
-    {title}
-  </h3>
-  <p class="encadre-intro" set:html={intro} />
+  <details class="fold">
+    <summary>
+      <span class="fold-text">
+        <h3>
+          {icon && <span class="ico" aria-hidden="true">{icon}</span>}
+          {title}
+        </h3>
+        <span class="encadre-intro" set:html={intro} />
+      </span>
+      <span class="chev" aria-hidden="true"></span>
+    </summary>
 
   <div class="intake">
     <div class="col-head" aria-hidden="true">
@@ -99,6 +105,7 @@ const {
   )}
 
   {note && <p class="transversal" set:html={note} />}
+  </details>
 </article>
 
 <style>
@@ -160,6 +167,36 @@ const {
     border-top: 1px solid var(--color-border);
     padding-top: 1.4rem;
   }
+  /* ── Disclosure ── */
+  .fold summary {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    list-style: none;
+    border-radius: 8px;
+  }
+  .fold summary::-webkit-details-marker { display: none; }
+  .fold summary:focus-visible {
+    outline: 2px solid var(--color-purple);
+    outline-offset: 4px;
+  }
+  .fold-text { display: block; }
+  .fold summary .encadre-intro { display: block; margin-bottom: 0; }
+  .chev {
+    flex-shrink: 0;
+    width: 0.6rem;
+    height: 0.6rem;
+    margin-top: 0.6rem;
+    border-right: 2px solid var(--color-purple);
+    border-bottom: 2px solid var(--color-purple);
+    transform: rotate(45deg);
+    transition: transform 0.2s;
+  }
+  .fold[open] .chev { transform: rotate(-135deg); }
+  .fold[open] summary { margin-bottom: 1.5rem; }
+
   .col-head {
     display: grid;
     grid-template-columns: 0.95fr 1.1fr;
@@ -179,7 +216,13 @@ const {
     padding-top: 0.25rem;
   }
   .mh {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
     font-size: 1.05rem;
     font-weight: 600;
     color: var(--deep);
@@ -283,7 +326,15 @@ const {
     .encadre { padding: 1.75rem 1.4rem; }
     .col-head { display: none; }
     .two-col { grid-template-columns: 1fr; gap: 1.6rem; }
-    .mh { display: block; }
+    .mh {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip: auto;
+      clip-path: none;
+      white-space: normal;
+    }
     .ocol { padding-top: 0; }
     .assoc-grid { grid-template-columns: 1fr; }
   }
