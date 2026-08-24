@@ -331,7 +331,38 @@ const domaines = [
   }
 
   /* ── About ── */
-  .about { padding: 5rem 0; }
+  /* The cream band is the only hard colour seam on the page. Fade into and
+     out of it instead of butting the two flat fills together, and lay a very
+     faint grain over the fill: flat pastel is what reads as generated. */
+  .about {
+    padding: 5rem 0;
+    position: relative;
+    isolation: isolate;
+  }
+  .about::before,
+  .about::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 90px;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .about::before {
+    top: 0;
+    background: linear-gradient(to bottom, white, transparent);
+  }
+  .about::after {
+    bottom: 0;
+    background: linear-gradient(to top, white, transparent);
+  }
+
+  /* Grain. An inline SVG turbulence tile, so no extra request and no image
+     to ship. Kept under 4% opacity: felt rather than seen. */
+  .about {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
   .about-inner {
     max-width: 700px;
   }
