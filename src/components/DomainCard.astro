@@ -184,6 +184,22 @@ const {
   }
   .fold-text { display: block; }
   .fold summary .encadre-intro { display: block; margin-bottom: 0; }
+  /* Hover lift. Closed cards read as touchable; once open the card is a
+     panel of content, so the lift is dropped to keep it feeling anchored. */
+  .encadre {
+    transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                box-shadow 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .encadre:has(.fold:not([open])):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px rgba(44, 44, 44, 0.09);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .encadre { transition: none; }
+    .encadre:has(.fold:not([open])):hover { transform: none; }
+  }
+
   /* Smooth open/close.
    *
    * ::details-content is the anonymous box wrapping everything after
@@ -249,6 +265,8 @@ const {
     color: var(--deep);
     margin: 0 0 0.75rem;
   }
+
+  .olist li::marker { color: var(--deep); }
 
   .tItem {
     padding: 0.875rem 0;

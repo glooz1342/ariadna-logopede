@@ -202,6 +202,19 @@ const schema = {
     html { scroll-behavior: auto; }
   }
 
+  ::selection {
+    background: var(--color-tint-lavender);
+    color: var(--color-text);
+  }
+
+  /* One focus ring everywhere, keyboard-only. Offset so it traces the shape
+     rather than sitting on top of it. */
+  :focus-visible {
+    outline: 2px solid var(--color-purple);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
   body {
     background-color: var(--color-bg);
     color: var(--color-text);
