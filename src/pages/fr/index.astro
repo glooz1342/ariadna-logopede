@@ -141,7 +141,7 @@ const domaines = [
       <p class="eyebrow">Logopède à Bruxelles</p>
       <h1>Ariadna Balsells</h1>
       <p class="hero-sub">
-        J'accompagne les enfants dans le développement du langage, de la communication et dans l'apprentissage des mathématiques.
+        J'accompagne <span class="hl">les enfants</span> dans le développement du langage, de la communication et dans l'apprentissage des mathématiques.
       </p>
       <div class="hero-actions">
         <a href={ROSA_URL.fr} class="btn-primary" target="_blank" rel="noopener">Prendre rendez-vous en ligne</a>
@@ -249,7 +249,28 @@ const domaines = [
     line-height: 1.05;
   }
   /* Wider than the heading measure so the sentence stays readable at size. */
+  /* Hand-drawn highlight. The stroke is an SVG path with a deliberately
+     uneven baseline, drawn behind the text so the words stay fully legible.
+     Ari's copy is untouched: only a span is wrapped around two existing
+     words. */
+  .hl {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .hl::after {
+    content: '';
+    position: absolute;
+    left: -0.12em;
+    right: -0.12em;
+    bottom: -0.14em;
+    height: 0.42em;
+    z-index: -1;
+    background: no-repeat center / 100% 100%
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 22' preserveAspectRatio='none'%3E%3Cpath d='M4 15.5c28-6 62-9.5 96-9.8 33-.3 68 2.2 96 7.4' stroke='%23D2CCDC' stroke-width='9' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+  }
   .hero-sub {
+    isolation: isolate;
     font-size: 1.2rem;
     color: var(--color-text-light);
     line-height: 1.75;
