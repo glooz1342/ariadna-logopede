@@ -15,7 +15,7 @@ const { lang } = Astro.props;
     <div class="footer-right">
       <p class="footer-copy">© {new Date().getFullYear()} Ariadna Balsells</p>
       <p class="footer-credit">{lang === 'fr' ? 'Site réalisé par Jonathan Geurts' : 'Site by Jonathan Geurts'}</p>
-      <a href={lang === 'fr' ? '/fr/cookies' : '/en/cookies'} class="footer-link">{lang === 'fr' ? 'Confidentialité & cookies' : 'Privacy & cookies'}</a>
+      <a href={lang === 'fr' ? '/fr/cookies/' : '/en/cookies/'} class="footer-link">{lang === 'fr' ? 'Confidentialité & cookies' : 'Privacy & cookies'}</a>
       <div class="socials">
         <a href="https://wa.me/32474052583" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">

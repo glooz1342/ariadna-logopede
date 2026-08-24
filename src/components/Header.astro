@@ -46,11 +46,21 @@ const nav: Record<'fr' | 'en', NavItem[]> = {
 const links = nav[lang];
 const otherLang = lang === 'fr' ? 'en' : 'fr';
 const langSwitchHref = altHref ?? `/${otherLang}`;
+
+/**
+ * Internal paths are emitted with a trailing slash so they match the canonical
+ * URL Astro builds (/fr/contact/). Linking to /fr/contact costs a redirect and
+ * splits the URL in Search Console. Anchors and files are left alone.
+ */
+const withSlash = (p: string) =>
+  p.startsWith('/') && !p.includes('#') && !p.includes('.') && !p.endsWith('/')
+    ? `${p}/`
+    : p;
 ---
 
 <header>
   <div class="header-inner">
-    <a href={`/${lang}`} class="logo">
+    <a href={`/${lang}/`} class="logo">
       <img src="/logo-mark.svg" alt="" width="34" height="37" class="logo-mark" />
       <span class="logo-text">
         <span class="logo-name">Ariadna Balsells</span>
@@ -61,14 +71,14 @@ const langSwitchHref = altHref ?? `/${otherLang}`;
     <nav id="main-nav">
       {links.map(link => link.children ? (
         <div class="nav-item has-dropdown">
-          <a href={link.href} class="nav-link nav-parent" aria-haspopup="true">
+          <a href={withSlash(link.href)} class="nav-link nav-parent" aria-haspopup="true">
             {link.label}
             <svg class="caret" width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <div class="dropdown">
             <div class="dropdown-panel">
               {link.children.map(child => child.href ? (
-                <a href={child.href} class="dropdown-link">{child.label}</a>
+                <a href={withSlash(child.href)} class="dropdown-link">{child.label}</a>
               ) : (
                 <span class="dropdown-link is-soon" aria-disabled="true">
                   {child.label}<em class="soon-badge">{child.note}</em>
@@ -78,13 +88,13 @@ const langSwitchHref = altHref ?? `/${otherLang}`;
           </div>
         </div>
       ) : (
-        <a href={link.href} class="nav-link">{link.label}</a>
+        <a href={withSlash(link.href)} class="nav-link">{link.label}</a>
       ))}
-      <a href={langSwitchHref} class="lang-switch mobile-lang">{otherLang.toUpperCase()}</a>
+      <a href={withSlash(langSwitchHref)} class="lang-switch mobile-lang">{otherLang.toUpperCase()}</a>
     </nav>
 
     <div class="header-right">
-      <a href={langSwitchHref} class="lang-switch desktop-lang">{otherLang.toUpperCase()}</a>
+      <a href={withSlash(langSwitchHref)} class="lang-switch desktop-lang">{otherLang.toUpperCase()}</a>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">
         <span></span>
         <span></span>
