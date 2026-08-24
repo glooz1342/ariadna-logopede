@@ -141,6 +141,9 @@ const schema = {
 
 <style is:global>
   :root {
+    /* Lets height transitions interpolate to and from `auto`.
+       Ignored by browsers that do not support it. */
+    interpolate-size: allow-keywords;
     --color-bg: #F9ECE3;
     --color-surface: #FFFFFF;
     --color-text: #2C2C2C;

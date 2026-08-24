@@ -184,6 +184,26 @@ const {
   }
   .fold-text { display: block; }
   .fold summary .encadre-intro { display: block; margin-bottom: 0; }
+  /* Smooth open/close.
+   *
+   * ::details-content is the anonymous box wrapping everything after
+   * <summary>. Animating it to `auto` needs interpolate-size, which is
+   * declared once in Layout.astro. Browsers without support ignore all
+   * of this and open instantly, which is the current behaviour, so there
+   * is no regression and no JavaScript involved. */
+  .fold::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition:
+      block-size 380ms cubic-bezier(0.32, 0.72, 0, 1),
+      content-visibility 380ms allow-discrete;
+  }
+  .fold[open]::details-content { block-size: auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fold::details-content { transition: none; }
+  }
+
   .chev {
     flex-shrink: 0;
     width: 0.6rem;
@@ -192,9 +212,10 @@ const {
     border-right: 2px solid var(--color-purple);
     border-bottom: 2px solid var(--color-purple);
     transform: rotate(45deg);
-    transition: transform 0.2s;
+    transition: transform 380ms cubic-bezier(0.32, 0.72, 0, 1);
   }
   .fold[open] .chev { transform: rotate(-135deg); }
+  .fold summary { transition: margin-bottom 380ms cubic-bezier(0.32, 0.72, 0, 1); }
   .fold[open] summary { margin-bottom: 1.5rem; }
 
   .col-head {
