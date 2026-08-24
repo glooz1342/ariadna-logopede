@@ -202,6 +202,79 @@ const schema = {
     html { scroll-behavior: auto; }
   }
 
+  /* ── Shared components ──
+     These were previously redefined in each page's scoped <style>: the three
+     button classes across 6 files and the two label classes across 12, all
+     byte-identical. One definition here means a change lands everywhere
+     instead of being repeated per page and missed on some. */
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 200ms, color 200ms, border-color 200ms,
+                transform 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                box-shadow 200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .btn-outline:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(126, 110, 156, 0.28);
+  }
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-outline:active { transform: translateY(0); }
+
+  .btn-primary { background: var(--color-purple); color: white; }
+  .btn-primary:hover { background: var(--color-purple-dark); }
+
+  .btn-secondary {
+    background: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+  }
+  .btn-secondary:hover {
+    border-color: var(--color-purple);
+    color: var(--color-purple);
+  }
+
+  .btn-outline {
+    color: var(--color-accent);
+    padding: 0.75rem 1.75rem;
+    border: 1.5px solid var(--color-accent);
+  }
+  .btn-outline:hover { background: var(--color-accent); color: white; }
+
+  /* The uppercase tracked sans label was the most template-looking element on
+     the site. Lora italic in sentence case reads as a person speaking, and
+     sets a serif/sans contrast against the Inter body copy. */
+  .eyebrow,
+  .section-label {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.05rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-accent);
+    font-weight: 400;
+    opacity: 0.72;
+    margin-bottom: 0.5rem;
+  }
+  /* The home page hero carries it one step larger. */
+  .hero .eyebrow { font-size: 1.1rem; margin-bottom: 0.4rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary, .btn-secondary, .btn-outline {
+      transition: background 200ms, color 200ms, border-color 200ms;
+    }
+    .btn-primary:hover, .btn-secondary:hover, .btn-outline:hover { transform: none; }
+  }
+
   ::selection {
     background: var(--color-tint-lavender);
     color: var(--color-text);
