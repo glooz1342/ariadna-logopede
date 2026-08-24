@@ -10,7 +10,7 @@ const embedUrl = toEmbedUrl(formUrl);
 <Layout title="Consultation à domicile | Ariadna Balsells" lang="fr"
   description="Demande de consultation logopédique à domicile à Bruxelles. Remplissez le formulaire en ligne et je reviens vers vous.">
 
-  <section class="page-hero">
+  <section class="page-hero soft-band soft-band-top grain">
     <div class="container">
       <p class="section-label">Consultation</p>
       <h1>À domicile</h1>
@@ -30,7 +30,7 @@ const embedUrl = toEmbedUrl(formUrl);
     </div>
   </section>
 
-  <section class="form-section">
+  <section class="form-section reveal">
     <div class="container">
 
       {configured ? (
@@ -153,19 +153,6 @@ const embedUrl = toEmbedUrl(formUrl);
     color: var(--color-accent);
     text-decoration: underline;
   }
-  .consent-btn {
-    padding: 0.6rem 1.4rem;
-    background: var(--color-accent);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.87rem;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .consent-btn:hover { background: var(--color-accent-dark); }
 
   /* Shown only while the form URL has not been pasted into booking.ts */
   .form-missing {
@@ -182,19 +169,6 @@ const embedUrl = toEmbedUrl(formUrl);
     margin: 0 auto;
     line-height: 1.7;
   }
-
-  .btn-whatsapp {
-    display: inline-block;
-    margin-top: 1.25rem;
-    padding: 0.7rem 1.5rem;
-    background: #25D366;
-    color: white !important;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.88rem;
-    text-decoration: none !important;
-  }
-  .btn-whatsapp:hover { background: #1ebe5d; }
 
   /* ── After the form ── */
   .after-form {

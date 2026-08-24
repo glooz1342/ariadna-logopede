@@ -174,7 +174,7 @@ const domains = [
   </section>
 
   <!-- About teaser -->
-  <section class="about reveal">
+  <section class="about reveal soft-band grain">
     <div class="container about-inner">
       <div class="about-text">
         <p class="section-label">About</p>
@@ -262,20 +262,7 @@ const domains = [
     padding: 5rem 0;
     position: relative;
     isolation: isolate;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   }
-  .about::before,
-  .about::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 90px;
-    pointer-events: none;
-    z-index: -1;
-  }
-  .about::before { top: 0; background: linear-gradient(to bottom, white, transparent); }
-  .about::after { bottom: 0; background: linear-gradient(to top, white, transparent); }
   .about-inner {
     max-width: 700px;
   }
@@ -283,7 +270,6 @@ const domains = [
   .about-text p { color: var(--color-text-light); line-height: 1.8; }
   .cta {
     background: white;
-    border-top: 1px solid var(--color-border);
     padding: 5rem 0;
     text-align: center;
   }
