@@ -226,22 +226,31 @@ const domaines = [
     max-width: 640px;
     margin: 0 auto;
   }
+  /* The uppercase tracked sans eyebrow is the most template-looking element
+     on the page. Lora italic in sentence case reads as a person introducing
+     herself rather than a category label, and sets up a serif/sans contrast
+     against the Inter body copy below. */
   .eyebrow {
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.1rem;
+    letter-spacing: 0;
+    text-transform: none;
     color: var(--color-accent);
-    font-weight: 500;
-    margin-bottom: 1rem;
+    font-weight: 400;
+    opacity: 0.72;
+    margin-bottom: 0.4rem;
   }
   .hero h1 {
-    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-size: clamp(3rem, 6vw, 4.8rem);
     font-weight: 600;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.75rem;
+    line-height: 1.05;
   }
+  /* Wider than the heading measure so the sentence stays readable at size. */
   .hero-sub {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--color-text-light);
     line-height: 1.75;
     margin: 0 auto 2.5rem;
