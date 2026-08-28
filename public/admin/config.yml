@@ -40,8 +40,8 @@ collections:
       - { label: Brouillons, field: draft, pattern: true }
     fields:
       - { name: title, label: Titre, widget: string, i18n: true }
-      - { name: startDate, label: Date de début, widget: datetime, date_format: DD/MM/YYYY, time_format: false, picker_utc: false, i18n: duplicate }
-      - { name: endDate, label: Date de fin, widget: datetime, date_format: DD/MM/YYYY, time_format: false, picker_utc: false, required: false, i18n: duplicate, hint: "À remplir uniquement si l'événement dure plusieurs jours." }
+      - { name: startDate, label: Date de début, widget: datetime, format: YYYY-MM-DD, date_format: DD/MM/YYYY, time_format: false, picker_utc: false, i18n: duplicate }
+      - { name: endDate, label: Date de fin, widget: datetime, format: YYYY-MM-DD, date_format: DD/MM/YYYY, time_format: false, picker_utc: false, required: false, i18n: duplicate, hint: "À remplir uniquement si l'événement dure plusieurs jours." }
       - { name: time, label: Horaire, widget: string, required: false, i18n: true, hint: 'Par exemple : 14h00 – 16h30' }
       - { name: location, label: Lieu, widget: string, required: false, i18n: true }
       - { name: price, label: Tarif, widget: string, required: false, i18n: true, hint: 'Texte libre — par exemple : 25 € par enfant, ou Gratuit' }
@@ -70,7 +70,7 @@ collections:
       - { label: Brouillons, field: draft, pattern: true }
     fields:
       - { name: title, label: Titre, widget: string, i18n: true }
-      - { name: date, label: Date de publication, widget: datetime, date_format: DD/MM/YYYY, time_format: false, picker_utc: false, i18n: duplicate }
+      - { name: date, label: Date de publication, widget: datetime, format: YYYY-MM-DD, date_format: DD/MM/YYYY, time_format: false, picker_utc: false, i18n: duplicate }
       - { name: cover, label: Image, widget: image, required: false, i18n: duplicate, hint: 'Une photo large plutôt que verticale rend mieux. Évitez les fichiers de plus de 2 Mo.' }
       - { name: coverAlt, label: Description de l'image, widget: string, required: false, i18n: true }
       - { name: summary, label: Résumé, widget: text, i18n: true, hint: 'Deux ou trois phrases. Apparaît dans la liste et dans Google.' }
