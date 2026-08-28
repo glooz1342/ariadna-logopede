@@ -51,9 +51,9 @@ collections:
       - { name: time, label: Horaire, widget: string, required: false, i18n: true, hint: 'Par exemple : 14h00 – 16h30' }
       - { name: location, label: Lieu, widget: string, required: false, i18n: true }
       - { name: price, label: Tarif, widget: string, required: false, i18n: true, hint: 'Texte libre — par exemple : 25 € par enfant, ou Gratuit' }
-      - { name: registrationUrl, label: Lien d'inscription, widget: string, required: false, i18n: duplicate, pattern: ['^https?://', 'Doit commencer par https://'] }
+      - { name: registrationUrl, label: Lien d'inscription, widget: string, required: false, i18n: duplicate, pattern: ['^(https?://.+)?$', 'Doit commencer par https://'] }
       - { name: coOrganiserName, label: Co-organisateur (nom), widget: string, required: false, i18n: duplicate }
-      - { name: coOrganiserUrl, label: Co-organisateur (site web), widget: string, required: false, i18n: duplicate, pattern: ['^https?://', 'Doit commencer par https://'] }
+      - { name: coOrganiserUrl, label: Co-organisateur (site web), widget: string, required: false, i18n: duplicate, pattern: ['^(https?://.+)?$', 'Doit commencer par https://'] }
       - { name: cover, label: Image, widget: image, required: false, i18n: duplicate }
       - { name: coverAlt, label: Description de l'image, widget: string, required: false, i18n: true, hint: "Décrit l'image pour les personnes malvoyantes et pour Google." }
       - { name: summary, label: Résumé, widget: text, i18n: true, hint: 'Deux ou trois phrases. Apparaît dans la liste et dans Google.' }
