@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { render, type CollectionEntry } from 'astro:content';
 import { indexPath, formatRange, formatDate, t, type Lang } from '../data/actualites';
 
@@ -66,8 +65,7 @@ const eventSchema =
   <section class="post-body reveal">
     <div class="container narrow">
       {d.cover && (
-        <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[640, 960]}
-               sizes="(max-width: 768px) 92vw, 720px" class="cover" />
+        <img src={d.cover} alt={d.coverAlt ?? ''} class="cover" />
       )}
 
       {kind === 'event' && (

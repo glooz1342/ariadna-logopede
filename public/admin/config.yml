@@ -10,8 +10,7 @@ backend:
   branch: main
   base_url: https://auth.ariadna-logopede.be
 
-# Fallback only — both collections override this and store images
-# beside their Markdown file. Nothing should normally land here.
+# Every image Ari uploads lands here, whatever collection it belongs to.
 media_folder: public/media
 public_folder: /media
 
@@ -35,11 +34,6 @@ collections:
     create: true
     i18n: true
     slug: '{{year}}-{{month}}-{{slug}}'
-    # Images are stored next to the article file so Astro can optimise them
-    # at build time (WebP, resized). Do not change this without also
-    # changing the `image()` schema in src/content.config.ts.
-    media_folder: ''
-    public_folder: './'
     summary: '{{startDate | date("DD/MM/YYYY")}} — {{title}}'
     sortable_fields: [startDate, title]
     view_filters:
@@ -54,7 +48,7 @@ collections:
       - { name: registrationUrl, label: Lien d'inscription, widget: string, required: false, i18n: duplicate, pattern: ['^(https?://.+)?$', 'Doit commencer par https://'] }
       - { name: coOrganiserName, label: Co-organisateur (nom), widget: string, required: false, i18n: duplicate }
       - { name: coOrganiserUrl, label: Co-organisateur (site web), widget: string, required: false, i18n: duplicate, pattern: ['^(https?://.+)?$', 'Doit commencer par https://'] }
-      - { name: cover, label: Image, widget: image, required: false, i18n: duplicate }
+      - { name: cover, label: Image, widget: image, required: false, i18n: duplicate, hint: 'Une photo large plutôt que verticale rend mieux. Évitez les fichiers de plus de 2 Mo.' }
       - { name: coverAlt, label: Description de l'image, widget: string, required: false, i18n: true, hint: "Décrit l'image pour les personnes malvoyantes et pour Google." }
       - { name: summary, label: Résumé, widget: text, i18n: true, hint: 'Deux ou trois phrases. Apparaît dans la liste et dans Google.' }
       - { name: body, label: Contenu, widget: markdown, i18n: true }
@@ -70,8 +64,6 @@ collections:
     create: true
     i18n: true
     slug: '{{year}}-{{month}}-{{slug}}'
-    media_folder: ''
-    public_folder: './'
     summary: '{{date | date("DD/MM/YYYY")}} — {{title}}'
     sortable_fields: [date, title]
     view_filters:
@@ -79,7 +71,7 @@ collections:
     fields:
       - { name: title, label: Titre, widget: string, i18n: true }
       - { name: date, label: Date de publication, widget: datetime, date_format: DD/MM/YYYY, time_format: false, picker_utc: false, i18n: duplicate }
-      - { name: cover, label: Image, widget: image, required: false, i18n: duplicate }
+      - { name: cover, label: Image, widget: image, required: false, i18n: duplicate, hint: 'Une photo large plutôt que verticale rend mieux. Évitez les fichiers de plus de 2 Mo.' }
       - { name: coverAlt, label: Description de l'image, widget: string, required: false, i18n: true }
       - { name: summary, label: Résumé, widget: text, i18n: true, hint: 'Deux ou trois phrases. Apparaît dans la liste et dans Google.' }
       - { name: body, label: Contenu, widget: markdown, i18n: true }
