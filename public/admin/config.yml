@@ -8,8 +8,12 @@ backend:
   name: github
   repo: glooz1342/ariadna-logopede
   branch: main
-  # TODO: replace with the sveltia-cms-auth Worker URL once it is deployed.
   base_url: https://auth.ariadna-logopede.be
+
+# Fallback only — both collections override this and store images
+# beside their Markdown file. Nothing should normally land here.
+media_folder: public/media
+public_folder: /media
 
 # French is the source language; English is optional per entry.
 i18n:
