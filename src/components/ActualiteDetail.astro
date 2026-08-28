@@ -1,0 +1,160 @@
+---
+import { Image } from 'astro:assets';
+import { render, type CollectionEntry } from 'astro:content';
+import { indexPath, formatRange, formatDate, t, type Lang } from '../data/actualites';
+
+type Entry = CollectionEntry<'evenements'> | CollectionEntry<'articles'>;
+interface Props { lang: Lang; entry: Entry; kind: 'event' | 'article' }
+const { lang, entry, kind } = Astro.props as Props;
+
+const { Content } = await render(entry as any);
+const s = t[lang];
+const d = entry.data as any;
+
+const dateLine =
+  kind === 'event'
+    ? formatRange(d.startDate, d.endDate, lang)
+    : formatDate(d.date, lang);
+
+/**
+ * Event structured data. Google surfaces these in event listings, and a
+ * co-organiser with a URL doubles as the `organizer` entry, so Ari fills
+ * the field in once and it serves both the visible link and the schema.
+ */
+const siteUrl = 'https://ariadna-logopede.be';
+const eventSchema =
+  kind === 'event'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Event',
+        name: d.title,
+        description: d.summary,
+        startDate: d.startDate.toISOString().slice(0, 10),
+        ...(d.endDate && { endDate: d.endDate.toISOString().slice(0, 10) }),
+        eventStatus: 'https://schema.org/EventScheduled',
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        ...(d.location && { location: { '@type': 'Place', name: d.location } }),
+        ...(d.registrationUrl && { url: d.registrationUrl }),
+        organizer: [
+          { '@type': 'Person', name: 'Ariadna Balsells', url: `${siteUrl}/${lang}/` },
+          ...(d.coOrganiserName
+            ? [{
+                '@type': 'Organization',
+                name: d.coOrganiserName,
+                ...(d.coOrganiserUrl && { url: d.coOrganiserUrl }),
+              }]
+            : []),
+        ],
+      }
+    : null;
+---
+
+{eventSchema && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(eventSchema)} />
+)}
+
+<article>
+  <section class="post-hero soft-band soft-band-top grain">
+    <div class="container">
+      <p class="eyebrow section-label">{s.eyebrow}</p>
+      <h1>{d.title}</h1>
+      <p class="post-date">{dateLine}</p>
+      {d.draft && <p class="draft-flag">{s.draft}</p>}
+    </div>
+  </section>
+
+  <section class="post-body reveal">
+    <div class="container narrow">
+      {d.cover && (
+        <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[640, 960]}
+               sizes="(max-width: 768px) 92vw, 720px" class="cover" />
+      )}
+
+      {kind === 'event' && (
+        <dl class="facts">
+          <dt>{s.when}</dt>
+          <dd>{dateLine}{d.time && <span> · {d.time}</span>}</dd>
+          {d.location && (<><dt>{s.where}</dt><dd>{d.location}</dd></>)}
+          {d.price && (<><dt>{s.price}</dt><dd>{d.price}</dd></>)}
+          {d.coOrganiserName && (
+            <>
+              <dt>{s.with}</dt>
+              <dd>
+                {d.coOrganiserUrl
+                  ? <a href={d.coOrganiserUrl} rel="noopener">{d.coOrganiserName}</a>
+                  : d.coOrganiserName}
+              </dd>
+            </>
+          )}
+        </dl>
+      )}
+
+      <div class="prose"><Content /></div>
+
+      {kind === 'event' && d.registrationUrl && (
+        <p><a href={d.registrationUrl} class="btn-primary" rel="noopener">{s.register}</a></p>
+      )}
+
+      <p class="back"><a href={`${indexPath[lang]}/`}>{s.back}</a></p>
+    </div>
+  </section>
+</article>
+
+<style>
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  .container.narrow { max-width: 720px; }
+
+  .post-hero { padding: 5rem 0 2.5rem; }
+  .post-hero h1 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); margin-bottom: 0.75rem; }
+  .post-date { color: var(--color-text-light); font-size: 0.95rem; }
+  .draft-flag {
+    display: inline-block;
+    margin-top: 0.75rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    background: var(--color-tint-pink, #F5D9DD);
+    font-size: 0.85rem;
+  }
+
+  .post-body { padding: 2rem 0 6rem; }
+  .cover { width: 100%; height: auto; border-radius: 16px; margin-bottom: 2.5rem; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem 1.5rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+  }
+  .facts dt { color: var(--color-text-light); }
+  .facts dd a { color: var(--color-purple); text-decoration: underline; }
+
+  .prose :global(h2) { font-size: 1.4rem; margin: 2.25rem 0 0.75rem; }
+  .prose :global(h3) { font-size: 1.15rem; margin: 1.75rem 0 0.5rem; }
+  .prose :global(p) { margin-bottom: 1.1rem; }
+  .prose :global(ul), .prose :global(ol) { margin: 0 0 1.1rem 1.25rem; }
+  .prose :global(li) { margin-bottom: 0.35rem; }
+  .prose :global(a) { color: var(--color-purple); text-decoration: underline; }
+  .prose :global(img) { max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0; }
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--color-tint-lavender);
+    padding-left: 1.25rem;
+    color: var(--color-text-light);
+    font-style: italic;
+    margin-bottom: 1.1rem;
+  }
+
+  .back { margin-top: 3rem; font-size: 0.9rem; }
+  .back a { color: var(--color-purple); }
+  .back a:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .post-hero { padding: 3rem 0 2rem; }
+    .facts { grid-template-columns: 1fr; gap: 0.15rem; padding: 1.25rem; }
+    .facts dd { margin-bottom: 0.6rem; }
+  }
+</style>

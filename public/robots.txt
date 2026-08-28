@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+# CMS login, nothing to index
+Disallow: /admin
+
 Sitemap: https://ariadna-logopede.be/sitemap-index.xml

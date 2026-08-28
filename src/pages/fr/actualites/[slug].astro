@@ -1,0 +1,28 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ActualiteDetail from '../../../components/ActualiteDetail.astro';
+import { getEvents, getArticles, slugOf } from '../../../data/actualites';
+
+export async function getStaticPaths() {
+  const { upcoming, past } = await getEvents('fr');
+  const articles = await getArticles('fr');
+  return [
+    // Past events keep their page so external links never break, they just
+    // stop being listed on the index.
+    ...[...upcoming, ...past].map(entry => ({
+      params: { slug: slugOf(entry.id) },
+      props: { entry, kind: 'event' as const },
+    })),
+    ...articles.map(entry => ({
+      params: { slug: slugOf(entry.id) },
+      props: { entry, kind: 'article' as const },
+    })),
+  ];
+}
+
+const { entry, kind } = Astro.props;
+---
+<Layout title={`${entry.data.title} | Ariadna Balsells`} lang="fr"
+  description={entry.data.summary}>
+  <ActualiteDetail lang="fr" entry={entry} kind={kind} />
+</Layout>

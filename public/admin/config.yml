@@ -1,0 +1,82 @@
+# Sveltia CMS — https://github.com/sveltia/sveltia-cms
+#
+# Who can log in is decided entirely by GitHub repository permissions:
+# anyone with write access to the repo below can publish. There is no
+# separate user list here.
+
+backend:
+  name: github
+  repo: glooz1342/ariadna-logopede
+  branch: main
+  # TODO: replace with the sveltia-cms-auth Worker URL once it is deployed.
+  base_url: https://REPLACE-ME.workers.dev
+
+# French is the source language; English is optional per entry.
+i18n:
+  structure: multiple_folders
+  locales: [fr, en]
+  default_locale: fr
+
+publish_mode: simple
+
+collections:
+  - name: evenements
+    label: Événements
+    label_singular: Événement
+    description: >-
+      Stages, formations, ateliers et activités de groupe. Un événement
+      disparaît automatiquement de la liste le lendemain de sa date de fin,
+      mais sa page reste en ligne.
+    folder: src/content/evenements
+    create: true
+    i18n: true
+    slug: '{{year}}-{{month}}-{{slug}}'
+    # Images are stored next to the article file so Astro can optimise them
+    # at build time (WebP, resized). Do not change this without also
+    # changing the `image()` schema in src/content.config.ts.
+    media_folder: ''
+    public_folder: './'
+    summary: '{{startDate | date("DD/MM/YYYY")}} — {{title}}'
+    sortable_fields: [startDate, title]
+    view_filters:
+      - { label: Brouillons, field: draft, pattern: true }
+    fields:
+      - { name: title, label: Titre, widget: string, i18n: true }
+      - { name: startDate, label: Date de début, widget: datetime, date_format: DD/MM/YYYY, time_format: false, picker_utc: false, i18n: duplicate }
+      - { name: endDate, label: Date de fin, widget: datetime, date_format: DD/MM/YYYY, time_format: false, picker_utc: false, required: false, i18n: duplicate, hint: "À remplir uniquement si l'événement dure plusieurs jours." }
+      - { name: time, label: Horaire, widget: string, required: false, i18n: true, hint: 'Par exemple : 14h00 – 16h30' }
+      - { name: location, label: Lieu, widget: string, required: false, i18n: true }
+      - { name: price, label: Tarif, widget: string, required: false, i18n: true, hint: 'Texte libre — par exemple : 25 € par enfant, ou Gratuit' }
+      - { name: registrationUrl, label: Lien d'inscription, widget: string, required: false, i18n: duplicate, pattern: ['^https?://', 'Doit commencer par https://'] }
+      - { name: coOrganiserName, label: Co-organisateur (nom), widget: string, required: false, i18n: duplicate }
+      - { name: coOrganiserUrl, label: Co-organisateur (site web), widget: string, required: false, i18n: duplicate, pattern: ['^https?://', 'Doit commencer par https://'] }
+      - { name: cover, label: Image, widget: image, required: false, i18n: duplicate }
+      - { name: coverAlt, label: Description de l'image, widget: string, required: false, i18n: true, hint: "Décrit l'image pour les personnes malvoyantes et pour Google." }
+      - { name: summary, label: Résumé, widget: text, i18n: true, hint: 'Deux ou trois phrases. Apparaît dans la liste et dans Google.' }
+      - { name: body, label: Contenu, widget: markdown, i18n: true }
+      - { name: draft, label: Brouillon, widget: boolean, default: true, i18n: duplicate, hint: "Tant que cette case est cochée, rien n'est visible sur le site." }
+
+  - name: articles
+    label: Articles
+    label_singular: Article
+    description: >-
+      Articles de fond sur le langage, la communication et l'alimentation
+      de l'enfant.
+    folder: src/content/articles
+    create: true
+    i18n: true
+    slug: '{{year}}-{{month}}-{{slug}}'
+    media_folder: ''
+    public_folder: './'
+    summary: '{{date | date("DD/MM/YYYY")}} — {{title}}'
+    sortable_fields: [date, title]
+    view_filters:
+      - { label: Brouillons, field: draft, pattern: true }
+    fields:
+      - { name: title, label: Titre, widget: string, i18n: true }
+      - { name: date, label: Date de publication, widget: datetime, date_format: DD/MM/YYYY, time_format: false, picker_utc: false, i18n: duplicate }
+      - { name: cover, label: Image, widget: image, required: false, i18n: duplicate }
+      - { name: coverAlt, label: Description de l'image, widget: string, required: false, i18n: true }
+      - { name: summary, label: Résumé, widget: text, i18n: true, hint: 'Deux ou trois phrases. Apparaît dans la liste et dans Google.' }
+      - { name: body, label: Contenu, widget: markdown, i18n: true }
+      - { name: draft, label: Brouillon, widget: boolean, default: true, i18n: duplicate }

@@ -5,3 +5,7 @@
 # expandable cards on the home pages
 /fr/prises-en-charge/*  /fr/  301
 /en/areas-of-practice/*  /en/  301
+# The gallery was never populated; photos now live inside news posts
+# and articles (August 2026)
+/fr/galerie  /fr/actualites/  301
+/en/gallery  /en/news/  301
