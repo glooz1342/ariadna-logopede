@@ -9,7 +9,7 @@ backend:
   repo: glooz1342/ariadna-logopede
   branch: main
   # TODO: replace with the sveltia-cms-auth Worker URL once it is deployed.
-  base_url: https://REPLACE-ME.workers.dev
+  base_url: https://auth.ariadna-logopede.be
 
 # French is the source language; English is optional per entry.
 i18n:
