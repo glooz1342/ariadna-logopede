@@ -1,15 +1,16 @@
 ---
 title: Exemple — atelier de groupe
 startDate: 2026-09-20
+endDate: ''
 time: 10h00 – 12h00
-location: "CAP'S, Woluwe-Saint-Lambert"
+location: CAP'S, Woluwe-Saint-Lambert
 price: À confirmer
+registrationUrl: ''
 coOrganiserName: CAP'S
-coOrganiserUrl: https://example.com
-summary: >-
-  Ceci est un exemple, laissé en brouillon pour montrer à quoi ressemble une
-  fiche événement. Il n'apparaît pas sur le site tant que la case
-  « Brouillon » est cochée. À supprimer une fois le premier vrai événement créé.
+coOrganiserUrl: ''
+cover: .././coolduck.jpg
+coverAlt: ''
+summary: Ceci est un exemple, laissé en brouillon pour montrer à quoi ressemble une fiche événement. Il n'apparaît pas sur le site tant que la case « Brouillon » est cochée. À supprimer une fois le premier vrai événement créé.
 draft: true
 ---
 
