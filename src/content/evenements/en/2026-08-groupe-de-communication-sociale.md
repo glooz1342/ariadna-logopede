@@ -7,7 +7,7 @@ location: Centre CAP'S
 price: 50 € par atelier
 registrationUrl: https://www.centrecaps.be/therapies-collectives
 coOrganiserName: Siham El Amrani
-coOrganiserUrl: https://www.centrecaps.be
+coOrganiserUrl: https://www.centrecaps.be/praticiens
 cover: /media/Flyer Communication Sociale_page-0001.jpg
 coverAlt: ''
 summary: Social communication workshops for children aged 8 to 12 at CAP’S Centre.
