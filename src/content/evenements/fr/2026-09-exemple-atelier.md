@@ -1,17 +1,17 @@
 ---
 title: Exemple — atelier de groupe
-startDate: 2026-08-28
-endDate: 2026-08-28
-time: 10h00 – 12h30
+startDate: 2026-09-20
+endDate: ''
+time: 10h00 – 12h00
 location: CAP'S, Woluwe-Saint-Lambert
 price: À confirmer
 registrationUrl: ''
 coOrganiserName: CAP'S
 coOrganiserUrl: ''
-cover: /media/coolcat.jpg
+cover: /media/coolcato.jpg
 coverAlt: ''
 summary: Ceci est un exemple, laissé en brouillon pour montrer à quoi ressemble une fiche événement. Il n'apparaît pas sur le site tant que la case « Brouillon » est cochée. À supprimer une fois le premier vrai événement créé.
-draft: true
+draft: false
 ---
 
 Le contenu de l'événement s'écrit ici, comme dans un traitement de texte.
@@ -23,4 +23,3 @@ ce qu'il faut prévoir.
 
 - Un point
 - Un autre point
-- un troisième point
