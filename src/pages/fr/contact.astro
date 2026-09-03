@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { ROSA_URL } from '../../data/booking';
+import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
 ---
 
 <Layout title="Contact | Ariadna Balsells" lang="fr"
@@ -27,7 +27,7 @@ import { ROSA_URL } from '../../data/booking';
             <a href={ROSA_URL.fr} class="btn-booking" target="_blank" rel="noopener">
               Réserver sur Rosa
             </a>
-            <p class="contact-subnote">Pour une consultation à domicile, <a href="https://wa.me/32474052583" target="_blank" rel="noopener">envoyez-moi une demande par WhatsApp</a>.</p>
+            <p class="contact-subnote">Pour une consultation à domicile, <a href={WHATSAPP_URL} target="_blank" rel="noopener">envoyez-moi une demande par WhatsApp</a>.</p>
           </div>
         </div>
 
@@ -36,7 +36,7 @@ import { ROSA_URL } from '../../data/booking';
           <div>
             <h3>WhatsApp</h3>
             <p class="contact-note">De loin le moyen le plus rapide pour me joindre. Je réponds bien plus vite via WhatsApp que par appel téléphonique.</p>
-            <a href="https://wa.me/32474052583" class="btn-whatsapp" target="_blank" rel="noopener">
+            <a href={WHATSAPP_URL} class="btn-whatsapp" target="_blank" rel="noopener">
               Envoyer un message WhatsApp
             </a>
           </div>

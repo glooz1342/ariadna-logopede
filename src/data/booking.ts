@@ -10,7 +10,13 @@ export const ROSA_URL = {
 } as const;
 
 /** WhatsApp number in wa.me format (no +, no spaces). */
-export const WHATSAPP_NUMBER = '32474052583';
+export const WHATSAPP_NUMBER = '32490461294';
+
+/** Ready-made wa.me link. Use this in pages rather than hardcoding the number. */
+export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+
+/** Same number in E.164 form, for tel: links and structured data. */
+export const PHONE_E164 = `+${WHATSAPP_NUMBER}`;
 
 /**
  * Public URLs of the "consultation à domicile" Google Forms.

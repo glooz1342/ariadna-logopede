@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { HOME_VISIT_FORM, WHATSAPP_NUMBER, isFormConfigured, toEmbedUrl } from '../../../data/booking';
+import { HOME_VISIT_FORM, WHATSAPP_URL, isFormConfigured, toEmbedUrl } from '../../../data/booking';
 
 const formUrl = HOME_VISIT_FORM.en;
 const configured = isFormConfigured(formUrl);
@@ -62,7 +62,7 @@ const embedUrl = toEmbedUrl(formUrl);
             The online request form is coming very soon. In the meantime, message me
             directly on WhatsApp. It's the fastest way to reach me.
           </p>
-          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} class="btn-whatsapp" target="_blank" rel="noopener">
+          <a href={WHATSAPP_URL} class="btn-whatsapp" target="_blank" rel="noopener">
             Message me on WhatsApp
           </a>
         </div>
@@ -71,7 +71,7 @@ const embedUrl = toEmbedUrl(formUrl);
       <div class="after-form">
         <p>
           A question before you send your request? The fastest way is
-          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener">WhatsApp</a>.
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener">WhatsApp</a>.
           I reply much quicker there than by phone.
         </p>
         <p class="small">

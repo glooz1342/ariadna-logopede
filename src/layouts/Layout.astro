@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
+import { PHONE_E164 } from '../data/booking';
 
 interface Props {
   title: string;
@@ -50,7 +51,7 @@ const schema = {
   "description": metaDescription,
   "url": `${siteUrl}/fr/`,
   "image": `${siteUrl}/Ari.jpeg`,
-  "telephone": "+32474052583",
+  "telephone": PHONE_E164,
   "email": "ariadna.logopede@gmail.com",
   "address": {
     "@type": "PostalAddress",

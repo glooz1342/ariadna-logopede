@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { HOME_VISIT_FORM, WHATSAPP_NUMBER, isFormConfigured, toEmbedUrl } from '../../../data/booking';
+import { HOME_VISIT_FORM, WHATSAPP_URL, isFormConfigured, toEmbedUrl } from '../../../data/booking';
 
 const formUrl = HOME_VISIT_FORM.fr;
 const configured = isFormConfigured(formUrl);
@@ -64,7 +64,7 @@ const embedUrl = toEmbedUrl(formUrl);
             Le formulaire de demande en ligne arrive très prochainement. En attendant,
             écrivez-moi directement sur WhatsApp. C'est le plus rapide.
           </p>
-          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} class="btn-whatsapp" target="_blank" rel="noopener">
+          <a href={WHATSAPP_URL} class="btn-whatsapp" target="_blank" rel="noopener">
             Écrire sur WhatsApp
           </a>
         </div>
@@ -73,7 +73,7 @@ const embedUrl = toEmbedUrl(formUrl);
       <div class="after-form">
         <p>
           Une question avant d'envoyer votre demande ? Le plus rapide reste
-          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener">WhatsApp</a>.
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener">WhatsApp</a>.
           J'y réponds bien plus vite que par téléphone.
         </p>
         <p class="small">

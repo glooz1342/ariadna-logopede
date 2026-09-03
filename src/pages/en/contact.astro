@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { ROSA_URL } from '../../data/booking';
+import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
 ---
 
 <Layout title="Contact | Ariadna Balsells" lang="en"
@@ -36,7 +36,7 @@ import { ROSA_URL } from '../../data/booking';
           <div>
             <h3>WhatsApp</h3>
             <p class="contact-note">By far the fastest way to reach me. I respond much quicker via WhatsApp than by phone call.</p>
-            <a href="https://wa.me/32474052583" class="btn-whatsapp" target="_blank" rel="noopener">
+            <a href={WHATSAPP_URL} class="btn-whatsapp" target="_blank" rel="noopener">
               Send a WhatsApp message
             </a>
           </div>
