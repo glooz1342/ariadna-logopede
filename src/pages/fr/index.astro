@@ -9,51 +9,56 @@ import DomainCard from '../../components/DomainCard.astro';
 // par Ari sur le même modèle, il suffit d'ajouter un objet à cette liste.
 const domaines = [
   {
-    title: 'Communication et langage',
+    title: 'Communication et langage oral',
     icon: '💬',
     tint: 'lavender' as const,
-    intro: "L'accompagnement du langage, de la parole et de la communication chez l'enfant, qu'il s'agisse d'une difficulté spécifique ou d'un trouble neurodéveloppemental.",
+    intro: "L'accompagnement du langage, de la parole et de la communication chez l'enfant, qu'il s'agisse d'une difficulté isolée ou associée à une autre condition.",
     headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
     terms: [
-      { term: 'Retard de parole et de langage' },
-      { term: 'Trouble développemental du langage', sub: '(TDL)' },
-      { term: 'Dyspraxie verbale' },
+      { term: "Le langage : comprendre et s'exprimer", sub: "le lexique (connaître les mots), la morphosyntaxe (placer les mots dans le bon ordre), la phonologie (distinguer les sons) et la compréhension (saisir ce qu'on lui dit)" },
+      { term: 'La parole : produire les sons', sub: "l'articulation (prononcer nettement), la planification et la programmation du mouvement (enchaîner les gestes de la parole) et la phonologie (organiser les sons du mot)" },
+      { term: 'La communication : échanger avec les autres', sub: "la communication sociale : la pragmatique (adapter le langage à la situation), les habiletés sociales (entrer en relation, prendre son tour) et les compétences discursives et narratives (raconter, tenir une conversation)" },
     ],
+    observationsIntro: "Votre enfant peut présenter l'un ou l'autre de ces signes, à des degrés variables :",
     observations: [
       "Il parle peu, tard ou moins bien que les enfants de son âge",
-      "Il cherche ses mots ou construit mal ses phrases",
-      "Il comprend difficilement les consignes",
-      "On a du mal à le comprendre quand il parle",
+      "Il cherche ses mots ou place les mots dans le désordre",
+      "Il comprend difficilement ce qu'on lui dit",
+      "On le comprend mal quand il parle : il avale des sons ou des syllabes",
+      "Il a du mal à entrer en relation, à prendre son tour ou à raconter",
     ],
     assoc: {
-      lead: "J'accompagne aussi le langage et la communication lorsqu'ils sont affectés par une condition associée :",
+      primary: [
+        { title: 'Trouble développemental du langage (TDL)' },
+        { title: 'Dyspraxie verbale' },
+      ],
+      lead: "J'accompagne aussi la communication et le langage dans le cadre d'une condition associée. L'objectif reste le même, adapté aux spécificités de chaque enfant :",
       conditions: [
         {
           title: "Trouble du spectre de l'autisme (TSA)",
-          desc: 'Soutenir les interactions et développer la communication, verbale ou non.',
+          desc: "Évaluation et accompagnement de la communication et du langage, que l'enfant présente ou non des besoins complexes de communication.",
           featured: true,
         },
         {
           title: 'Trisomie 21',
-          desc: 'Accompagner le langage et la parole tout au long du développement.',
+          desc: "Évaluation et accompagnement de la parole et du langage, en tenant compte des spécificités du syndrome.",
         },
         {
           title: 'Syndromes génétiques',
-          desc: "Adapter l'accompagnement du langage à chaque profil.",
+          desc: "Un accompagnement qui tient compte des spécificités du trouble associé.",
         },
         {
           title: 'Déficience intellectuelle',
-          desc: "Adapter la communication au rythme et aux capacités de l'enfant.",
         },
       ],
     },
-    note: "Soutenir la communication étant au cœur de ce domaine, il est fréquent que la mise en place d'un outil de <strong>communication alternative &amp; améliorée (CAA)</strong> devienne l'un des objectifs du suivi, selon le profil de l'enfant.",
+    note: "La <strong>communication alternative et améliorée (CAA)</strong> rassemble des stratégies comme les gestes, les signes, les pictogrammes ou les supports numériques. Elle enrichit le langage et soutient à la fois la parole et la communication. Ouverte à tout enfant dont les besoins de communication sont complexes, elle lui donne les moyens de comprendre et de se faire comprendre.",
   },
   {
     title: 'Alimentation',
     icon: '🍽️',
     tint: 'mint' as const,
-    intro: "L'accompagnement des <strong>troubles alimentaires pédiatriques (TAP)</strong> chez l'enfant, du nourrisson au plus grand, dans leurs dimensions sensorielle, motrice et comportementale.",
+    intro: "L'accompagnement du développement de l'alimentation chez l'enfant, du nourrisson au plus grand, dans ses dimensions sensorielle, motrice et comportementale.",
     headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
     terms: [
       { term: 'Sélectivité alimentaire' },
@@ -67,7 +72,7 @@ const domaines = [
       "Il garde les aliments en bouche, s'étouffe ou les repas n'en finissent pas",
     ],
     assoc: {
-      lead: "J'accompagne aussi l'alimentation lorsqu'elle est fragilisée par une condition associée :",
+      lead: "J'accompagne aussi l'alimentation dans le cadre d'une condition associée. L'objectif reste le même, adapté aux spécificités de chaque enfant :",
       conditions: [
         {
           title: "Trouble du spectre de l'autisme (TSA)",
@@ -163,6 +168,7 @@ const domaines = [
             headings={d.headings}
             terms={d.terms}
             observations={d.observations}
+            observationsIntro={d.observationsIntro}
             assoc={d.assoc}
             note={d.note}
             icon={d.icon}

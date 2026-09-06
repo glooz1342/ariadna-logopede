@@ -40,7 +40,11 @@ export interface Props {
   /** Right column: parent-facing observations. Not paired with terms.
    *  May contain <strong>, so rendered with set:html. */
   observations: string[];
-  assoc?: { lead: string; conditions: AssocCondition[] };
+  /** Optional line above the observations, e.g. "one sign can be enough". */
+  observationsIntro?: string;
+  /** `primary` renders as a first, un-labelled group of cards (primary
+   *  diagnoses), shown before the `lead` sentence and its `conditions`. */
+  assoc?: { primary?: AssocCondition[]; lead: string; conditions: AssocCondition[] };
   /** Closing note in a tinted box. May contain <strong>. */
   note?: string;
   /** Accent tint for this domain. One per encadré. */
@@ -48,7 +52,7 @@ export interface Props {
 }
 
 const {
-  title, icon, intro, headings, terms, observations, assoc, note,
+  title, icon, intro, headings, terms, observations, observationsIntro, assoc, note,
   tint = 'lavender',
 } = Astro.props;
 ---
@@ -83,6 +87,7 @@ const {
       </div>
       <div class="ocol">
         <p class="mh">{headings[1]}</p>
+        {observationsIntro && <p class="olist-intro">{observationsIntro}</p>}
         <ul class="olist">
           {observations.map(o => <li set:html={o} />)}
         </ul>
@@ -92,6 +97,16 @@ const {
 
   {assoc && (
     <div class="assoc">
+      {assoc.primary && assoc.primary.length > 0 && (
+        <div class="assoc-grid assoc-primary">
+          {assoc.primary.map(c => (
+            <div class={c.featured ? 'cond featured' : 'cond'}>
+              <h4>{c.title}</h4>
+              {c.desc && <p>{c.desc}</p>}
+            </div>
+          ))}
+        </div>
+      )}
       <p class="assoc-lead">{assoc.lead}</p>
       <div class="assoc-grid">
         {assoc.conditions.map(c => (
@@ -286,6 +301,12 @@ const {
   }
 
   .ocol { padding-top: 0.5rem; }
+  .olist-intro {
+    margin: 0 0 0.9rem;
+    font-size: 0.92rem;
+    color: var(--color-text-light);
+    line-height: 1.5;
+  }
   ul.olist { list-style: none; margin: 0; padding: 0; }
   ul.olist li {
     position: relative;
@@ -309,6 +330,7 @@ const {
 
   /* ── Associated conditions ── */
   .assoc { margin-top: 1.75rem; }
+  .assoc-primary { margin-bottom: 1.6rem; }
   .assoc-lead {
     font-size: 0.97rem;
     color: var(--color-text);
