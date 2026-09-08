@@ -10,7 +10,7 @@ import DomainCard from '../../components/DomainCard.astro';
 const domains = [
   {
     title: 'Communication and language',
-    icon: '💬',
+    icon: 'speech' as const,
     tint: 'lavender' as const,
     intro: "Support with language, speech and communication in children, whether the difficulty is specific or part of a neurodevelopmental disorder.",
     headings: ['I support', 'What you may notice in your child'] as [string, string],
@@ -51,7 +51,7 @@ const domains = [
   },
   {
     title: 'Feeding',
-    icon: '🍽️',
+    icon: 'feeding' as const,
     tint: 'mint' as const,
     intro: "Support with <strong>paediatric feeding disorders (PFD)</strong> in children, from infancy upwards, across their sensory, motor and behavioural dimensions.",
     headings: ['I support', 'What you may notice in your child'] as [string, string],
@@ -91,7 +91,7 @@ const domains = [
   },
   {
     title: 'Mathematical cognition',
-    icon: '🧮',
+    icon: 'maths' as const,
     tint: 'blue' as const,
     intro: "Support with difficulties in <strong>mathematical cognition</strong> in children: an umbrella term covering the whole range of difficulties in mathematics, including mathematics learning disorder (MLD), which today replaces ‘dyscalculia’.",
     headings: ['I support', 'What you may notice in your child'] as [string, string],
@@ -137,7 +137,7 @@ const domains = [
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-inner">
+    <div class="hero-text">
       <p class="eyebrow">Speech Therapist in Brussels</p>
       <h1>Ariadna Balsells</h1>
       <p class="hero-sub">
@@ -148,37 +148,37 @@ const domains = [
         <a href="/en/about/" class="btn-secondary">About me</a>
       </div>
     </div>
-  </section>
-
-  <!-- Services -->
-  <section class="services reveal" id="areas-of-practice">
-    <div class="container">
-      <p class="section-label">What I offer</p>
-      <h2>Areas of practice</h2>
-      <div class="domains">
-        {domains.map(d => (
-          <DomainCard
-            title={d.title}
-            intro={d.intro}
-            headings={d.headings}
-            terms={d.terms}
-            observations={d.observations}
-            assoc={d.assoc}
-            note={d.note}
-            icon={d.icon}
-            tint={d.tint}
-          />
-        ))}
-      </div>
+    <div class="hero-portrait">
+      <img src="/Ari.jpeg" width="960" height="1280" alt="Ariadna Balsells, speech therapist" fetchpriority="high" />
     </div>
   </section>
 
+  <!-- Areas of practice -->
+  <section class="domaines" id="areas-of-practice">
+    <div class="domaines-head">
+      <h2>Areas of practice</h2>
+    </div>
+    {domains.map((d, i) => (
+      <DomainCard
+        title={d.title}
+        intro={d.intro}
+        headings={d.headings}
+        terms={d.terms}
+        observations={d.observations}
+        assoc={d.assoc}
+        note={d.note}
+        icon={d.icon}
+        tint={d.tint}
+        flip={i % 2 === 1}
+      />
+    ))}
+  </section>
+
   <!-- About teaser -->
-  <section class="about reveal soft-band grain">
-    <div class="container about-inner">
-      <div class="about-text">
-        <p class="section-label">About</p>
-        <h2>A person-centred approach</h2>
+  <section class="about">
+    <div class="about-inner">
+      <h2>A person-centred approach</h2>
+      <div class="about-body">
         <p>
           I am Ariadna Balsells, a speech therapist based in Brussels. My work is built around 
           a strong belief: every child has their own way of communicating, and my role is 
@@ -190,10 +190,12 @@ const domains = [
   </section>
 
   <!-- CTA -->
-  <section class="cta reveal">
-    <div class="container">
-      <h2>Would you like to book an appointment?</h2>
-      <p>Feel free to get in touch with any questions or to schedule an initial consultation.</p>
+  <section class="cta grain">
+    <div class="cta-inner">
+      <div>
+        <h2>Would you like to book an appointment?</h2>
+        <p>Feel free to get in touch with any questions or to schedule an initial consultation.</p>
+      </div>
       <a href="/en/contact/" class="btn-primary">Contact me</a>
     </div>
   </section>
@@ -201,29 +203,34 @@ const domains = [
 </Layout>
 
 <style>
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
+  /* ── Hero ──
+     Asymmetric, not a centred stack. The portrait bleeds off the right
+     edge of the viewport onto a cream field, so the first thing on the
+     page is the person rather than a wordmark floating on white. */
   .hero {
     background: var(--color-surface);
-    padding: 7rem 2rem 6rem;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1.04fr 0.96fr;
+    align-items: center;
+    min-height: clamp(27rem, 46vw, 35rem);
   }
-  .hero-inner {
-    max-width: 640px;
-    margin: 0 auto;
+  .hero-text {
+    /* The left padding tracks the 1100px measure used by every other
+       section, so the h1 lines up with the headings below it. */
+    padding: 4.5rem 3.5rem 4.5rem max(2rem, calc((100vw - 1100px) / 2));
+    max-width: 42rem;
   }
   .hero h1 {
-    font-size: clamp(3rem, 6vw, 4.8rem);
+    font-size: clamp(2.7rem, 5.2vw, 4.2rem);
     font-weight: 600;
     letter-spacing: -0.025em;
-    margin-bottom: 1.75rem;
     line-height: 1.05;
+    margin-bottom: 1.5rem;
   }
-  /* Hand-drawn highlight. Uneven SVG stroke drawn behind the words at
-     z-index -1 so the text stays fully legible on top. */
+  /* Hand-drawn highlight. The stroke is an SVG path with a deliberately
+     uneven baseline, drawn behind the text so the words stay fully
+     legible. Ari's copy is untouched: only a span is wrapped around two
+     existing words. */
   .hl {
     position: relative;
     display: inline-block;
@@ -242,56 +249,121 @@ const domains = [
   }
   .hero-sub {
     isolation: isolate;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: var(--color-text-light);
-    line-height: 1.75;
-    margin: 0 auto 2.5rem;
-    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 2.25rem;
+    max-width: 34ch;
   }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-  .services { background: white; padding: 5rem 0; }
-  .services h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 3rem; }
-  .domains {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .hero-portrait {
+    align-self: stretch;
+    background: var(--color-bg);
+    overflow: hidden;
   }
-  /* The cream band is the only hard colour seam on the page: fade into and
-     out of it, and lay a faint grain over the fill. */
-  .about {
-    padding: 5rem 0;
-    position: relative;
-    isolation: isolate;
+  .hero-portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
   }
+
+  /* ── Domaines ──
+     The heading sits on white; each field below supplies its own colour. */
+  .domaines { background: var(--color-surface); }
+  .domaines-head {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4.5rem 2rem 2.5rem;
+  }
+  .domaines-head h2 {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* ── À propos ──
+     Same two-column rhythm as the domain fields, so the page holds
+     together instead of changing shape every section. */
+  .about { background: var(--color-surface); padding: 5rem 0; }
   .about-inner {
-    max-width: 700px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
   }
-  .about-text h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 1.25rem; }
-  .about-text p { color: var(--color-text-light); line-height: 1.8; }
-  .cta {
-    background: white;
-    padding: 5rem 0;
-    text-align: center;
+  .about-inner h2 {
+    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+    font-weight: 500;
+    margin: 0;
+    text-wrap: balance;
   }
-  .cta h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 1rem; }
-  .cta p { color: var(--color-text-light); margin-bottom: 2rem; }
+  .about-body p {
+    color: var(--color-text-light);
+    line-height: 1.8;
+    max-width: 60ch;
+    margin: 0 0 1.75rem;
+  }
 
-  /* ── Mobile ── */
-  @media (max-width: 768px) {
+  /* ── CTA ──
+     Horizontal, not another centred band. The ask sits on the left and
+     the action on the right, so it reads as a line rather than a third
+     hero. */
+  .cta { background: var(--color-bg); padding: 3.5rem 0; }
+  .cta-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+  }
+  .cta h2 {
+    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    font-weight: 500;
+    margin: 0 0 0.4rem;
+  }
+  .cta p {
+    color: var(--color-text-light);
+    margin: 0;
+    max-width: 56ch;
+  }
+  .cta .btn-primary { flex-shrink: 0; }
+
+  @media (max-width: 900px) {
     .hero {
-      padding: 3rem 1.5rem 3rem;
+      grid-template-columns: 1fr;
+      min-height: 0;
     }
-    .hero-inner { max-width: 100%; }
+    .hero-text { padding: 3rem 1.5rem 2.5rem; max-width: 100%; }
+    .hero-sub { max-width: 100%; }
+    .hero-portrait { height: 20rem; }
+    .hero-portrait img { object-position: center 18%; }
 
-    .services { padding: 3rem 0; }
+    .domaines-head { padding: 3rem 1.5rem 2rem; }
 
     .about { padding: 3rem 0; }
-
-    .cta { padding: 3rem 0; }
-
-    .btn-primary, .btn-secondary {
-      width: 100%;
-      text-align: center;
+    .about-inner {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      padding: 0 1.5rem;
     }
+
+    .cta { padding: 2.5rem 0; }
+    .cta-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 0 1.5rem;
+    }
+    .cta .btn-primary { width: 100%; text-align: center; }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-secondary { width: 100%; text-align: center; }
   }
 </style>

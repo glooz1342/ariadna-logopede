@@ -1,16 +1,35 @@
 ---
 /**
- * "Encadré" card for the Domaines d'intervention section.
+ * One domaine d'intervention, rendered as a full-bleed tinted field.
  *
- * Structure follows Ari's mockup exactly: a shared two-column header,
- * the clinical terms on the left, a separate list of plain-language
- * observations on the right (the two columns are not paired row by
- * row), then the associated-condition cards and an optional closing
- * note.
+ * Replaces the previous white rounded card. Three identical cards stacked
+ * on white was the most template-looking part of the site; giving each
+ * domain a band of its own colour makes the page read as three rooms
+ * rather than three rows of a grid.
  *
- * `intro` and `note` accept inline <strong> tags, so they are rendered
- * with set:html. Only ever pass hard-coded copy from this repo.
+ * The reading order is inverted from the old card. What a parent can
+ * observe at home (`observations`) is now the visible content, and the
+ * clinical vocabulary (`terms`, `assoc`) sits behind a disclosure. A
+ * parent should be able to recognise their child before meeting the word
+ * "morphosyntaxe". No string is rewritten: `headings[1]` labels the
+ * visible list and `headings[0]` labels the disclosure, both exactly as
+ * Ari wrote them.
+ *
+ * Two rendering defects from 79b2b3e are fixed structurally rather than
+ * with new copy:
+ *  - `assoc.primary` entries carry no `desc`, so they rendered as empty
+ *    boxes. They are now chips, a form that expects no description.
+ *  - `assoc.conditions` entries without a `desc` sat in a card grid
+ *    beside siblings that had one, and read as broken. The grid is now a
+ *    definition list, where a missing description is a quiet gap.
+ *
+ * `intro`, `note` and each observation accept inline <strong>, so they
+ * are rendered with set:html. Only ever pass hard-coded copy from this
+ * repo.
  */
+import DomainIcon from './DomainIcon.astro';
+import type { IconName } from './DomainIcon.astro';
+
 export interface DomainTerm {
   /** Clinical name, e.g. "Trouble développemental du langage". */
   term: string;
@@ -23,380 +42,351 @@ export interface AssocCondition {
   title: string;
   /** One line on how it is accompanied. */
   desc?: string;
-  /** Highlights the card; use for the most common condition. */
+  /** Highlights the row; use for the most common condition. */
   featured?: boolean;
 }
 
 export interface Props {
   title: string;
-  /** Emoji shown before the title, as in Ari's mockup. */
-  icon?: string;
+  /** Line mark shown before the title. */
+  icon: IconName;
   /** May contain <strong>. */
   intro: string;
-  /** Column headings above the two lists. */
+  /** `[0]` labels the disclosure, `[1]` labels the visible list. */
   headings: [string, string];
-  /** Left column: clinical terms. */
+  /** Clinical terms. Behind the disclosure. */
   terms: DomainTerm[];
-  /** Right column: parent-facing observations. Not paired with terms.
+  /** Parent-facing observations. The visible content of the field.
    *  May contain <strong>, so rendered with set:html. */
   observations: string[];
-  /** Optional line above the observations, e.g. "one sign can be enough". */
+  /** Optional line above the observations. */
   observationsIntro?: string;
-  /** `primary` renders as a first, un-labelled group of cards (primary
-   *  diagnoses), shown before the `lead` sentence and its `conditions`. */
+  /** `primary` are the domain's own diagnoses, rendered as chips. */
   assoc?: { primary?: AssocCondition[]; lead: string; conditions: AssocCondition[] };
-  /** Closing note in a tinted box. May contain <strong>. */
+  /** Closing note. May contain <strong>. */
   note?: string;
-  /** Accent tint for this domain. One per encadré. */
+  /** Accent tint for this domain. One per field. */
   tint?: 'lavender' | 'mint' | 'blue';
+  /** Moves the title column to the right. Alternated down the page. */
+  flip?: boolean;
 }
 
 const {
   title, icon, intro, headings, terms, observations, observationsIntro, assoc, note,
-  tint = 'lavender',
+  tint = 'lavender', flip = false,
 } = Astro.props;
 ---
 
-<article class={`encadre tint-${tint}`}>
-  <details class="fold">
-    <summary>
-      <span class="fold-text">
-        <h3>
-          {icon && <span class="ico" aria-hidden="true">{icon}</span>}
-          {title}
-        </h3>
-        <span class="encadre-intro" set:html={intro} />
-      </span>
-      <span class="chev" aria-hidden="true"></span>
-    </summary>
+<article class={`domain tint-${tint}${flip ? ' flip' : ''}`}>
+  <div class="wrap">
 
-  <div class="intake">
-    <div class="col-head" aria-hidden="true">
-      <span>{headings[0]}</span>
-      <span>{headings[1]}</span>
+    <div class="mark">
+      <DomainIcon name={icon} />
+      <h3>{title}</h3>
     </div>
-    <div class="two-col">
-      <div class="tcol">
-        <p class="mh">{headings[0]}</p>
-        {terms.map(t => (
-          <div class="tItem">
-            {t.term}
-            {t.sub && <small>{t.sub}</small>}
-          </div>
-        ))}
-      </div>
-      <div class="ocol">
-        <p class="mh">{headings[1]}</p>
-        {observationsIntro && <p class="olist-intro">{observationsIntro}</p>}
-        <ul class="olist">
-          {observations.map(o => <li set:html={o} />)}
-        </ul>
-      </div>
-    </div>
-  </div>
 
-  {assoc && (
-    <div class="assoc">
-      {assoc.primary && assoc.primary.length > 0 && (
-        <div class="assoc-grid assoc-primary">
-          {assoc.primary.map(c => (
-            <div class={c.featured ? 'cond featured' : 'cond'}>
-              <h4>{c.title}</h4>
-              {c.desc && <p>{c.desc}</p>}
+    <div class="body">
+      <p class="lede" set:html={intro} />
+
+      <p class="signs-head">{headings[1]}</p>
+      {observationsIntro && <p class="signs-intro">{observationsIntro}</p>}
+      <ul class="signs">
+        {observations.map(o => <li set:html={o} />)}
+      </ul>
+
+      <details class="more">
+        <summary>
+          <span class="more-label">{headings[0]}</span>
+          <span class="chev" aria-hidden="true"></span>
+        </summary>
+
+        <div class="panel">
+          <ul class="terms">
+            {terms.map(t => (
+              <li>
+                <span class="term">{t.term}</span>
+                {t.sub && <span class="sub">{t.sub}</span>}
+              </li>
+            ))}
+          </ul>
+
+          {assoc?.primary && assoc.primary.length > 0 && (
+            <ul class="chips">
+              {assoc.primary.map(c => <li>{c.title}</li>)}
+            </ul>
+          )}
+
+          {assoc && (
+            <div class="assoc">
+              <p class="assoc-lead">{assoc.lead}</p>
+              <dl class="conds">
+                {assoc.conditions.map(c => (
+                  <>
+                    <dt class={c.featured ? 'featured' : undefined}>{c.title}</dt>
+                    <dd>{c.desc}</dd>
+                  </>
+                ))}
+              </dl>
             </div>
-          ))}
-        </div>
-      )}
-      <p class="assoc-lead">{assoc.lead}</p>
-      <div class="assoc-grid">
-        {assoc.conditions.map(c => (
-          <div class={c.featured ? 'cond featured' : 'cond'}>
-            <h4>{c.title}</h4>
-            {c.desc && <p>{c.desc}</p>}
-          </div>
-        ))}
-      </div>
-    </div>
-  )}
+          )}
 
-  {note && <p class="transversal" set:html={note} />}
-  </details>
+          {note && <p class="note" set:html={note} />}
+        </div>
+      </details>
+    </div>
+
+  </div>
 </article>
 
 <style>
-  .encadre {
-    --deep: #2C2C2C;
+  /* ── The field ──
+     Each domain is a full-width band in its own tint, washed well back so
+     body copy stays comfortable on it. --edge is the same hue pushed
+     darker, used for rules and bullets. */
+  .domain {
     --tint: var(--color-tint-lavender);
-    --tint-soft: #EDE7F5;
-    --tint-soft: color-mix(in srgb, var(--color-tint-lavender) 55%, white);
-    --tint-edge: #A99BC4;
-    --tint-edge: color-mix(in srgb, var(--color-tint-lavender) 70%, var(--deep) 18%);
+    --field: #EFECF4;
+    --field: color-mix(in srgb, var(--color-tint-lavender) 38%, white);
+    --edge: #A99BC4;
+    --edge: color-mix(in srgb, var(--color-tint-lavender) 72%, #2C2C2C 16%);
 
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 18px;
-    padding: 2.4rem 2.5rem 2.1rem;
-    margin-bottom: 1.6rem;
-    box-shadow: 0 1px 2px rgba(44,44,44,0.04), 0 18px 40px -28px rgba(44,44,44,0.20);
+    background: var(--field);
+    padding: 4.5rem 0;
   }
-
-  .encadre.tint-mint {
+  .domain.tint-mint {
     --tint: var(--color-tint-mint);
-    --tint-soft: #E9F4EE;
-    --tint-soft: color-mix(in srgb, var(--color-tint-mint) 55%, white);
-    --tint-edge: #9DC7B0;
-    --tint-edge: color-mix(in srgb, var(--color-tint-mint) 70%, var(--deep) 18%);
+    --field: color-mix(in srgb, var(--color-tint-mint) 38%, white);
+    --edge: color-mix(in srgb, var(--color-tint-mint) 72%, #2C2C2C 16%);
   }
-
-  .encadre.tint-blue {
+  .domain.tint-blue {
     --tint: var(--color-tint-blue);
-    --tint-soft: #E6EEF5;
-    --tint-soft: color-mix(in srgb, var(--color-tint-blue) 55%, white);
-    --tint-edge: #8FAEC6;
-    --tint-edge: color-mix(in srgb, var(--color-tint-blue) 70%, var(--deep) 18%);
+    --field: color-mix(in srgb, var(--color-tint-blue) 38%, white);
+    --edge: color-mix(in srgb, var(--color-tint-blue) 72%, #2C2C2C 16%);
   }
 
-  .encadre h3 {
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+  /* Alternating the title column down the page is what keeps three fields
+     from reading as three rows of one table. */
+  .domain.flip .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 15rem); }
+  .domain.flip .mark { order: 2; }
+
+  /* ── Title column ── */
+  .mark { color: var(--edge); }
+  .mark h3 {
+    margin: 0.9rem 0 0;
     font-family: var(--font-heading);
-    font-size: 1.55rem;
+    font-size: 1.7rem;
     font-weight: 500;
-    color: var(--deep);
-    margin: 0 0 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    line-height: 1.2;
+    color: var(--color-text);
+    text-wrap: balance;
   }
-  .encadre h3 .ico { font-size: 1.5rem; line-height: 1; }
 
-  .encadre-intro {
-    font-size: 1rem;
+  /* ── Visible content ── */
+  .lede {
+    margin: 0 0 2rem;
+    font-size: 1.02rem;
+    line-height: 1.65;
     color: var(--color-text-light);
-    margin: 0 0 1.5rem;
-    max-width: 64ch;
-    line-height: 1.6;
+    max-width: 62ch;
   }
-  .encadre-intro :global(strong) { font-weight: 600; color: var(--color-text); }
+  .lede :global(strong) { font-weight: 600; color: var(--color-text); }
 
-  /* ── Intake: shared header, two independent columns ── */
-  .intake {
-    border-top: 1px solid var(--color-border);
-    padding-top: 1.4rem;
+  .signs-head {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: var(--color-text);
+    margin: 0 0 0.4rem;
   }
+  .signs-intro {
+    margin: 0 0 1rem;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--color-text-light);
+    max-width: 60ch;
+  }
+  ul.signs { list-style: none; margin: 0; padding: 0; max-width: 60ch; }
+  ul.signs li {
+    position: relative;
+    padding-left: 1.4rem;
+    margin-bottom: 0.7rem;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--color-text);
+  }
+  ul.signs li :global(strong) { font-weight: 600; }
+  ul.signs li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--edge);
+  }
+
   /* ── Disclosure ── */
-  .fold summary {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
+  .more { margin-top: 2rem; }
+  .more summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
     cursor: pointer;
     list-style: none;
-    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--edge);
+    padding-bottom: 0.3rem;
   }
-  .fold summary::-webkit-details-marker { display: none; }
-  .fold summary:focus-visible {
-    outline: 2px solid var(--color-purple);
-    outline-offset: 4px;
-  }
-  .fold-text { display: block; }
-  .fold summary .encadre-intro { display: block; margin-bottom: 0; }
-  /* Hover lift. Closed cards read as touchable; once open the card is a
-     panel of content, so the lift is dropped to keep it feeling anchored. */
-  .encadre {
-    transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1),
-                box-shadow 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
-  .encadre:has(.fold:not([open])):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 34px rgba(44, 44, 44, 0.09);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .encadre { transition: none; }
-    .encadre:has(.fold:not([open])):hover { transform: none; }
-  }
-
-  /* Smooth open/close.
-   *
-   * ::details-content is the anonymous box wrapping everything after
-   * <summary>. Animating it to `auto` needs interpolate-size, which is
-   * declared once in Layout.astro. Browsers without support ignore all
-   * of this and open instantly, which is the current behaviour, so there
-   * is no regression and no JavaScript involved. */
-  .fold::details-content {
-    block-size: 0;
-    overflow: hidden;
-    transition:
-      block-size 380ms cubic-bezier(0.32, 0.72, 0, 1),
-      content-visibility 380ms allow-discrete;
-  }
-  .fold[open]::details-content { block-size: auto; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .fold::details-content { transition: none; }
-  }
+  .more summary::-webkit-details-marker { display: none; }
+  .more summary:focus-visible { outline: 2px solid var(--color-purple); outline-offset: 4px; }
 
   .chev {
-    flex-shrink: 0;
-    width: 0.6rem;
-    height: 0.6rem;
-    margin-top: 0.6rem;
-    border-right: 2px solid var(--color-purple);
-    border-bottom: 2px solid var(--color-purple);
-    transform: rotate(45deg);
-    transition: transform 380ms cubic-bezier(0.32, 0.72, 0, 1);
+    width: 0.5rem;
+    height: 0.5rem;
+    border-right: 1.8px solid var(--edge);
+    border-bottom: 1.8px solid var(--edge);
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 320ms cubic-bezier(0.32, 0.72, 0, 1);
   }
-  .fold[open] .chev { transform: rotate(-135deg); }
-  .fold summary { transition: margin-bottom 380ms cubic-bezier(0.32, 0.72, 0, 1); }
-  .fold[open] summary { margin-bottom: 1.5rem; }
+  .more[open] .chev { transform: rotate(-135deg) translate(-2px, -2px); }
 
-  .col-head {
-    display: grid;
-    grid-template-columns: 0.95fr 1.1fr;
-    gap: 2.75rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .col-head span {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--deep);
-  }
-  .two-col {
-    display: grid;
-    grid-template-columns: 0.95fr 1.1fr;
-    gap: 2.75rem;
-    padding-top: 0.25rem;
-  }
-  .mh {
-    position: absolute;
-    width: 1px;
-    height: 1px;
+  /* ::details-content animates to `auto` thanks to interpolate-size,
+     declared once in Layout.astro. Browsers without support open
+     instantly, which is the previous behaviour. */
+  .more::details-content {
+    block-size: 0;
     overflow: hidden;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    white-space: nowrap;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--deep);
-    margin: 0 0 0.75rem;
+    transition: block-size 360ms cubic-bezier(0.32, 0.72, 0, 1),
+                content-visibility 360ms allow-discrete;
+  }
+  .more[open]::details-content { block-size: auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .more::details-content { transition: none; }
+    .chev { transition: none; }
   }
 
-  .olist li::marker { color: var(--deep); }
+  /* The opened panel sits on white so it reads as a distinct layer over
+     the tinted field. */
+  .panel {
+    background: var(--color-surface);
+    border-radius: 14px;
+    padding: 1.9rem 2rem;
+    margin-top: 1.4rem;
+  }
 
-  .tItem {
-    padding: 0.875rem 0;
+  ul.terms { list-style: none; margin: 0; padding: 0; }
+  ul.terms li {
+    padding: 0.8rem 0;
     border-bottom: 1px solid var(--color-border);
-    color: var(--deep);
+  }
+  ul.terms li:first-child { padding-top: 0; }
+  ul.terms li:last-child { border-bottom: none; }
+  .term {
+    display: block;
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.45;
-  }
-  .tItem:last-child { border-bottom: none; }
-  .tItem small {
-    display: block;
-    font-weight: 500;
-    color: var(--color-text-light);
-    font-size: 0.82rem;
-    margin-top: 2px;
-  }
-
-  .ocol { padding-top: 0.5rem; }
-  .olist-intro {
-    margin: 0 0 0.9rem;
-    font-size: 0.92rem;
-    color: var(--color-text-light);
-    line-height: 1.5;
-  }
-  ul.olist { list-style: none; margin: 0; padding: 0; }
-  ul.olist li {
-    position: relative;
-    padding-left: 1.25rem;
-    margin-bottom: 0.8rem;
-    line-height: 1.5;
-    color: var(--color-text-light);
-    font-size: 0.97rem;
-  }
-  ul.olist li :global(strong) { color: var(--color-text); font-weight: 600; }
-  ul.olist li::before {
-    content: "";
-    position: absolute;
-    left: 2px;
-    top: 0.5em;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--tint-edge);
-  }
-
-  /* ── Associated conditions ── */
-  .assoc { margin-top: 1.75rem; }
-  .assoc-primary { margin-bottom: 1.6rem; }
-  .assoc-lead {
-    font-size: 0.97rem;
     color: var(--color-text);
-    margin: 0 0 0.4rem;
-    max-width: 62ch;
+  }
+  .sub {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: var(--color-text-light);
+  }
+
+  /* ── Primary diagnoses ──
+     Named conditions with no accompanying line. Chips expect no
+     description, so nothing looks missing. */
+  ul.chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.2rem 0 0;
+    padding: 0;
+  }
+  ul.chips li {
+    border: 1px solid var(--tint);
+    background: color-mix(in srgb, var(--tint) 30%, white);
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  /* ── Associated conditions ──
+     A definition list, not a card grid: a condition with no description
+     leaves an empty cell rather than an empty box. */
+  .assoc { margin-top: 1.8rem; }
+  .assoc-lead {
+    margin: 0 0 1rem;
+    font-size: 0.96rem;
     line-height: 1.6;
+    color: var(--color-text);
+    max-width: 62ch;
   }
-  .assoc-grid {
+  .conds {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
-    gap: 0.75rem;
-    margin-top: 0.875rem;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    column-gap: 2rem;
+    margin: 0;
   }
-  .cond {
-    background: #E6E3EC;
-    background: color-mix(in srgb, var(--color-tint-lavender) 55%, white);
-    border: 1px solid var(--color-tint-lavender);
-    border-radius: 12px;
-    padding: 0.95rem 1rem;
-  }
-  /* Every condition card carries the same lavender, whatever the domain tint.
-     The featured one keeps a deeper left edge as its only distinction. */
-  .cond.featured {
-    border-left: 3px solid #A99BC4;
-    border-left: 3px solid color-mix(in srgb, var(--color-tint-lavender) 70%, var(--deep) 18%);
-  }
-  .cond h4 {
-    margin: 0 0 0.3rem;
+  .conds dt {
+    padding: 0.75rem 0 0.75rem 0.85rem;
+    border-top: 1px solid var(--color-border);
+    border-left: 2px solid transparent;
     font-size: 0.92rem;
     font-weight: 600;
-    color: var(--deep);
+    color: var(--color-text);
   }
-  .cond p {
+  .conds dt.featured { border-left-color: var(--edge); }
+  .conds dd {
     margin: 0;
-    font-size: 0.84rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.88rem;
+    line-height: 1.55;
     color: var(--color-text-light);
-    line-height: 1.5;
   }
 
   /* ── Closing note ── */
-  .transversal {
-    margin-top: 1.75rem;
-    background: var(--tint-soft);
-    border: 1px solid var(--tint);
+  .note {
+    margin: 1.8rem 0 0;
+    background: color-mix(in srgb, var(--tint) 30%, white);
     border-radius: 12px;
-    padding: 1rem 1.1rem;
+    padding: 1.05rem 1.2rem;
     font-size: 0.94rem;
-    color: var(--deep);
-    line-height: 1.6;
+    line-height: 1.65;
+    color: var(--color-text);
   }
-  .transversal :global(strong) { font-weight: 600; }
+  .note :global(strong) { font-weight: 600; }
 
-  @media (max-width: 600px) {
-    .encadre { padding: 1.75rem 1.4rem; }
-    .col-head { display: none; }
-    .two-col { grid-template-columns: 1fr; gap: 1.6rem; }
-    .mh {
-      position: static;
-      width: auto;
-      height: auto;
-      overflow: visible;
-      clip: auto;
-      clip-path: none;
-      white-space: normal;
-    }
-    .ocol { padding-top: 0; }
-    .assoc-grid { grid-template-columns: 1fr; }
+  @media (max-width: 900px) {
+    .domain { padding: 3rem 0; }
+    .wrap,
+    .domain.flip .wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+    .domain.flip .mark { order: 0; }
+    .mark { display: flex; align-items: center; gap: 0.85rem; }
+    .mark h3 { margin: 0; font-size: 1.4rem; }
+    .panel { padding: 1.4rem 1.25rem; }
+    .conds { grid-template-columns: 1fr; column-gap: 0; }
+    .conds dd { padding-top: 0; border-top: none; }
+    .conds dt { padding-bottom: 0.4rem; }
+    .conds dd:empty { display: none; }
   }
 </style>

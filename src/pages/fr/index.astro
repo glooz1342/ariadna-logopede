@@ -10,7 +10,7 @@ import DomainCard from '../../components/DomainCard.astro';
 const domaines = [
   {
     title: 'Communication et langage oral',
-    icon: '💬',
+    icon: 'speech' as const,
     tint: 'lavender' as const,
     intro: "L'accompagnement du langage, de la parole et de la communication chez l'enfant, qu'il s'agisse d'une difficulté isolée ou associée à une autre condition.",
     headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
@@ -56,7 +56,7 @@ const domaines = [
   },
   {
     title: 'Alimentation',
-    icon: '🍽️',
+    icon: 'feeding' as const,
     tint: 'mint' as const,
     intro: "L'accompagnement du développement de l'alimentation chez l'enfant, du nourrisson au plus grand, dans ses dimensions sensorielle, motrice et comportementale.",
     headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
@@ -96,7 +96,7 @@ const domaines = [
   },
   {
     title: 'Cognition mathématique',
-    icon: '🧮',
+    icon: 'maths' as const,
     tint: 'blue' as const,
     intro: "L'accompagnement des troubles de la <strong>cognition mathématique</strong> chez l'enfant : un terme générique qui regroupe l'ensemble des difficultés en mathématiques, dont le trouble d'apprentissage en mathématiques (TAM), qui remplace aujourd'hui « dyscalculie ».",
     headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
@@ -141,8 +141,8 @@ const domaines = [
   description="Ariadna Balsells, logopède à Woluwe-Saint-Lambert, Bruxelles. J'accompagne les enfants : langage, communication, alimentation, apprentissage des mathématiques.">
 
   <!-- Hero -->
-<section class="hero">
-    <div class="hero-inner">
+  <section class="hero">
+    <div class="hero-text">
       <p class="eyebrow">Logopède à Bruxelles</p>
       <h1>Ariadna Balsells</h1>
       <p class="hero-sub">
@@ -153,38 +153,38 @@ const domaines = [
         <a href="/fr/apropos/" class="btn-secondary">À propos de moi</a>
       </div>
     </div>
-  </section>
-
-  <!-- Services -->
-  <section class="services reveal" id="consultations">
-    <div class="container">
-      <p class="section-label">Ce que je propose</p>
-      <h2>Domaines d'intervention</h2>
-      <div class="domaines">
-        {domaines.map(d => (
-          <DomainCard
-            title={d.title}
-            intro={d.intro}
-            headings={d.headings}
-            terms={d.terms}
-            observations={d.observations}
-            observationsIntro={d.observationsIntro}
-            assoc={d.assoc}
-            note={d.note}
-            icon={d.icon}
-            tint={d.tint}
-          />
-        ))}
-      </div>
+    <div class="hero-portrait">
+      <img src="/Ari.jpeg" width="960" height="1280" alt="Ariadna Balsells, logopède" fetchpriority="high" />
     </div>
   </section>
 
-  <!-- About teaser -->
-  <section class="about reveal soft-band grain">
-    <div class="container about-inner">
-      <div class="about-text">
-        <p class="section-label">À propos</p>
-        <h2>Une approche centrée sur la personne</h2>
+  <!-- Domaines d'intervention -->
+  <section class="domaines" id="consultations">
+    <div class="domaines-head">
+      <h2>Domaines d'intervention</h2>
+    </div>
+    {domaines.map((d, i) => (
+      <DomainCard
+        title={d.title}
+        intro={d.intro}
+        headings={d.headings}
+        terms={d.terms}
+        observations={d.observations}
+        observationsIntro={d.observationsIntro}
+        assoc={d.assoc}
+        note={d.note}
+        icon={d.icon}
+        tint={d.tint}
+        flip={i % 2 === 1}
+      />
+    ))}
+  </section>
+
+  <!-- À propos -->
+  <section class="about">
+    <div class="about-inner">
+      <h2>Une approche centrée sur la personne</h2>
+      <div class="about-body">
         <p>
           Je suis Ariadna Balsells, logopède basée à Bruxelles. Mon travail s'articule autour 
           d'une conviction forte : chaque enfant a sa propre façon de communiquer, et mon rôle 
@@ -196,10 +196,12 @@ const domaines = [
   </section>
 
   <!-- CTA -->
-  <section class="cta reveal">
-    <div class="container">
-      <h2>Vous souhaitez prendre rendez-vous ?</h2>
-      <p>N'hésitez pas à me contacter pour toute question ou pour planifier une première consultation.</p>
+  <section class="cta grain">
+    <div class="cta-inner">
+      <div>
+        <h2>Vous souhaitez prendre rendez-vous ?</h2>
+        <p>N'hésitez pas à me contacter pour toute question ou pour planifier une première consultation.</p>
+      </div>
       <a href="/fr/contact/" class="btn-primary">Me contacter</a>
     </div>
   </section>
@@ -207,34 +209,34 @@ const domaines = [
 </Layout>
 
 <style>
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-
-  /* ── Hero ── */
+  /* ── Hero ──
+     Asymmetric, not a centred stack. The portrait bleeds off the right
+     edge of the viewport onto a cream field, so the first thing on the
+     page is the person rather than a wordmark floating on white. */
   .hero {
     background: var(--color-surface);
-    padding: 7rem 2rem 6rem;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 1.04fr 0.96fr;
+    align-items: center;
+    min-height: clamp(27rem, 46vw, 35rem);
   }
-  .hero-inner {
-    max-width: 640px;
-    margin: 0 auto;
+  .hero-text {
+    /* The left padding tracks the 1100px measure used by every other
+       section, so the h1 lines up with the headings below it. */
+    padding: 4.5rem 3.5rem 4.5rem max(2rem, calc((100vw - 1100px) / 2));
+    max-width: 42rem;
   }
   .hero h1 {
-    font-size: clamp(3rem, 6vw, 4.8rem);
+    font-size: clamp(2.7rem, 5.2vw, 4.2rem);
     font-weight: 600;
     letter-spacing: -0.025em;
-    margin-bottom: 1.75rem;
     line-height: 1.05;
+    margin-bottom: 1.5rem;
   }
-  /* Wider than the heading measure so the sentence stays readable at size. */
   /* Hand-drawn highlight. The stroke is an SVG path with a deliberately
-     uneven baseline, drawn behind the text so the words stay fully legible.
-     Ari's copy is untouched: only a span is wrapped around two existing
-     words. */
+     uneven baseline, drawn behind the text so the words stay fully
+     legible. Ari's copy is untouched: only a span is wrapped around two
+     existing words. */
   .hl {
     position: relative;
     display: inline-block;
@@ -253,85 +255,121 @@ const domaines = [
   }
   .hero-sub {
     isolation: isolate;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: var(--color-text-light);
-    line-height: 1.75;
-    margin: 0 auto 2.5rem;
-    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 2.25rem;
+    max-width: 34ch;
   }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-  /* ── Services ── */
-  .services {
-    background: white;
-    padding: 5rem 0;
+  .hero-portrait {
+    align-self: stretch;
+    background: var(--color-bg);
+    overflow: hidden;
   }
-  .services h2 {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    margin-bottom: 3rem;
-  }
-  .domaines {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  .hero-portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
   }
 
-  /* ── About ── */
-  /* The cream band is the only hard colour seam on the page. Fade into and
-     out of it instead of butting the two flat fills together, and lay a very
-     faint grain over the fill: flat pastel is what reads as generated. */
-  .about {
-    padding: 5rem 0;
-    position: relative;
-    isolation: isolate;
+  /* ── Domaines ──
+     The heading sits on white; each field below supplies its own colour. */
+  .domaines { background: var(--color-surface); }
+  .domaines-head {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4.5rem 2rem 2.5rem;
+  }
+  .domaines-head h2 {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 600;
+    margin: 0;
   }
 
-  /* Grain. An inline SVG turbulence tile, so no extra request and no image
-     to ship. Kept under 4% opacity: felt rather than seen. */
-  .about {
-  }
+  /* ── À propos ──
+     Same two-column rhythm as the domain fields, so the page holds
+     together instead of changing shape every section. */
+  .about { background: var(--color-surface); padding: 5rem 0; }
   .about-inner {
-    max-width: 700px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
   }
-  .about-text h2 {
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    margin-bottom: 1.25rem;
+  .about-inner h2 {
+    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+    font-weight: 500;
+    margin: 0;
+    text-wrap: balance;
   }
-  .about-text p {
+  .about-body p {
     color: var(--color-text-light);
     line-height: 1.8;
+    max-width: 60ch;
+    margin: 0 0 1.75rem;
   }
-  /* ── CTA ── */
-  .cta {
-    background: white;
-    padding: 5rem 0;
-    text-align: center;
+
+  /* ── CTA ──
+     Horizontal, not another centred band. The ask sits on the left and
+     the action on the right, so it reads as a line rather than a third
+     hero. */
+  .cta { background: var(--color-bg); padding: 3.5rem 0; }
+  .cta-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
   }
   .cta h2 {
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    margin-bottom: 1rem;
+    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    font-weight: 500;
+    margin: 0 0 0.4rem;
   }
   .cta p {
     color: var(--color-text-light);
-    margin-bottom: 2rem;
+    margin: 0;
+    max-width: 56ch;
   }
+  .cta .btn-primary { flex-shrink: 0; }
 
-  /* ── Mobile ── */
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     .hero {
-      padding: 3rem 1.5rem 3rem;
+      grid-template-columns: 1fr;
+      min-height: 0;
     }
-    .hero-inner { max-width: 100%; }
+    .hero-text { padding: 3rem 1.5rem 2.5rem; max-width: 100%; }
+    .hero-sub { max-width: 100%; }
+    .hero-portrait { height: 20rem; }
+    .hero-portrait img { object-position: center 18%; }
 
-    .services { padding: 3rem 0; }
+    .domaines-head { padding: 3rem 1.5rem 2rem; }
 
     .about { padding: 3rem 0; }
-
-    .cta { padding: 3rem 0; }
-
-    .btn-primary, .btn-secondary {
-      width: 100%;
-      text-align: center;
+    .about-inner {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      padding: 0 1.5rem;
     }
+
+    .cta { padding: 2.5rem 0; }
+    .cta-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 0 1.5rem;
+    }
+    .cta .btn-primary { width: 100%; text-align: center; }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-secondary { width: 100%; text-align: center; }
   }
 </style>

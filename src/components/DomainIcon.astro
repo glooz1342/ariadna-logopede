@@ -1,0 +1,73 @@
+---
+/**
+ * Line marks for the three domaines d'intervention.
+ *
+ * These replace the emoji (💬 🍽️ 🧮) that previously sat before each
+ * title. Emoji render differently on every platform, carry no brand,
+ * and are the single loudest "generated page" tell on the site.
+ *
+ * Drawn on a 32×32 grid, 1.6 stroke, currentColor, so the mark inherits
+ * the domain's colour and scales with font-size. Decorative: the title
+ * sits next to it, so every instance is aria-hidden.
+ *
+ * `maths` is a ten-frame, not an abacus or a calculator. The ten-frame
+ * is the standard manipulative in numeracy intervention, so the mark
+ * says something about the work rather than about arithmetic in general.
+ */
+export type IconName = 'speech' | 'feeding' | 'maths';
+
+export interface Props {
+  name: IconName;
+  /** Rendered size in px. Default 34. */
+  size?: number;
+}
+
+const { name, size = 34 } = Astro.props;
+---
+
+<svg
+  class="dicon"
+  width={size}
+  height={size}
+  viewBox="0 0 32 32"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {name === 'speech' && (
+    <>
+      {/* Two bubbles of unequal size: the adult and the child, in turn. */}
+      <path d="M19.6 6.2H6.4a2.9 2.9 0 0 0-2.9 2.9v6.3a2.9 2.9 0 0 0 2.9 2.9h1.3v3.9l4.2-3.9h7.7a2.9 2.9 0 0 0 2.9-2.9V9.1a2.9 2.9 0 0 0-2.9-2.9Z" />
+      <path d="M24.4 12.9h2.1a2.2 2.2 0 0 1 2.2 2.2v4.6a2.2 2.2 0 0 1-2.2 2.2h-.8v2.9l-3.2-2.9h-3.1" />
+    </>
+  )}
+
+  {name === 'feeding' && (
+    <>
+      {/* Bowl seen from the side, with a spoon resting beside it. */}
+      <path d="M3.4 14.9h15.4a7.7 7.7 0 0 1-15.4 0Z" />
+      <path d="M2 14.9h18.2" />
+      <path d="M24.8 4.6c1.7 0 3.1 1.9 3.1 4.2s-1.4 4.2-3.1 4.2-3.1-1.9-3.1-4.2 1.4-4.2 3.1-4.2Z" />
+      <path d="M24.8 13v9.4" />
+    </>
+  )}
+
+  {name === 'maths' && (
+    <>
+      {/* Ten-frame with three counters placed. */}
+      <rect x="3" y="8.4" width="26" height="15.2" rx="2.2" />
+      <path d="M8.2 8.4v15.2M13.4 8.4v15.2M18.6 8.4v15.2M23.8 8.4v15.2M3 16h26" />
+      <circle cx="5.6" cy="12.2" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="10.8" cy="12.2" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="16" cy="12.2" r="1.5" fill="currentColor" stroke="none" />
+    </>
+  )}
+</svg>
+
+<style>
+  .dicon { display: block; flex-shrink: 0; }
+</style>
