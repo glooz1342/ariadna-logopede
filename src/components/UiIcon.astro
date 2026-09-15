@@ -1,0 +1,76 @@
+---
+/**
+ * Line marks for interface affordances (booking, messaging, location…).
+ *
+ * Companion to DomainIcon, same drawing rules: 32×32 grid, 1.6 stroke,
+ * currentColor, round caps and joins, so a mark inherits its container's
+ * colour and scales with font-size.
+ *
+ * These replace the emoji (📅 💬 ✉️ 📍 🪪) that sat before each contact
+ * block. Emoji render differently on every platform, carry no brand, and
+ * are the loudest "generated page" tell there is — the same reason
+ * DomainIcon exists for the domaines.
+ *
+ * Decorative in every current use: a heading sits beside each one, so the
+ * mark is aria-hidden and adds nothing for a screen reader.
+ */
+export type UiIconName = 'calendar' | 'message' | 'mail' | 'pin' | 'card';
+
+export interface Props {
+  name: UiIconName;
+  /** Rendered size in px. Default 26. */
+  size?: number;
+}
+
+const { name, size = 26 } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 32 32"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {name === 'calendar' && (
+    <>
+      <rect x="5" y="8" width="22" height="19" rx="3" />
+      <path d="M5 14h22M11 5v5M21 5v5" />
+      <circle cx="11.5" cy="19.5" r="1.4" fill="currentColor" stroke="none" />
+    </>
+  )}
+
+  {name === 'message' && (
+    <>
+      <path d="M6 7h20v15H14l-6 5v-5H6z" />
+      <path d="M12 13h8M12 17h5" />
+    </>
+  )}
+
+  {name === 'mail' && (
+    <>
+      <rect x="4" y="8" width="24" height="17" rx="2.5" />
+      <path d="M4.8 10 16 18 27.2 10" />
+    </>
+  )}
+
+  {name === 'pin' && (
+    <>
+      <path d="M16 28c5.5-6.6 8.3-11.2 8.3-14.4A8.3 8.3 0 0 0 7.7 13.6C7.7 16.8 10.5 21.4 16 28z" />
+      <circle cx="16" cy="13.3" r="3.1" />
+    </>
+  )}
+
+  {name === 'card' && (
+    <>
+      <rect x="3" y="7" width="26" height="18" rx="3" />
+      <circle cx="11" cy="14.5" r="2.7" />
+      <path d="M6.5 21c1-2.2 2.6-3.3 4.5-3.3s3.5 1.1 4.5 3.3M19.5 13h6M19.5 17.5h4" />
+    </>
+  )}
+</svg>

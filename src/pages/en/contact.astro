@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import UiIcon from '../../components/UiIcon.astro';
 import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
 ---
 
@@ -20,7 +21,7 @@ import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
       <div class="contact-info">
 
         <div class="contact-block booking-highlight">
-          <div class="contact-block-icon">📅</div>
+          <div class="contact-block-icon"><UiIcon name="calendar" /></div>
           <div>
             <h3>Book an appointment online <span class="badge">Recommended</span></h3>
             <p class="contact-note">Appointments are booked through <strong>Rosa</strong>, my online booking platform. You can see my availability in real time and pick the type of consultation: first consultation, paediatric feeding, dyscalculia or AAC.</p>
@@ -32,7 +33,7 @@ import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
         </div>
 
         <div class="contact-block whatsapp-highlight">
-          <div class="contact-block-icon">💬</div>
+          <div class="contact-block-icon"><UiIcon name="message" /></div>
           <div>
             <h3>WhatsApp</h3>
             <p class="contact-note">By far the fastest way to reach me. I respond much quicker via WhatsApp than by phone call.</p>
@@ -43,7 +44,7 @@ import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
         </div>
 
         <div class="contact-block">
-          <div class="contact-block-icon">✉️</div>
+          <div class="contact-block-icon"><UiIcon name="mail" /></div>
           <div>
             <h3>Email</h3>
             <a href="mailto:ariadna.logopede@gmail.com">ariadna.logopede@gmail.com</a>
@@ -51,7 +52,7 @@ import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
         </div>
 
         <div class="contact-block">
-          <div class="contact-block-icon">📍</div>
+          <div class="contact-block-icon"><UiIcon name="pin" /></div>
           <div>
             <h3>Practice</h3>
             <p>CAP'S, Centre d'Accompagnement Pédiatrique Spécialisé<br>
@@ -61,7 +62,7 @@ import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
         </div>
 
         <div class="contact-block">
-          <div class="contact-block-icon">🪪</div>
+          <div class="contact-block-icon"><UiIcon name="card" /></div>
           <div>
             <h3>Professional information</h3>
             <p>INAMI number: 6-09831-08-802<br>
@@ -145,10 +146,16 @@ import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
     border-radius: 12px;
   }
 
+  /* The mark sits in a tinted chip, matching the domaines on the home page. */
   .contact-block-icon {
-    font-size: 1.5rem;
     flex-shrink: 0;
-    margin-top: 2px;
+    display: inline-grid;
+    place-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-sm);
+    background: var(--color-tint-lavender);
+    color: var(--color-purple-dark);
   }
 
   .contact-block h3 {
