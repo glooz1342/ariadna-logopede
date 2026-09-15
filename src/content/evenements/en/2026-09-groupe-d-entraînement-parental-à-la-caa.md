@@ -8,7 +8,7 @@ price: 150 € pour tous les ateliers
 registrationUrl: https://www.centrecaps.be/therapies-collectives
 coOrganiserName: Ornella Thys
 coOrganiserUrl: ''
-cover: ''
+cover: /media/Groupe d’entrainement.png
 coverAlt: ''
 summary: PARENT TRAINING GROUP FOR AAC
 draft: false
