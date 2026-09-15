@@ -123,7 +123,7 @@ const schema = {
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#F9ECE3" />
+    <meta name="theme-color" content="#F3EFF6" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -171,7 +171,7 @@ const schema = {
     /* Lets height transitions interpolate to and from `auto`.
        Ignored by browsers that do not support it. */
     interpolate-size: allow-keywords;
-    --color-bg: #F9ECE3;
+    --color-bg: #F3EFF6;
     --color-surface: #FFFFFF;
     --color-text: #2C2C2C;
     --color-text-light: #5E5E5E;
@@ -194,6 +194,13 @@ const schema = {
        harder to read and some parents arriving here have reading difficulties
        themselves. */
     --font-script: 'Caveat', cursive;
+    /* Three radii, not one. A single radius on every element regardless of
+       size was part of what made the site read as templated. */
+    --radius-sm: 16px;
+    --radius-md: 24px;
+    --radius-lg: 32px;
+    --shadow-soft: 0 8px 24px rgba(126, 110, 156, 0.16);
+    --shadow-lift: 0 14px 32px rgba(126, 110, 156, 0.24);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -218,9 +225,9 @@ const schema = {
   .btn-secondary,
   .btn-outline {
     display: inline-block;
-    padding: 0.85rem 2rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
+    padding: 0.95rem 2.1rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
     font-weight: 500;
     transition: background 200ms, color 200ms, border-color 200ms,
                 transform 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
@@ -236,8 +243,8 @@ const schema = {
   .btn-secondary:active,
   .btn-outline:active { transform: translateY(0); }
 
-  .btn-primary { background: var(--color-purple); color: white; }
-  .btn-primary:hover { background: var(--color-purple-dark); }
+  .btn-primary { background: var(--color-purple); color: white; box-shadow: var(--shadow-soft); }
+  .btn-primary:hover { background: var(--color-purple-dark); transform: translateY(-4px); box-shadow: var(--shadow-lift); }
 
   .btn-secondary {
     background: var(--color-bg);

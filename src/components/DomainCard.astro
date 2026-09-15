@@ -151,7 +151,13 @@ const {
     --edge: color-mix(in srgb, var(--color-tint-lavender) 72%, #2C2C2C 16%);
 
     background: var(--field);
-    padding: 4.5rem 0;
+    padding: 4rem 0;
+    /* The bands are now contained cards on the page ground rather than
+       full-bleed stripes: same alternating structure, softer edges. */
+    max-width: 1240px;
+    margin: 0 auto 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
   }
   .domain.tint-mint {
     --tint: var(--color-tint-mint);

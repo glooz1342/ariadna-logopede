@@ -253,11 +253,27 @@ const domains = [
     color: var(--color-text-light);
     line-height: 1.7;
     margin-bottom: 2.25rem;
-    max-width: 34ch;
+    max-width: 46ch;
   }
   .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
+  .hero-portrait::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -30px;
+    width: 116px; height: 116px;
+    border-radius: 50%;
+    background: var(--color-tint-lavender);
+    z-index: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-portrait::before { animation: respire 5.5s ease-in-out infinite; }
+  }
+  @keyframes respire { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+  .hero-portrait img { border-radius: var(--radius-lg); position: relative; z-index: 1; }
   .hero-portrait {
+    position: relative;
+    padding: 2rem 2rem 2rem 0;
     align-self: stretch;
     background: var(--color-bg);
     overflow: hidden;
@@ -272,7 +288,7 @@ const domains = [
 
   /* ── Domaines ──
      The heading sits on white; each field below supplies its own colour. */
-  .domaines { background: var(--color-surface); }
+  .domaines { background: transparent; padding-top: 3rem; }
   .domaines-head {
     max-width: 1100px;
     margin: 0 auto;
@@ -314,7 +330,14 @@ const domains = [
      Horizontal, not another centred band. The ask sits on the left and
      the action on the right, so it reads as a line rather than a third
      hero. */
-  .cta { background: var(--color-bg); padding: 3.5rem 0; }
+  .cta {
+    background: var(--color-surface);
+    padding: 3.5rem 2.5rem;
+    max-width: 1240px;
+    margin: 0 auto 4rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
   .cta-inner {
     max-width: 1100px;
     margin: 0 auto;
@@ -343,7 +366,23 @@ const domains = [
     }
     .hero-text { padding: 3rem 1.5rem 2.5rem; max-width: 100%; }
     .hero-sub { max-width: 100%; }
-    .hero-portrait { height: 20rem; }
+    .hero-portrait::before {
+    content: "";
+    position: absolute;
+    left: -30px; bottom: -30px;
+    width: 116px; height: 116px;
+    border-radius: 50%;
+    background: var(--color-tint-lavender);
+    z-index: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-portrait::before { animation: respire 5.5s ease-in-out infinite; }
+  }
+  @keyframes respire { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+  .hero-portrait img { border-radius: var(--radius-lg); position: relative; z-index: 1; }
+  .hero-portrait {
+    position: relative;
+    padding: 2rem 2rem 2rem 0; height: 20rem; }
     .hero-portrait img { object-position: center 18%; }
 
     .domaines-head { padding: 3rem 1.5rem 2rem; }
