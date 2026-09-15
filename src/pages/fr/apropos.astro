@@ -115,6 +115,10 @@ import Layout from '../../layouts/Layout.astro';
             <span class="parcours-year">2026</span>
             <p>Dyspraxie verbale : identification et intervention, Meloni & Charron, Paris</p>
           </li>
+          <li class="parcours-item parcours-upcoming">
+            <span class="parcours-year">En cours</span>
+            <p>Certificat en musicoth&eacute;rapie</p>
+          </li>
       </ol>
     </div>
   </section>
@@ -153,25 +157,14 @@ import Layout from '../../layouts/Layout.astro';
   .pillar p { font-size: 0.9rem; color: var(--color-text-light); line-height: 1.7; }
 
   /* Formation */
-  .formation { padding: 5rem 0; }
-  .formation h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 3rem; }
-  .year { font-size: 0.78rem; color: var(--color-accent); font-weight: 500; padding-top: 0.15rem; }
-  .item-title { font-size: 0.95rem; font-weight: 500; color: var(--color-text); margin-bottom: 0.25rem; font-family: var(--font-heading); }
-  .item-sub { font-size: 0.85rem; color: var(--color-text-light); line-height: 1.5; }
 
   /* Languages */
   .languages { background: white; padding: 5rem 0; }
   .languages h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 2rem; }
-  .lang-name { font-family: var(--font-heading); font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
-  .lang-level { font-size: 0.82rem; color: var(--color-accent); }
 
   /* Formation continue */
   .continuous { padding: 5rem 0; }
   .continuous h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 2rem; }
-  .training-year { font-size: 0.78rem; color: var(--color-accent); font-weight: 500; padding-top: 0.1rem; }
-  .training-item p { font-size: 0.92rem; color: var(--color-text); line-height: 1.5; }
-  .training-item.upcoming .training-year { color: var(--color-text-light); }
-  .training-item.upcoming p { color: var(--color-text-light); font-style: italic; }
 
   /* CTA */
   /* Formation continue is the one place on this site where accumulated years
@@ -192,6 +185,10 @@ import Layout from '../../layouts/Layout.astro';
     white-space: nowrap;
   }
   .parcours-item p { margin: 0; }
+  /* An in-progress qualification is real information, not a footnote:
+     muted year plus italic marks it as ongoing rather than completed. */
+  .parcours-upcoming .parcours-year { color: var(--color-text-light); }
+  .parcours-upcoming p { color: var(--color-text-light); font-style: italic; }
 
   /* Five working languages is unusual in Brussels and was buried in five
      identical boxes. Rows let the list read as one fact about her rather
