@@ -1,4 +1,11 @@
 ---
+/**
+ * NOTE: the non-breaking-space pass for French colon spacing once matched
+ * `.prose :global(h2)` here and replaced the space with U+00A0, which
+ * silently broke every selector below. Keep that pass away from <style>
+ * blocks: a colon after a space is a CSS selector far more often than
+ * it is French punctuation.
+ */
 import { render, type CollectionEntry } from 'astro:content';
 import { indexPath, formatRange, formatDate, t, type Lang } from '../data/actualites';
 
@@ -131,14 +138,14 @@ const eventSchema =
   .facts dt { color: var(--color-text-light); }
   .facts dd a { color: var(--color-purple); text-decoration: underline; }
 
-  .prose :global(h2) { font-size: 1.4rem; margin: 2.25rem 0 0.75rem; }
-  .prose :global(h3) { font-size: 1.15rem; margin: 1.75rem 0 0.5rem; }
-  .prose :global(p) { margin-bottom: 1.1rem; }
-  .prose :global(ul), .prose :global(ol) { margin: 0 0 1.1rem 1.25rem; }
-  .prose :global(li) { margin-bottom: 0.35rem; }
-  .prose :global(a) { color: var(--color-purple); text-decoration: underline; }
-  .prose :global(img) { max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0; }
-  .prose :global(blockquote) {
+  .prose :global(h2) { font-size: 1.4rem; margin: 2.25rem 0 0.75rem; }
+  .prose :global(h3) { font-size: 1.15rem; margin: 1.75rem 0 0.5rem; }
+  .prose :global(p) { margin-bottom: 1.1rem; }
+  .prose :global(ul), .prose :global(ol) { margin: 0 0 1.1rem 1.25rem; }
+  .prose :global(li) { margin-bottom: 0.35rem; }
+  .prose :global(a) { color: var(--color-purple); text-decoration: underline; }
+  .prose :global(img) { max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem 0; }
+  .prose :global(blockquote) {
     border-left: 3px solid var(--color-tint-lavender);
     padding-left: 1.25rem;
     color: var(--color-text-light);

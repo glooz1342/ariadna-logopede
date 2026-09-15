@@ -1,5 +1,12 @@
 ---
 /**
+ * NOTE: the non-breaking-space pass for French colon spacing once matched
+ * `.prose :global(h2)` here and replaced the space with U+00A0, which
+ * silently broke every selector below. Keep that pass away from <style>
+ * blocks: a colon after a space is a CSS selector far more often than
+ * it is French punctuation.
+ */
+/**
  * One domaine d'intervention, rendered as a full-bleed tinted field.
  *
  * Replaces the previous white rounded card. Three identical cards stacked
@@ -215,7 +222,7 @@ const {
     color: var(--color-text-light);
     max-width: 62ch;
   }
-  .lede :global(strong) { font-weight: 600; color: var(--color-text); }
+  .lede :global(strong) { font-weight: 600; color: var(--color-text); }
 
   .signs-head {
     font-family: var(--font-heading);
@@ -239,7 +246,7 @@ const {
     line-height: 1.55;
     color: var(--color-text);
   }
-  ul.signs li :global(strong) { font-weight: 600; }
+  ul.signs li :global(strong) { font-weight: 600; }
   ul.signs li::before {
     content: '';
     position: absolute;
@@ -391,7 +398,7 @@ const {
     line-height: 1.65;
     color: var(--color-text);
   }
-  .note :global(strong) { font-weight: 600; }
+  .note :global(strong) { font-weight: 600; }
 
   @media (max-width: 900px) {
     .domain { padding: 3rem 0; }
