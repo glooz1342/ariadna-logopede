@@ -213,30 +213,26 @@ const domaines = [
      Asymmetric, not a centred stack. The portrait bleeds off the right
      edge of the viewport onto a cream field, so the first thing on the
      page is the person rather than a wordmark floating on white. */
+  /* The hero is a contained two-column composition, not a full-bleed split:
+     a 1100px measure shared with every section below, a 4:5 portrait card,
+     and the text column free to use its full width. */
   .hero {
     background: transparent;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
     display: grid;
-    grid-template-columns: 1.04fr 0.96fr;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 4rem;
     align-items: center;
-    min-height: clamp(24rem, 40vw, 31rem);
   }
-  .hero-text {
-    /* The left padding tracks the 1100px measure used by every other
-       section, so the h1 lines up with the headings below it. */
-    padding: 4.5rem 3.5rem 4.5rem max(2rem, calc((100vw - 1100px) / 2));
-    max-width: 42rem;
-  }
+  .hero-text { padding: 0; max-width: none; }
   .hero h1 {
-    font-size: clamp(2.7rem, 5.2vw, 4.2rem);
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    line-height: 1.05;
+    font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+    letter-spacing: -0.03em;
+    line-height: 1.08;
     margin-bottom: 1.5rem;
   }
-  /* Hand-drawn highlight. The stroke is an SVG path with a deliberately
-     uneven baseline, drawn behind the text so the words stay fully
-     legible. Ari's copy is untouched: only a span is wrapped around two
-     existing words. */
   .hl {
     position: relative;
     display: inline-block;
@@ -263,11 +259,17 @@ const domaines = [
   }
   .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
+  .hero-portrait {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: visible;
+    background: transparent;
+  }
   .hero-portrait::before {
     content: "";
     position: absolute;
-    left: -30px; bottom: -30px;
-    width: 116px; height: 116px;
+    left: -32px; bottom: -32px;
+    width: 130px; height: 130px;
     border-radius: 50%;
     background: var(--color-tint-lavender);
     z-index: 0;
@@ -276,20 +278,16 @@ const domaines = [
     .hero-portrait::before { animation: respire 5.5s ease-in-out infinite; }
   }
   @keyframes respire { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
-  .hero-portrait img { border-radius: var(--radius-lg); position: relative; z-index: 1; }
-  .hero-portrait {
-    position: relative;
-    padding: 2rem 2rem 2rem 0;
-    align-self: stretch;
-    background: var(--color-bg);
-    overflow: hidden;
-  }
   .hero-portrait img {
     display: block;
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center 22%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
   }
 
   /* ── Domaines ──
@@ -371,11 +369,12 @@ const domaines = [
   @media (max-width: 900px) {
     .hero {
       grid-template-columns: 1fr;
-      min-height: 0;
+      padding: 2rem 1.5rem 3rem;
+      gap: 2.5rem;
     }
-    .hero-text { padding: 3rem 1.5rem 2.5rem; max-width: 100%; }
+    .hero-text { padding: 0; }
     .hero-sub { max-width: 100%; }
-    .hero-portrait { height: 20rem; }
+    .hero-portrait { max-width: 20rem; margin: 0 auto; }
     .hero-portrait img { object-position: center 18%; }
 
     .domaines-head { padding: 3rem 1.5rem 2rem; }
