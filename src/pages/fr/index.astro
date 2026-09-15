@@ -4,7 +4,7 @@ import { ROSA_URL } from '../../data/booking';
 import DomainCard from '../../components/DomainCard.astro';
 
 // ── Domaines d'intervention ──
-// APERÇU : le premier encadré remplace les 5 anciennes cartes dépliantes.
+// APERÇU : le premier encadré remplace les 5 anciennes cartes dépliantes.
 // Les deux autres (apprentissages / alimentation-oralité) restent à rédiger
 // par Ari sur le même modèle, il suffit d'ajouter un objet à cette liste.
 const domaines = [
@@ -15,16 +15,16 @@ const domaines = [
     intro: "L'accompagnement du langage, de la parole et de la communication chez l'enfant, qu'il s'agisse d'une difficulté isolée ou associée à une autre condition.",
     headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
     terms: [
-      { term: "Le langage : comprendre et s'exprimer", sub: "le lexique (connaître les mots), la morphosyntaxe (placer les mots dans le bon ordre), la phonologie (distinguer les sons) et la compréhension (saisir ce qu'on lui dit)" },
-      { term: 'La parole : produire les sons', sub: "l'articulation (prononcer nettement), la planification et la programmation du mouvement (enchaîner les gestes de la parole) et la phonologie (organiser les sons du mot)" },
-      { term: 'La communication : échanger avec les autres', sub: "la communication sociale : la pragmatique (adapter le langage à la situation), les habiletés sociales (entrer en relation, prendre son tour) et les compétences discursives et narratives (raconter, tenir une conversation)" },
+      { term: "Le langage : comprendre et s'exprimer", sub: "le lexique (connaître les mots), la morphosyntaxe (placer les mots dans le bon ordre), la phonologie (distinguer les sons) et la compréhension (saisir ce qu'on lui dit)" },
+      { term: 'La parole : produire les sons', sub: "l'articulation (prononcer nettement), la planification et la programmation du mouvement (enchaîner les gestes de la parole) et la phonologie (organiser les sons du mot)" },
+      { term: 'La communication : échanger avec les autres', sub: "la communication sociale : la pragmatique (adapter le langage à la situation), les habiletés sociales (entrer en relation, prendre son tour) et les compétences discursives et narratives (raconter, tenir une conversation)" },
     ],
-    observationsIntro: "Votre enfant peut présenter l'un ou l'autre de ces signes, à des degrés variables :",
+    observationsIntro: "Votre enfant peut présenter l'un ou l'autre de ces signes, à des degrés variables :",
     observations: [
       "Il parle peu, tard ou moins bien que les enfants de son âge",
       "Il cherche ses mots ou place les mots dans le désordre",
       "Il comprend difficilement ce qu'on lui dit",
-      "On le comprend mal quand il parle : il avale des sons ou des syllabes",
+      "On le comprend mal quand il parle : il avale des sons ou des syllabes",
       "Il a du mal à entrer en relation, à prendre son tour ou à raconter",
     ],
     assoc: {
@@ -32,7 +32,7 @@ const domaines = [
         { title: 'Trouble développemental du langage (TDL)' },
         { title: 'Dyspraxie verbale' },
       ],
-      lead: "J'accompagne aussi la communication et le langage dans le cadre d'une condition associée. L'objectif reste le même, adapté aux spécificités de chaque enfant :",
+      lead: "J'accompagne aussi la communication et le langage dans le cadre d'une condition associée. L'objectif reste le même, adapté aux spécificités de chaque enfant :",
       conditions: [
         {
           title: "Trouble du spectre de l'autisme (TSA)",
@@ -72,7 +72,7 @@ const domaines = [
       "Il garde les aliments en bouche, s'étouffe ou les repas n'en finissent pas",
     ],
     assoc: {
-      lead: "J'accompagne aussi l'alimentation dans le cadre d'une condition associée. L'objectif reste le même, adapté aux spécificités de chaque enfant :",
+      lead: "J'accompagne aussi l'alimentation dans le cadre d'une condition associée. L'objectif reste le même, adapté aux spécificités de chaque enfant :",
       conditions: [
         {
           title: "Trouble du spectre de l'autisme (TSA)",
@@ -98,7 +98,7 @@ const domaines = [
     title: 'Cognition mathématique',
     icon: 'maths' as const,
     tint: 'blue' as const,
-    intro: "L'accompagnement des troubles de la <strong>cognition mathématique</strong> chez l'enfant : un terme générique qui regroupe l'ensemble des difficultés en mathématiques, dont le trouble d'apprentissage en mathématiques (TAM), qui remplace aujourd'hui « dyscalculie ».",
+    intro: "L'accompagnement des troubles de la <strong>cognition mathématique</strong> chez l'enfant : un terme générique qui regroupe l'ensemble des difficultés en mathématiques, dont le trouble d'apprentissage en mathématiques (TAM), qui remplace aujourd'hui « dyscalculie ».",
     headings: ["J'accompagne", 'Concrètement, chez votre enfant'] as [string, string],
     terms: [
       { term: "Trouble d'apprentissage en mathématiques", sub: '(TAM, anciennement « dyscalculie »)' },
@@ -112,7 +112,7 @@ const domaines = [
       "Ses <strong>résultats en maths</strong> ne suivent pas, malgré le travail fourni",
     ],
     assoc: {
-      lead: "Le TAM est rarement isolé. J'en tiens compte face aux troubles fréquemment associés :",
+      lead: "Le TAM est rarement isolé. J'en tiens compte face aux troubles fréquemment associés :",
       conditions: [
         {
           title: 'Troubles du langage écrit (dyslexie, dysorthographie)',
@@ -138,7 +138,7 @@ const domaines = [
 ---
 
 <Layout title="Ariadna Balsells | Logopède à Bruxelles" lang="fr"
-  description="Ariadna Balsells, logopède à Woluwe-Saint-Lambert, Bruxelles. J'accompagne les enfants : langage, communication, alimentation, apprentissage des mathématiques.">
+  description="Ariadna Balsells, logopède à Woluwe-Saint-Lambert, Bruxelles. J'accompagne les enfants : langage, communication, alimentation, apprentissage des mathématiques.">
 
   <!-- Hero -->
   <section class="hero">
@@ -187,7 +187,7 @@ const domaines = [
       <div class="about-body">
         <p>
           Je suis Ariadna Balsells, logopède basée à Bruxelles. Mon travail s'articule autour 
-          d'une conviction forte : chaque enfant a sa propre façon de communiquer, et mon rôle 
+          d'une conviction forte : chaque enfant a sa propre façon de communiquer, et mon rôle 
           est de l'accompagner avec respect et créativité.
         </p>
         <a href="/fr/apropos/" class="btn-outline">En savoir plus</a>
