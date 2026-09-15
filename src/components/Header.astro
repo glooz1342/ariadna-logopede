@@ -131,12 +131,20 @@ const withSlash = (p: string) =>
 </script>
 
 <style>
+  /* No white bar: the header sits on the page ground. It stays sticky, so
+     it is a frosted panel rather than fully transparent — invisible against
+     the ground at the top of the page, still legible once cards and text
+     scroll underneath it. */
   header {
-    background: white;
-    border-bottom: 1px solid var(--color-border);
+    background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
     z-index: 100;
+  }
+  @supports not (backdrop-filter: blur(12px)) {
+    header { background: var(--color-bg); }
   }
   .header-inner {
     max-width: 1100px;
@@ -168,9 +176,15 @@ const withSlash = (p: string) =>
   .nav-link {
     font-size: 0.9rem;
     color: var(--color-text-light);
-    transition: color 0.2s;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
   }
-  .nav-link:hover { color: var(--color-accent); }
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-purple);
+  }
 
   /* ── Dropdown (desktop) ── */
   .nav-item { position: relative; }
@@ -286,7 +300,7 @@ const withSlash = (p: string) =>
       top: 72px;
       left: 0;
       right: 0;
-      background: white;
+      background: var(--color-bg);
       flex-direction: column;
       align-items: flex-start;
       padding: 0.5rem 2rem 1rem;
