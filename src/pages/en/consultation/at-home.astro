@@ -86,6 +86,24 @@ const embedUrl = toEmbedUrl(formUrl);
 </Layout>
 
 <style>
+  /* Until the request form exists, the fallback message IS the page, so it
+     gets the same card treatment as every other primary block on the site
+     rather than sitting as loose text on the ground. */
+  .form-missing,
+  .after-form {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto 1.5rem;
+  }
+  .form-embed {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+
   .container {
     max-width: 900px;
     margin: 0 auto;
