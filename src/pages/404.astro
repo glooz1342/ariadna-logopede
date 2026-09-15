@@ -7,11 +7,15 @@ const urlLang = Astro.url.pathname.startsWith('/en') ? 'en' : 'fr';
 <Layout title="404 | Page introuvable / Not found" lang={urlLang}>
   <section class="not-found">
     <div class="container">
-      <span class="error-code">404</span>
+      {/* One h1 per page. Both language blocks are visible and equal, so the
+          single heading covers both and is hidden visually rather than
+          promoting one language over the other in the document outline. */}
+      <h1 class="sr-only">Page introuvable — Page not found</h1>
+      <span class="error-code" aria-hidden="true">404</span>
 
       <div class="messages">
         <div class="message fr">
-          <h1>Page introuvable</h1>
+          <h2>Page introuvable</h2>
           <p>Cette page n'existe pas ou a été déplacée.</p>
           <a href="/fr/" class="btn">Retour à l'accueil</a>
         </div>
@@ -19,7 +23,7 @@ const urlLang = Astro.url.pathname.startsWith('/en') ? 'en' : 'fr';
         <div class="divider"></div>
 
         <div class="message en">
-          <h1>Page not found</h1>
+          <h2>Page not found</h2>
           <p>This page doesn't exist or has been moved.</p>
           <a href="/en/" class="btn">Back to home</a>
         </div>
@@ -29,6 +33,21 @@ const urlLang = Astro.url.pathname.startsWith('/en') ? 'en' : 'fr';
 </Layout>
 
 <style>
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .messages {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 2.5rem 2rem;
+  }
   .not-found {
     min-height: 70vh;
     display: flex;
