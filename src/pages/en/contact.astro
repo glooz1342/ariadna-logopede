@@ -20,6 +20,8 @@ import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
 
       <div class="contact-info">
 
+        <h2 class="group-title">Book an appointment</h2>
+        <div class="contact-actions">
         <div class="contact-block booking-highlight">
           <div class="contact-block-icon"><UiIcon name="calendar" /></div>
           <div>
@@ -43,6 +45,10 @@ import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
           </div>
         </div>
 
+        </div>
+
+        <div class="contact-practical">
+        <h2 class="group-title">Practical information</h2>
         <div class="contact-block">
           <div class="contact-block-icon"><UiIcon name="mail" /></div>
           <div>
@@ -70,6 +76,7 @@ import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
           </div>
         </div>
 
+        </div>
       </div>
 
       <div class="contact-map">
@@ -147,6 +154,35 @@ import { ROSA_URL, WHATSAPP_URL } from '../../data/booking';
   }
 
   /* The mark sits in a tinted chip, matching the domaines on the home page. */
+/* Two groups, not five equal blocks. Booking is what a parent came to do,
+     so it gets cards and weight; the reference details are set quietly as
+     rows, which also stops the INAMI number competing with the CTA. */
+  .group-title {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+  .contact-practical .group-title { margin-top: 2.75rem; }
+  .contact-actions { display: grid; gap: 1.25rem; }
+  .contact-actions .contact-block {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-soft);
+  }
+  .contact-practical .contact-block {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .contact-practical .contact-block:last-child { border-bottom: 0; }
+  .contact-practical .contact-block-icon {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    color: var(--color-text-light);
+  }
+  .contact-practical h3 { font-size: 0.95rem; margin-bottom: 0.2rem; }
+
   .contact-block-icon {
     flex-shrink: 0;
     display: inline-grid;
