@@ -128,7 +128,7 @@ const schema = {
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@300;400;500&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
     <Header lang={lang} altHref={altPath} />
@@ -187,8 +187,13 @@ const schema = {
     --color-tint-lavender: #D2CCDC;
     --color-tint-mint: #D3EADA;
     --color-tint-blue: #C7D8E8;
-    --font-heading: 'Lora', Georgia, serif;
+    --font-heading: 'Inter Tight', system-ui, sans-serif;
     --font-body: 'Inter', system-ui, sans-serif;
+    /* Script face for eyebrows and closing lines. Annotates only: it never
+       carries information a visitor needs, because a decorative script is
+       harder to read and some parents arriving here have reading difficulties
+       themselves. */
+    --font-script: 'Caveat', cursive;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -311,13 +316,15 @@ const schema = {
   }
 
   /* The uppercase tracked sans label was the most template-looking element on
-     the site. Lora italic in sentence case reads as a person speaking, and
-     sets a serif/sans contrast against the Inter body copy. */
+     the site. A handwritten line in sentence case reads as a person speaking,
+     and sets a script/sans contrast against the Inter body copy. This slot
+     previously used Lora italic; Caveat took over the same job when the
+     display face moved to Inter Tight. Caveat's x-height is small, so the
+     size runs larger than the Lora setting it replaces. */
   .eyebrow,
   .section-label {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: 1.05rem;
+    font-family: var(--font-script);
+    font-size: 1.35rem;
     letter-spacing: 0;
     text-transform: none;
     color: var(--color-accent);
@@ -326,7 +333,7 @@ const schema = {
     margin-bottom: 0.5rem;
   }
   /* The home page hero carries it one step larger. */
-  .hero .eyebrow { font-size: 1.1rem; margin-bottom: 0.4rem; }
+  .hero .eyebrow { font-size: 1.5rem; margin-bottom: 0.4rem; }
 
   @media (prefers-reduced-motion: reduce) {
     .btn-primary, .btn-secondary, .btn-outline,
@@ -357,9 +364,20 @@ const schema = {
     line-height: 1.6;
   }
 
+  /* Inter Tight earns its place at weight 800 with tight tracking; at the
+     default weight it reads as ordinary Inter, which is the look this site
+     is trying to get away from. */
   h1, h2, h3, h4 {
     font-family: var(--font-heading);
-    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  h3, h4 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
   }
 
   main {
