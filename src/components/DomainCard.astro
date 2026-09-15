@@ -81,7 +81,7 @@ const {
   <div class="wrap">
 
     <div class="mark">
-      <DomainIcon name={icon} />
+      <span class="icon-chip"><DomainIcon name={icon} /></span>
       <h3>{title}</h3>
     </div>
 
@@ -150,7 +150,7 @@ const {
     --edge: #A99BC4;
     --edge: color-mix(in srgb, var(--color-tint-lavender) 72%, #2C2C2C 16%);
 
-    background: var(--field);
+    background: var(--color-surface);
     padding: 4rem 0;
     /* The bands are now contained cards on the page ground rather than
        full-bleed stripes: same alternating structure, softer edges. */
@@ -168,6 +168,17 @@ const {
     --tint: var(--color-tint-blue);
     --field: color-mix(in srgb, var(--color-tint-blue) 38%, white);
     --edge: color-mix(in srgb, var(--color-tint-blue) 72%, #2C2C2C 16%);
+  }
+
+  /* On a white card the tint has to live somewhere: it moves onto the icon,
+     which keeps each domain colour-coded without washing the body copy. */
+  .icon-chip {
+    display: inline-grid;
+    place-content: center;
+    width: 56px; height: 56px;
+    border-radius: var(--radius-sm);
+    background: var(--field);
+    margin-bottom: 1rem;
   }
 
   .wrap {

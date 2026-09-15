@@ -214,11 +214,11 @@ const domaines = [
      edge of the viewport onto a cream field, so the first thing on the
      page is the person rather than a wordmark floating on white. */
   .hero {
-    background: var(--color-surface);
+    background: transparent;
     display: grid;
     grid-template-columns: 1.04fr 0.96fr;
     align-items: center;
-    min-height: clamp(27rem, 46vw, 35rem);
+    min-height: clamp(24rem, 40vw, 31rem);
   }
   .hero-text {
     /* The left padding tracks the 1100px measure used by every other
@@ -309,11 +309,14 @@ const domaines = [
   /* ── À propos ──
      Same two-column rhythm as the domain fields, so the page holds
      together instead of changing shape every section. */
-  .about { background: var(--color-surface); padding: 5rem 0; }
+  .about { background: transparent; padding: 1rem 0 4rem; }
   .about-inner {
-    max-width: 1100px;
+    max-width: 1240px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 3.5rem 2.5rem;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
     display: grid;
     grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
     gap: 3.5rem;
@@ -372,23 +375,7 @@ const domaines = [
     }
     .hero-text { padding: 3rem 1.5rem 2.5rem; max-width: 100%; }
     .hero-sub { max-width: 100%; }
-    .hero-portrait::before {
-    content: "";
-    position: absolute;
-    left: -30px; bottom: -30px;
-    width: 116px; height: 116px;
-    border-radius: 50%;
-    background: var(--color-tint-lavender);
-    z-index: 0;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-portrait::before { animation: respire 5.5s ease-in-out infinite; }
-  }
-  @keyframes respire { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
-  .hero-portrait img { border-radius: var(--radius-lg); position: relative; z-index: 1; }
-  .hero-portrait {
-    position: relative;
-    padding: 2rem 2rem 2rem 0; height: 20rem; }
+    .hero-portrait { height: 20rem; }
     .hero-portrait img { object-position: center 18%; }
 
     .domaines-head { padding: 3rem 1.5rem 2rem; }
