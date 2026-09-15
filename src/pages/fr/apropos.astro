@@ -57,28 +57,28 @@ import Layout from '../../layouts/Layout.astro';
     <div class="container">
       <p class="section-label">Communication</p>
       <h2>Langues de travail</h2>
-      <div class="lang-grid">
-        <div class="lang-card">
-          <p class="lang-name">Français</p>
-          <p class="lang-level">Langue maternelle</p>
-        </div>
-        <div class="lang-card">
-          <p class="lang-name">Espagnol</p>
-          <p class="lang-level">Langue maternelle</p>
-        </div>
-        <div class="lang-card">
-          <p class="lang-name">Italien</p>
-          <p class="lang-level">Langue maternelle</p>
-        </div>
-        <div class="lang-card">
-          <p class="lang-name">Anglais</p>
-          <p class="lang-level">Niveau C2</p>
-        </div>
-        <div class="lang-card">
-          <p class="lang-name">LSFB</p>
-          <p class="lang-level">Niveau A2</p>
-        </div>
-      </div>
+      <dl class="lang-list">
+          <div class="lang-row">
+            <dt>Français</dt>
+            <dd>Langue maternelle</dd>
+          </div>
+          <div class="lang-row">
+            <dt>Espagnol</dt>
+            <dd>Langue maternelle</dd>
+          </div>
+          <div class="lang-row">
+            <dt>Italien</dt>
+            <dd>Langue maternelle</dd>
+          </div>
+          <div class="lang-row">
+            <dt>Anglais</dt>
+            <dd>Niveau C2</dd>
+          </div>
+          <div class="lang-row">
+            <dt>LSFB</dt>
+            <dd>Niveau A2</dd>
+          </div>
+      </dl>
     </div>
   </section>
 
@@ -86,40 +86,36 @@ import Layout from '../../layouts/Layout.astro';
     <div class="container">
       <p class="section-label">Développement professionnel</p>
       <h2>Formation continue</h2>
-      <div class="training-list">
-        <div class="training-item">
-          <span class="training-year">2020-2023</span>
-          <p>Bachelier en Sciences Psychologiques et de l'Éducation, Orientation Logopédie &middot; UCLouvain</p>
-        </div>
-        <div class="training-item">
-          <span class="training-year">2023-2025</span>
-          <p>Master en Logopédie, Spécialisation : Troubles Neurodéveloppementaux &amp; Troubles Sensoriels &middot; UCLouvain</p>
-        </div>
-        <div class="training-item">
-          <span class="training-year">2024</span>
-          <p>A.B.A. et troubles graves du comportement (comportement-défi)</p>
-        </div>
-        <div class="training-item">
-          <span class="training-year">2025</span>
-          <p>L'intervention logopédique en CAA, Ornella Thys</p>
-        </div>
-        <div class="training-item">
-          <span class="training-year">2026</span>
-          <p>Trouble alimentaire pédiatrique, Pascale Grevesse, Bruxelles</p>
-        </div>
-        <div class="training-item">
-          <span class="training-year">2026</span>
-          <p>Entretien Motivationnel (Miller &amp; Rollnick)</p>
-        </div>
-        <div class="training-item">
-          <span class="training-year">2026</span>
-          <p>Dyspraxie verbale : identification et intervention, Meloni & Charron, Paris</p>
-        </div>
-        <div class="training-item upcoming">
-          <span class="training-year">En cours</span>
-          <p>Certificat en musicothérapie</p>
-        </div>
-      </div>
+      <ol class="parcours" aria-label="Parcours de formation">
+          <li class="parcours-item">
+            <span class="parcours-year">2020-2023</span>
+            <p>Bachelier en Sciences Psychologiques et de l'Éducation, Orientation Logopédie &middot; UCLouvain</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2023-2025</span>
+            <p>Master en Logopédie, Spécialisation : Troubles Neurodéveloppementaux &amp; Troubles Sensoriels &middot; UCLouvain</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2024</span>
+            <p>A.B.A. et troubles graves du comportement (comportement-défi)</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2025</span>
+            <p>L'intervention logopédique en CAA, Ornella Thys</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2026</span>
+            <p>Trouble alimentaire pédiatrique, Pascale Grevesse, Bruxelles</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2026</span>
+            <p>Entretien Motivationnel (Miller &amp; Rollnick)</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2026</span>
+            <p>Dyspraxie verbale : identification et intervention, Meloni & Charron, Paris</p>
+          </li>
+      </ol>
     </div>
   </section>
 
@@ -159,14 +155,6 @@ import Layout from '../../layouts/Layout.astro';
   /* Formation */
   .formation { padding: 5rem 0; }
   .formation h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 3rem; }
-  .timeline { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-  .timeline-block h3 {
-    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--color-accent); margin-bottom: 1.5rem; padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .timeline-items { display: flex; flex-direction: column; gap: 1.5rem; }
-  .timeline-item { display: grid; grid-template-columns: 80px 1fr; gap: 1rem; align-items: start; }
   .year { font-size: 0.78rem; color: var(--color-accent); font-weight: 500; padding-top: 0.15rem; }
   .item-title { font-size: 0.95rem; font-weight: 500; color: var(--color-text); margin-bottom: 0.25rem; font-family: var(--font-heading); }
   .item-sub { font-size: 0.85rem; color: var(--color-text-light); line-height: 1.5; }
@@ -174,28 +162,56 @@ import Layout from '../../layouts/Layout.astro';
   /* Languages */
   .languages { background: white; padding: 5rem 0; }
   .languages h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 2rem; }
-  .lang-grid { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .lang-card {
-    background: var(--color-bg); border: 1px solid var(--color-border);
-    border-radius: 10px; padding: 1.25rem 1.75rem; min-width: 150px;
-  }
   .lang-name { font-family: var(--font-heading); font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
   .lang-level { font-size: 0.82rem; color: var(--color-accent); }
 
   /* Formation continue */
   .continuous { padding: 5rem 0; }
   .continuous h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 2rem; }
-  .training-list { display: flex; flex-direction: column; max-width: 720px; }
-  .training-item {
-    display: grid; grid-template-columns: 90px 1fr; gap: 1rem;
-    padding: 1rem 0; border-bottom: 1px solid var(--color-border); align-items: start;
-  }
   .training-year { font-size: 0.78rem; color: var(--color-accent); font-weight: 500; padding-top: 0.1rem; }
   .training-item p { font-size: 0.92rem; color: var(--color-text); line-height: 1.5; }
   .training-item.upcoming .training-year { color: var(--color-text-light); }
   .training-item.upcoming p { color: var(--color-text-light); font-style: italic; }
 
   /* CTA */
+  /* Formation continue is the one place on this site where accumulated years
+     genuinely build trust, so it is set as a dated parcours rather than a
+     list. It is a real chronological sequence, which is what earns the rule
+     and the markers — they encode order, they are not ornament. */
+  .parcours { list-style: none; margin: 0; padding: 0; max-width: 760px; }
+  .parcours-item {
+    display: grid; grid-template-columns: 96px 1fr; gap: 1.5rem;
+    align-items: baseline; padding: 1.15rem 0 1.15rem 0;
+    position: relative; border-bottom: 1px solid var(--color-border);
+  }
+  .parcours-item:last-child { border-bottom: 0; }
+  .parcours-year {
+    font-family: var(--font-heading); font-weight: 700;
+    font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+    font-size: 0.95rem; color: var(--color-purple); text-align: right;
+    white-space: nowrap;
+  }
+  .parcours-item p { margin: 0; }
+
+  /* Five working languages is unusual in Brussels and was buried in five
+     identical boxes. Rows let the list read as one fact about her rather
+     than five separate cards competing for attention. */
+  .lang-list { margin: 0; max-width: 560px; }
+  .lang-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 1.5rem; padding: 0.85rem 0; border-bottom: 1px solid var(--color-border);
+  }
+  .lang-row:last-child { border-bottom: 0; }
+  .lang-row dt {
+    font-family: var(--font-heading); font-weight: 700;
+    letter-spacing: -0.02em; font-size: 1.05rem;
+  }
+  .lang-row dd { margin: 0; color: var(--color-text-light); font-size: 0.95rem; }
+
+  @media (max-width: 640px) {
+    .parcours-item { grid-template-columns: 78px 1fr; gap: 1rem; }
+  }
+
   .cta { background: white; padding: 5rem 0; text-align: center; }
   .cta h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 1rem; }
   .cta p { color: var(--color-text-light); margin-bottom: 2rem; }
@@ -207,10 +223,6 @@ import Layout from '../../layouts/Layout.astro';
     .intro-photo { display: flex; justify-content: center; }
     .intro-photo img { width: 160px; height: 160px; }
     .pillars { grid-template-columns: 1fr; }
-    .timeline { grid-template-columns: 1fr; gap: 3rem; }
-    .timeline-item { grid-template-columns: 70px 1fr; }
-    .lang-grid { gap: 0.75rem; display: grid; grid-template-columns: 1fr 1fr; }
-    .training-item { grid-template-columns: 75px 1fr; }
     .cta { padding: 3rem 0; }
   }
 </style>
