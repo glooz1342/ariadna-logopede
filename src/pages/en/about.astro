@@ -57,28 +57,29 @@ import Layout from '../../layouts/Layout.astro';
     <div class="container">
       <p class="section-label">Communication</p>
       <h2>Working languages</h2>
-      <dl class="lang-list">
-          <div class="lang-row">
-            <dt>French</dt>
-            <dd>Native</dd>
-          </div>
-          <div class="lang-row">
-            <dt>Spanish</dt>
-            <dd>Native</dd>
-          </div>
-          <div class="lang-row">
-            <dt>Italian</dt>
-            <dd>Native</dd>
-          </div>
-          <div class="lang-row">
-            <dt>English</dt>
-            <dd>C2 level</dd>
-          </div>
-          <div class="lang-row">
-            <dt>LSFB</dt>
-            <dd>A2 level</dd>
-          </div>
-      </dl>
+      <div class="lang-grid">
+        <div class="lang-card">
+          <p class="lang-name">French</p>
+          <p class="lang-level">Native</p>
+        </div>
+        <div class="lang-card">
+          <p class="lang-name">Spanish</p>
+          <p class="lang-level">Native</p>
+        </div>
+        <div class="lang-card">
+          <p class="lang-name">Italian</p>
+          <p class="lang-level">Native</p>
+        </div>
+        <div class="lang-card">
+          <p class="lang-name">English</p>
+          <p class="lang-level">C2 level</p>
+          <p class="lang-note">Paediatric feeding disorders only: feeding follow-up and parental guidance.</p>
+        </div>
+        <div class="lang-card">
+          <p class="lang-name">LSFB</p>
+          <p class="lang-level">A2 level</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -155,6 +156,31 @@ import Layout from '../../layouts/Layout.astro';
   .languages h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 2rem; }
   .continuous { padding: 5rem 0; }
   .continuous h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 2rem; }
+  .lang-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    max-width: 1100px;
+  }
+  .lang-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow-soft);
+  }
+  .lang-name { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; }
+  .lang-level { font-size: 0.85rem; color: var(--color-text-light); margin-top: 0.15rem; }
+  /* English is offered for a narrower scope than the other languages, so the
+     limit sits on the card itself rather than in a footnote nobody reads. */
+  .lang-note {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--color-purple-dark);
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--color-border);
+  }
+
   /* Formation continue is the one place on this site where accumulated years
      genuinely build trust, so it is set as a dated parcours rather than a
      list. It is a real chronological sequence, which is what earns the rule
@@ -181,17 +207,6 @@ import Layout from '../../layouts/Layout.astro';
   /* Five working languages is unusual in Brussels and was buried in five
      identical boxes. Rows let the list read as one fact about her rather
      than five separate cards competing for attention. */
-  .lang-list { margin: 0; max-width: 560px; }
-  .lang-row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    gap: 1.5rem; padding: 0.85rem 0; border-bottom: 1px solid var(--color-border);
-  }
-  .lang-row:last-child { border-bottom: 0; }
-  .lang-row dt {
-    font-family: var(--font-heading); font-weight: 700;
-    letter-spacing: -0.02em; font-size: 1.05rem;
-  }
-  .lang-row dd { margin: 0; color: var(--color-text-light); font-size: 0.95rem; }
 
   @media (max-width: 640px) {
     .parcours-item { grid-template-columns: 78px 1fr; gap: 1rem; }
