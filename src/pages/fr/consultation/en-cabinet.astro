@@ -64,14 +64,31 @@ const consultations = [
     </div>
   </section>
 
-  <section class="types reveal soft-band band-on-cream">
+  <section class="types reveal soft-band band-on-ground">
     <div class="container">
       <p class="section-label">Ce que vous pouvez réserver</p>
       <h2>Types de consultations</h2>
+      {/* One entry point, three specific tracks. The cards were numbered
+          01-04, which read as a sequence: these are alternatives you choose
+          between, not steps you work through. The helper line below already
+          said so in prose; it now sits beside the card it describes. */}
+      <div class="types-entry">
+        <article class="type-card type-card-entry">
+          <h3>{consultations[0].title}</h3>
+          <p class="card-desc">{consultations[0].desc}</p>
+          <ul class="card-bullets">
+            {consultations[0].bullets.map(b => <li>{b}</li>)}
+          </ul>
+        </article>
+        <p class="helper">
+        Vous ne savez pas quel type de consultation choisir ? Réservez une première
+        consultation : nous ferons le point ensemble.
+      </p>
+      </div>
+
       <div class="types-grid">
-        {consultations.map(c => (
+        {consultations.slice(1).map(c => (
           <article class="type-card">
-            <div class="card-num">{c.num}</div>
             <h3>{c.title}</h3>
             <p class="card-desc">{c.desc}</p>
             <ul class="card-bullets">
@@ -80,10 +97,7 @@ const consultations = [
           </article>
         ))}
       </div>
-      <p class="helper">
-        Vous ne savez pas quel type de consultation choisir ? Réservez une première
-        consultation : nous ferons le point ensemble.
-      </p>
+
     </div>
   </section>
 
@@ -158,6 +172,24 @@ const consultations = [
     font-size: clamp(1.6rem, 3vw, 2.2rem);
     margin-bottom: 2.5rem;
   }
+  .types-entry {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  .type-card-entry {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 2rem;
+  }
+  .types-entry .helper { margin: 0; }
+  @media (max-width: 800px) {
+    .types-entry { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+
   .types-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -189,13 +221,6 @@ const consultations = [
     .type-card:hover { transform: none; }
   }
 
-  .card-num {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    letter-spacing: 0.08em;
-    margin-bottom: 0.85rem;
-  }
   .type-card h3 {
     font-size: 1.05rem;
     margin-bottom: 0.6rem;
