@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import ariPortrait from '../../assets/ari.jpeg';
 import Layout from '../../layouts/Layout.astro';
 import { ROSA_URL } from '../../data/booking';
 import DomainCard from '../../components/DomainCard.astro';
@@ -154,7 +156,14 @@ const domaines = [
       </div>
     </div>
     <div class="hero-portrait">
-      <img src="/Ari.jpeg" width="960" height="1280" alt="Ariadna Balsells, logopède" fetchpriority="high" />
+      <Image
+        src={ariPortrait}
+        alt="Ariadna Balsells, logopède"
+        widths={[320, 440, 660, 880]}
+        sizes="(max-width: 860px) 20rem, 40vw"
+        loading="eager"
+        fetchpriority="high"
+      />
     </div>
   </section>
 
