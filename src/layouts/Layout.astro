@@ -51,6 +51,10 @@ const schema = {
   "name": "Ariadna Balsells, Logopède",
   "description": metaDescription,
   "url": `${siteUrl}/fr/`,
+  // public/Ari.jpeg is kept deliberately, separate from src/assets/ari.jpeg.
+  // Social crawlers and search engines need a stable absolute URL to a plain
+  // JPEG; the hashed AVIF/WebP variants the image pipeline emits are neither
+  // stable across builds nor universally supported by those crawlers.
   "image": `${siteUrl}/Ari.jpeg`,
   "telephone": PHONE_E164,
   "email": "ariadna.logopede@gmail.com",
