@@ -56,6 +56,35 @@ const withSlash = (p: string) =>
   p.startsWith('/') && !p.includes('#') && !p.includes('.') && !p.endsWith('/')
     ? `${p}/`
     : p;
+
+/**
+ * Nothing in the nav told a visitor which page they were on.
+ *
+ * Two distinct states, deliberately:
+ *  - `aria-current="page"` only on an exact match, so a screen reader
+ *    announces exactly one current page.
+ *  - `.is-active` on an ancestor section too — an article under
+ *    /fr/actualites/ highlights "Actualités" visually, but that link is not
+ *    the page you are on, so it gets no aria-current.
+ *
+ * The Consultation parent points at a homepage anchor rather than a page of
+ * its own, so it never carries aria-current; it only lights up when one of
+ * its children is active.
+ */
+const current = withSlash(Astro.url.pathname);
+const langRoot = withSlash(`/${lang}`);
+
+const isCurrent = (href?: string) => !!href && withSlash(href) === current;
+
+const isSection = (href?: string) => {
+  if (!href) return false;
+  const h = withSlash(href);
+  // The language root prefixes every page, so it only ever matches exactly.
+  return h !== langRoot && !h.includes('#') && current.startsWith(h);
+};
+
+const hasActiveChild = (children?: NavChild[]) =>
+  (children ?? []).some(c => isCurrent(c.href) || isSection(c.href));
 ---
 
 <header>
@@ -71,14 +100,22 @@ const withSlash = (p: string) =>
     <nav id="main-nav">
       {links.map(link => link.children ? (
         <div class="nav-item has-dropdown">
-          <a href={withSlash(link.href)} class="nav-link nav-parent" aria-haspopup="true">
+          <a
+            href={withSlash(link.href)}
+            class:list={['nav-link', 'nav-parent', { 'is-active': hasActiveChild(link.children) }]}
+            aria-haspopup="true"
+          >
             {link.label}
             <svg class="caret" width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <div class="dropdown">
             <div class="dropdown-panel">
               {link.children.map(child => child.href ? (
-                <a href={withSlash(child.href)} class="dropdown-link">{child.label}</a>
+                <a
+                  href={withSlash(child.href)}
+                  class:list={['dropdown-link', { 'is-active': isCurrent(child.href) }]}
+                  aria-current={isCurrent(child.href) ? 'page' : undefined}
+                >{child.label}</a>
               ) : (
                 <span class="dropdown-link is-soon" aria-disabled="true">
                   {child.label}<em class="soon-badge">{child.note}</em>
@@ -88,7 +125,11 @@ const withSlash = (p: string) =>
           </div>
         </div>
       ) : (
-        <a href={withSlash(link.href)} class="nav-link">{link.label}</a>
+        <a
+          href={withSlash(link.href)}
+          class:list={['nav-link', { 'is-active': isCurrent(link.href) || isSection(link.href) }]}
+          aria-current={isCurrent(link.href) ? 'page' : undefined}
+        >{link.label}</a>
       ))}
       <a href={withSlash(langSwitchHref)} class="lang-switch mobile-lang">{otherLang.toUpperCase()}</a>
     </nav>
@@ -180,6 +221,17 @@ const withSlash = (p: string) =>
     border-bottom: 1.5px solid transparent;
     transition: color 0.2s, border-color 0.2s;
   }
+  /* The active state must not rely on colour alone: the underline carries it
+     for anyone who cannot distinguish the two greys. */
+  .nav-link.is-active {
+    color: var(--color-text);
+    border-bottom-color: var(--color-purple);
+  }
+  .dropdown-link.is-active {
+    color: var(--color-purple-dark);
+    font-weight: 500;
+  }
+
   .nav-link:hover,
   .nav-link:focus-visible {
     color: var(--color-accent);
