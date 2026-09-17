@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
@@ -125,10 +126,12 @@ const schema = {
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#F3EFF6" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@300;400;500&family=Caveat:wght@400;500&display=swap" rel="stylesheet" />
+    <!-- Fonts: self-hosted, emitted by the Astro fonts API (see astro.config.mjs).
+         Display faces are preloaded; Caveat is not, since it only ever renders
+         a short annotation and must never block the main text. -->
+    <Font cssVariable="--font-inter-tight" preload />
+    <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-caveat" />
   </head>
   <body>
     <Header lang={lang} altHref={altPath} />
@@ -187,13 +190,13 @@ const schema = {
     --color-tint-lavender: #D2CCDC;
     --color-tint-mint: #D3EADA;
     --color-tint-blue: #C7D8E8;
-    --font-heading: 'Inter Tight', system-ui, sans-serif;
-    --font-body: 'Inter', system-ui, sans-serif;
+    --font-heading: var(--font-inter-tight);
+    --font-body: var(--font-inter);
     /* Script face for eyebrows and closing lines. Annotates only: it never
        carries information a visitor needs, because a decorative script is
        harder to read and some parents arriving here have reading difficulties
        themselves. */
-    --font-script: 'Caveat', cursive;
+    --font-script: var(--font-caveat);
     /* Three radii, not one. A single radius on every element regardless of
        size was part of what made the site read as templated. */
     --radius-sm: 16px;
