@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import ariPortrait from '../../assets/ari.jpeg';
 import Layout from '../../layouts/Layout.astro';
 ---
@@ -11,12 +11,14 @@ import Layout from '../../layouts/Layout.astro';
     <div class="container">
       <div class="intro-inner">
         <div class="intro-photo">
-          <Image
+          <Picture
             src={ariPortrait}
             alt="Ariadna Balsells"
             widths={[160, 220, 320, 440]}
             sizes="(max-width: 700px) 160px, 220px"
             loading="eager"
+        formats={['avif', 'webp']}
+        fallbackFormat="webp"
           />
         </div>
         <div class="intro-text">

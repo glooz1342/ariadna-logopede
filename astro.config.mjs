@@ -6,6 +6,17 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://ariadna-logopede.be',
 
+  build: {
+    /**
+     * The home page pulled three separate stylesheets (24 KB over three
+     * round trips), all render-blocking — roughly 450 ms on throttled 4G.
+     * Inlining trades cross-page CSS caching for one fewer request chain
+     * before first paint. Worth it here: most visitors are parents landing
+     * once from a search result, not browsing several pages.
+     */
+    inlineStylesheets: 'always',
+  },
+
   /**
    * Fonts are downloaded at build time and served from this domain.
    *
