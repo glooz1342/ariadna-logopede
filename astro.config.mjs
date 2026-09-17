@@ -40,7 +40,13 @@ export default defineConfig({
       cssVariable: '--font-caveat',
       weights: [400, 500],
       subsets: ['latin', 'latin-ext'],
-      fallbacks: ['cursive'],
+      // Not `cursive`: Astro skips fallback optimisation for generic families,
+      // and the OS decides what `cursive` means — on Windows, Comic Sans. These
+      // named faces let Astro generate a metric-matched fallback, and if Caveat
+      // ever fails the annotation degrades to plain sans rather than to
+      // something unusable on a healthcare site. It never carries information,
+      // so losing the handwritten look costs nothing.
+      fallbacks: ['Segoe UI', 'Helvetica Neue', 'Arial', 'sans-serif'],
     },
   ],
 
