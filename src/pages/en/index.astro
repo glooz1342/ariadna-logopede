@@ -143,7 +143,7 @@ const domains = [
       <p class="eyebrow">Speech Therapist in Brussels</p>
       <h1>Ariadna Balsells</h1>
       <p class="hero-sub">
-        I support <span class="hl">children</span> in the development of language and communication, and in learning mathematics.
+        I support <span class="hl">children</span> in the development of language, communication and feeding, and in learning mathematics.
       </p>
       <div class="hero-actions">
         <a href={ROSA_URL.en} class="btn-primary" target="_blank" rel="noopener">Book an appointment online</a>
@@ -188,15 +188,12 @@ const domains = [
   <!-- About teaser -->
   <section class="about">
     <div class="about-inner">
-      <h2>A person-centred approach</h2>
-      <div class="about-body">
-        <p>
-          I am Ariadna Balsells, a speech therapist based in Brussels. My work is built around 
-          a strong belief: every child has their own way of communicating, and my role is 
-          to support them with respect and creativity.
-        </p>
-        <a href="/en/about/" class="btn-outline">Learn more</a>
-      </div>
+      <p>Want to know more about me before booking an appointment?</p>
+      <svg class="about-arrow" viewBox="0 0 64 28" aria-hidden="true" focusable="false">
+          <path d="M3 18 C 18 6, 36 4, 56 13" />
+          <path d="M47 6 L 57 13 L 46 19" />
+        </svg>
+      <a href="/en/about/" class="btn-outline">Discover my background</a>
     </div>
   </section>
 
@@ -312,30 +309,38 @@ const domains = [
   /* ── À propos ──
      Same two-column rhythm as the domain fields, so the page holds
      together instead of changing shape every section. */
+  /* ── About teaser ──
+     One line, an arrow, a button. Ari asked for a short question rather
+     than a paragraph, with a small hand-drawn arrow leading the eye to the
+     link. On narrow screens the button drops below and the arrow turns
+     down to follow it. */
   .about { background: transparent; padding: 1rem 0 4rem; }
   .about-inner {
-    max-width: 1240px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 3.5rem 2.5rem;
-    background: var(--color-surface);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-soft);
-    display: grid;
-    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
-    gap: 3.5rem;
-    align-items: start;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
   }
-  .about-inner h2 {
-    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  .about-inner p {
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 1.9vw, 1.4rem);
     font-weight: 500;
     margin: 0;
     text-wrap: balance;
   }
-  .about-body p {
-    color: var(--color-text-light);
-    line-height: 1.8;
-    max-width: 60ch;
-    margin: 0 0 1.75rem;
+  .about-arrow {
+    width: 3.5rem;
+    height: auto;
+    flex: none;
+    fill: none;
+    stroke: var(--color-purple);
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   /* ── CTA ──
@@ -386,10 +391,12 @@ const domains = [
 
     .about { padding: 3rem 0; }
     .about-inner {
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
+      flex-direction: column;
+      text-align: center;
+      gap: 0.75rem;
       padding: 0 1.5rem;
     }
+    .about-arrow { transform: rotate(90deg); width: 2.75rem; }
 
     .cta { padding: 2.5rem 0; }
     .cta-inner {
