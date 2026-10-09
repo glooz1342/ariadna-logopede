@@ -1,59 +1,87 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { ROSA_URL } from '../../../data/booking';
+import { ROSA_URL, WHATSAPP_URL } from '../../../data/booking';
 
-// ⚠️ TO BE CONFIRMED BY ARI: consultation names, descriptions, durations,
-// fees and reimbursement conditions.
-const consultations = [
+// ⚠️ TO BE CONFIRMED BY ARI: mirrors the French page, validate together.
+
+// Timeline: here the order matters, hence the numbering.
+// Under each step, one button per area expands the details for that area.
+const domains = [
   {
-    num: '01',
-    title: 'First consultation',
-    desc: 'A first appointment to get to know each other, understand your request and decide together on the next steps.',
-    bullets: [
-      'A conversation about the background and the difficulties observed',
-      'Answers to your questions',
-      'Guidance towards the most suitable assessment or therapy',
-    ],
+    "key": "langage",
+    "label": "Oral language"
   },
   {
-    num: '02',
-    title: 'Paediatric feeding disorders',
-    desc: 'Assessment and support for children with difficulties at mealtimes: food selectivity, textures and oral-motor challenges.',
-    bullets: [
-      'Observation of mealtimes and oral-motor skills',
-      'Gradual work on textures and new foods',
-      'Day-to-day support for parents',
-    ],
+    "key": "tap",
+    "label": "Feeding"
   },
   {
-    num: '03',
-    title: 'Dyscalculia',
-    desc: 'Assessment and support for specific learning difficulties in mathematics and numerical reasoning.',
-    bullets: [
-      'Assessment of number sense and understanding of quantities',
-      'Work on calculation and logical-mathematical reasoning',
-      'Connection with school learning',
-    ],
+    "key": "maths",
+    "label": "Mathematical cognition"
+  }
+];
+
+const steps = [
+  {
+    "title": "The first appointment",
+    "text": "We take time to talk about your child: their development, their daily life, what you are wondering about and what you have already noticed. We also discuss your concerns and what brings you to consult.",
+    "loop": false,
+    "details": null,
+    "notice": "In some cases, it is possible to apply to your health insurance fund for reimbursement approval. This requires a medical prescription for a speech and language assessment. Ask your doctor for one before the first appointment."
   },
   {
-    num: '04',
-    title: 'Augmentative and Alternative Communication (AAC)',
-    desc: 'Setting up communication tools for children with verbal communication difficulties.',
-    bullets: [
-      "Choosing the right tool for each child's profile",
-      'Pictograms, gestures and communication apps',
-      'Supporting families in day-to-day use',
-    ],
+    "title": "The assessment",
+    "text": "The assessment takes one or more sessions. Where possible, I use standardised tests to give an objective basis to what we observe. I also assess your child qualitatively, by watching how they go about things in different situations. The assessment is shaped by your request, to understand precisely how your child functions: their strengths and their areas of difficulty.",
+    "loop": false,
+    "details": {
+      "langage": "I assess language (vocabulary, sentence building, speech sounds, comprehension), speech and communication: how your child connects with others, makes themselves understood and tells a story. When your child is growing up with several languages, I take this into account in the assessment.",
+      "tap": "I observe a meal, ideally with foods your child accepts and others they find harder. I assess their eating and drinking skills: chewing, swallowing, handling textures, behaviour around food.",
+      "maths": "I assess the foundations of number (perceiving quantities, counting, linking digits, number words and quantities), calculation and problem solving. I then place the results in relation to what is expected at their school level."
+    },
+    "notice": null
   },
+  {
+    "title": "The goals",
+    "text": "Following the assessment, we agree on the goals together. We set concrete goals that make sense for your child and for you.",
+    "loop": false,
+    "details": {
+      "langage": "A goal might be, for example, to be understood by classmates or to ask for help with a word, a sign or a pictogram.",
+      "tap": "A goal might be, for example, to taste a new texture or to share the meal at the table with the rest of the family. When growth is a concern, goals are also set with the doctor.",
+      "maths": "A goal might be, for example, to compare two quantities without counting one by one or to understand what a subtraction means in a word problem."
+    },
+    "notice": null
+  },
+  {
+    "title": "Therapy",
+    "text": "Therapy then begins, at the frequency recommended when we set the goals. I want to stress this: your involvement in therapy matters. For some types of therapy, you will even be asked to attend the sessions.",
+    "loop": false,
+    "details": {
+      "langage": "Sessions are built around play and real communication situations. When it helps, I introduce augmentative and alternative communication (AAC): pictograms, signs or a digital tool. AAC supports the development of spoken language and gives your child a way to express themselves right now.",
+      "tap": "Paediatric feeding disorders involve several dimensions at once: medical, nutritional, feeding skills and family experience. I therefore work closely with your child's doctor and the other professionals involved. New textures and foods are introduced gradually. Much of the work is done with you, around meals at home.",
+      "maths": "The work aims at understanding before automatic recall, using concrete materials and visual representations. Where possible, I stay in touch with the school so that our sessions support what happens in class."
+    },
+    "notice": null
+  },
+  {
+    "title": "Taking stock",
+    "text": "At regular intervals, we look back together at the progress made. Once the goals are reached, we set new ones or bring the therapy to a close.",
+    "loop": true,
+    "details": {
+      "langage": "I repeat some of the assessment tasks to measure progress. We also look at what has changed in everyday communication, at home and at school.",
+      "tap": "We look at how the range of accepted foods has changed, how meals go at home and, with the doctor, how your child is growing.",
+      "maths": "I repeat some of the assessment tasks and we compare the results with what the school observes in class."
+    },
+    "notice": null
+  }
 ];
 ---
 
 <Layout title="Consultation at the practice | Ariadna Balsells" lang="en"
-  description="Speech therapy consultations at the practice in Woluwe-Saint-Lambert: first consultation, paediatric feeding disorders, mathematical cognition and AAC. Book online.">
+  description="Speech and language therapy at CAP'S in Woluwe-Saint-Lambert: first appointment, assessment, goals and therapy for oral language, communication, feeding and mathematical cognition.">
 
   <section class="page-hero soft-band soft-band-top grain">
     <div class="container">
-      <p class="section-label">Consultation</p>
+      <p class="eyebrow section-label">Consultation</p>
       <h1>At the practice</h1>
       <p class="tagline">
         Consultations take place at CAP'S in Woluwe-Saint-Lambert, in a space designed
@@ -63,43 +91,46 @@ const consultations = [
     </div>
   </section>
 
-  <section class="types reveal soft-band band-on-ground">
+  <section class="journey reveal soft-band band-on-ground">
     <div class="container">
-      <p class="section-label">What you can book</p>
-      <h2>Types of consultation</h2>
-      {/* One entry point, three specific tracks. The cards were numbered
-          01-04, which read as a sequence: these are alternatives you choose
-          between, not steps you work through. The helper line below already
-          said so in prose; it now sits beside the card it describes. */}
-      <div class="types-entry">
-        <article class="type-card type-card-entry">
-          <h3>{consultations[0].title}</h3>
-          <p class="card-desc">{consultations[0].desc}</p>
-          <ul class="card-bullets">
-            {consultations[0].bullets.map(b => <li>{b}</li>)}
-          </ul>
-        </article>
-        <p class="helper">
-        Not sure which one to choose? Book a first consultation and we'll work it out together.
-      </p>
-      </div>
+      <p class="section-label">How it works</p>
+      <h2>What therapy looks like</h2>
+      <p class="journey-intro">Under each step, click on an area to see what it involves in your situation.</p>
 
-      <div class="types-grid">
-        {consultations.slice(1).map(c => (
-          <article class="type-card">
-            <h3>{c.title}</h3>
-            <p class="card-desc">{c.desc}</p>
-            <ul class="card-bullets">
-              {c.bullets.map(b => <li>{b}</li>)}
-            </ul>
-          </article>
+      <ol class="timeline">
+        {steps.map((s, i) => (
+          <li class:list={['step', { 'step-loop': s.loop }]}>
+            <span class="step-marker" aria-hidden="true"></span>
+            <div class="step-body">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              {s.notice && (
+                <p class="notice"><strong>Reimbursement.</strong> {s.notice}</p>
+              )}
+              {s.details && (<>
+              <div class="pills" role="group" aria-label={s.title}>
+                {domains.map(d => (
+                  <button type="button" class="pill" aria-expanded="false"
+                    aria-controls={`step${i + 1}-${d.key}`}>{d.label}</button>
+                ))}
+              </div>
+              {domains.map(d => (
+                <div class="pill-panel" id={`step${i + 1}-${d.key}`} data-pill-panel>
+                  <span class="pill-panel-label">{d.label}</span>
+                  <p>{s.details[d.key]}</p>
+                </div>
+              ))}
+              </>)}
+            </div>
+          </li>
         ))}
-      </div>
+      </ol>
 
+      <p class="helper">Not sure where to start? Book a first appointment and we will look at it together.</p>
     </div>
   </section>
 
-  <section class="practical reveal grain">
+  <section class="practical reveal">
     <div class="container practical-grid">
       <div class="practical-block">
         <h3>Where?</h3>
@@ -112,8 +143,11 @@ const consultations = [
       <div class="practical-block">
         <h3>Good to know</h3>
         <ul>
-          <li>Oral language, for reimbursement by your health insurance fund, the assessment requires a medical prescription, an IQ test and a hearing test.</li>
-          <li>Please bring any useful documents, such as school reports, previous assessments or medical reports.</li>
+          <li>Bring any useful documents to the first appointment: school reports, previous assessments, medical letters.</li>
+          <li>
+            For fees, <a href={WHATSAPP_URL} target="_blank" rel="noopener">send me a message</a>
+            and I will reply with the details.
+          </li>
           <li>If you cannot make it, let me know as early as possible so the slot can be freed up.</li>
         </ul>
       </div>
@@ -137,6 +171,31 @@ const consultations = [
 
 </Layout>
 
+
+<script>
+  // Panels stay visible without JS; with JS they start closed and each
+  // step's buttons work as a small toggle group (one panel open at a time).
+  document.querySelectorAll<HTMLElement>('[data-pill-panel]').forEach(p => (p.hidden = true));
+  document.querySelectorAll<HTMLElement>('.step-body').forEach(step => {
+    const pills = step.querySelectorAll<HTMLButtonElement>('.pill');
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const open = pill.getAttribute('aria-expanded') === 'true';
+        pills.forEach(other => {
+          other.setAttribute('aria-expanded', 'false');
+          const panel = document.getElementById(other.getAttribute('aria-controls')!);
+          if (panel) panel.hidden = true;
+        });
+        if (!open) {
+          pill.setAttribute('aria-expanded', 'true');
+          const panel = document.getElementById(pill.getAttribute('aria-controls')!);
+          if (panel) panel.hidden = false;
+        }
+      });
+    });
+  });
+</script>
+
 <style>
   .container {
     max-width: 1100px;
@@ -146,9 +205,7 @@ const consultations = [
 
   /* ── Hero ── */
   .page-hero { padding: 5rem 0 3rem; }
-  /* Clear of the tagline, so the hover lift never crowds the text above. */
   .page-hero .btn-primary { margin-top: 1.25rem; }
-
   .page-hero h1 {
     font-size: clamp(2rem, 5vw, 3rem);
     margin-bottom: 0.6rem;
@@ -160,115 +217,151 @@ const consultations = [
     line-height: 1.7;
   }
 
-  /* ── Types ── */
-  .types {
-    background: white;
-    padding: 4.5rem 0;
-  }
-  .types h2 {
+  h2 {
     font-size: clamp(1.6rem, 3vw, 2.2rem);
     margin-bottom: 2.5rem;
   }
-  .types-entry {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 2rem;
-    align-items: center;
-    margin-bottom: 2.5rem;
-  }
-  .type-card-entry {
-    background: var(--color-surface);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-soft);
-    padding: 2rem;
-  }
-  .types-entry .helper { margin: 0; }
-  @media (max-width: 800px) {
-    .types-entry { grid-template-columns: 1fr; gap: 1.25rem; }
-  }
 
-  .types-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+  /* ── Timeline ── */
+  .journey {
+    background: white;
+    padding: 4.5rem 0;
   }
-  @media (max-width: 1000px) {
-    .types-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  .type-card {
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    display: flex;
-    flex-direction: column;
-    transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1),
-                box-shadow 260ms cubic-bezier(0.22, 0.61, 0.36, 1),
-                border-color 260ms;
-    border-radius: 12px;
-    padding: 2rem;
-    transition: all 0.25s;
-  }
-  .type-card:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 10px 28px rgba(44,44,44,0.10);
-  }
-  .type-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--color-purple);
-    box-shadow: 0 14px 34px rgba(44, 44, 44, 0.09);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .type-card { transition: border-color 260ms; }
-    .type-card:hover { transform: none; }
-  }
-
-  .type-card h3 {
-    font-size: 1.05rem;
-    margin-bottom: 0.6rem;
-    color: var(--color-text);
-  }
-  .card-desc {
-    font-size: 0.9rem;
-    color: var(--color-text-light);
-    line-height: 1.65;
-  }
-  .card-bullets {
+  .timeline {
     list-style: none;
     padding: 0;
-    margin-top: 1.1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
+    margin: 0;
+    max-width: 760px;
   }
-  .card-bullets li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
-    font-size: 0.86rem;
-    color: var(--color-text-light);
-    line-height: 1.55;
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1rem 1fr;
+    gap: 1.25rem;
+    padding-bottom: 2.25rem;
   }
-  .card-bullets li::before {
+  /* Connecting line between markers */
+  .step::before {
     content: '';
-    display: block;
-    width: 7px;
-    height: 7px;
-    min-width: 7px;
-    border-radius: 50%;
-    background: var(--color-accent);
-    margin-top: 0.42em;
+    position: absolute;
+    left: calc(0.55rem - 1px);
+    top: 1.9rem;
+    bottom: 0;
+    width: 2px;
+    background: var(--color-tint-lavender);
   }
+  .step:last-child { padding-bottom: 0; }
+  .step:last-child::before { display: none; }
+
+  .step-marker {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.65rem;
+    border-radius: 50%;
+    background: var(--color-purple);
+    box-shadow: 0 0 0 5px var(--color-tint-lavender);
+    position: relative;
+    z-index: 1;
+  }
+  .notice {
+    margin-top: 1rem !important;
+    padding: 0.9rem 1.15rem;
+    border-left: 3px solid var(--color-pink-dark);
+    background: #FBF1F2;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.9rem !important;
+    color: var(--color-text) !important;
+  }
+  .notice strong { color: var(--color-pink-dark); }
+
+  .step-loop .step-marker {
+    background: var(--color-pink);
+    box-shadow: 0 0 0 5px #F3DDE0;
+  }
+  .step-body h3 {
+    font-size: 1.1rem;
+    margin: 0.55rem 0 0.5rem;
+  }
+  .step-body p {
+    font-size: 0.95rem;
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .journey h2 { margin-bottom: 0.75rem; }
+  .journey-intro {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+  }
+
   .helper {
-    margin-top: 2rem;
-    font-size: 0.9rem;
+    margin-top: 2.5rem;
+    font-size: 0.92rem;
     color: var(--color-text-light);
     font-style: italic;
   }
 
+  /* ── Domain pills under each step ── */
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .pill {
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-tint-lavender);
+    background: white;
+    color: var(--color-purple-dark);
+    cursor: pointer;
+    transition: background 180ms, color 180ms, border-color 180ms;
+  }
+  .pill:hover { border-color: var(--color-purple); }
+  .pill[aria-expanded='true'] {
+    background: var(--color-purple);
+    border-color: var(--color-purple);
+    color: white;
+  }
+  .pill:focus-visible {
+    outline: 2px solid var(--color-purple);
+    outline-offset: 2px;
+  }
+  .pill-panel {
+    margin-top: 0.85rem;
+    padding: 1.1rem 1.35rem;
+    background: var(--color-bg);
+    border-radius: var(--radius-sm);
+  }
+  .pill-panel p {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  .pill-panel .pill-panel-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-purple-dark);
+    margin-bottom: 0.4rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pill { transition: none; }
+  }
+
   /* ── Practical ── */
-  .practical { padding: 4.5rem 0 2rem; }
+  .practical {
+    padding: 4.5rem 0;
+  }
   .practical-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.4fr;
     gap: 2.5rem;
   }
   .practical-block h3 {
@@ -289,19 +382,22 @@ const consultations = [
     gap: 0.6rem;
   }
   .practical-block li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
+    position: relative;
+    padding-left: 1.2rem;
   }
   .practical-block li::before {
     content: '';
-    display: block;
+    position: absolute;
+    left: 0;
+    top: 0.65em;
     width: 7px;
     height: 7px;
-    min-width: 7px;
     border-radius: 50%;
-    background: var(--color-accent);
-    margin-top: 0.6em;
+    background: var(--color-purple);
+  }
+  .practical-block a {
+    color: var(--color-purple-dark);
+    text-decoration: underline;
   }
 
   /* ── CTA ── */
@@ -330,8 +426,7 @@ const consultations = [
 
   @media (max-width: 768px) {
     .container { padding: 0 1.25rem; }
-    .types-grid,
-    .practical-grid { grid-template-columns: 1fr; }
     .page-hero { padding: 3.5rem 0 2rem; }
+    .practical-grid { grid-template-columns: 1fr; }
   }
 </style>
