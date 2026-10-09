@@ -1,0 +1,150 @@
+---
+// Spanish translation of src/pages/fr/cookies.astro (October 2026).
+// When the French page changes, update this one too.
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Privacidad y cookies | Ariadna Balsells" lang="es"
+  description="Política de privacidad y de cookies del sitio web de Ariadna Balsells, logopeda en Woluwe-Saint-Lambert: datos tratados, sus derechos y gestión de las cookies.">
+
+  <section class="policy reveal">
+    <div class="container">
+      <p class="eyebrow">Privacidad</p>
+      <h1>Privacidad y cookies</h1>
+      <p class="lead">
+        Esta página explica cómo se tratan sus datos personales cuando utiliza este sitio,
+        qué cookies se utilizan y cómo gestionar sus preferencias.
+      </p>
+
+      <h2>Responsable del tratamiento</h2>
+      <p>
+        Ariadna Balsells, logopeda. Place de la Sainte-Famille 23, 1200 Woluwe-Saint-Lambert
+        (Bruselas). Para cualquier pregunta sobre sus datos:
+        <a class="text-link" href="mailto:ariadna.logopede@gmail.com">ariadna.logopede@gmail.com</a>.
+      </p>
+
+      <h2>¿Qué datos se tratan?</h2>
+      <p>
+        Este sitio no contiene ningún formulario y no recoge directamente datos de salud.
+        Tres situaciones pueden implicar un tratamiento de datos:
+      </p>
+      <ul class="privacy-list">
+        <li><strong>Contacto por correo electrónico, teléfono o WhatsApp</strong>: sus datos de contacto
+        y el contenido de su mensaje se utilizan únicamente para responderle y dar seguimiento
+        a su solicitud.</li>
+        <li><strong>Reserva en línea</strong>: las citas se reservan en la plataforma externa
+        Cal.com, que trata sus datos según su propia política de privacidad.</li>
+        <li><strong>Medición de audiencia</strong>: únicamente con su consentimiento, mediante las
+        cookies que se describen más abajo.</li>
+      </ul>
+
+      <h2>Sus derechos</h2>
+      <p>
+        De conformidad con el RGPD, tiene derecho de acceso, rectificación, supresión,
+        limitación y oposición en relación con sus datos. Basta con solicitarlo por
+        correo electrónico. También puede presentar una reclamación ante la Autoridad de
+        Protección de Datos de Bélgica (<a class="text-link" href="https://www.autoriteprotectiondonnees.be" target="_blank" rel="noopener noreferrer">autoriteprotectiondonnees.be</a>).
+      </p>
+
+      <h2>Cookies: ¿qué son?</h2>
+      <p>
+        Una cookie es un pequeño archivo que se guarda en su dispositivo cuando visita un sitio
+        web. Permite, por ejemplo, recordar sus preferencias o medir las visitas al sitio.
+        Las cookies llamadas «esenciales» son necesarias para el buen funcionamiento del sitio;
+        las demás solo se guardan con su consentimiento.
+      </p>
+
+      <h2>Cookies utilizadas en este sitio</h2>
+
+      <div class="cookie-cat">
+        <h3>Esenciales</h3>
+        <p>
+          Se utiliza una sola cookie esencial para recordar su elección sobre las cookies
+          (<code>cookie_consent</code>). Se conserva unos 6 meses y solo sirve para no volver a
+          preguntarle su preferencia en cada visita. No requiere su consentimiento.
+        </p>
+      </div>
+
+      <div class="cookie-cat">
+        <h3>Medición de audiencia: Google Analytics</h3>
+        <p>
+          Con su consentimiento, se utiliza Google Analytics para entender cómo llegan los visitantes
+          al sitio y qué páginas consultan. Esta información es agregada y ayuda a mejorar el sitio.
+          Estas cookies solo se guardan si usted las acepta.
+        </p>
+      </div>
+
+      <div class="cookie-cat">
+        <h3>Formulario: Google Forms</h3>
+        <p>
+          La página «Consulta a domicilio» muestra un formulario de solicitud de Google Forms.
+          Mientras no haya aceptado las cookies, el formulario permanece oculto y un enlace
+          le permite abrirlo directamente en Google. Las respuestas que envíe se utilizan
+          únicamente para tramitar su solicitud de cita y nunca se transmiten a terceros.
+        </p>
+      </div>
+
+      <div class="cookie-cat">
+        <h3>Mapa: Google Maps</h3>
+        <p>
+          La página Contacto muestra un mapa de Google Maps. Mientras no haya aceptado las
+          cookies, el mapa permanece oculto y un enlace le permite abrirlo directamente en
+          Google Maps. Una vez aceptadas las cookies, el mapa se muestra en la página.
+        </p>
+      </div>
+
+      <h2>Gestionar mis preferencias</h2>
+      <p>
+        Puede cambiar su elección en cualquier momento volviendo a abrir la ventana de consentimiento
+        con el botón de abajo. También puede borrar las cookies desde la configuración de su navegador.
+      </p>
+      <button type="button" class="manage-btn" onclick="window.openCookieSettings && window.openCookieSettings()">
+        Cambiar mis preferencias de cookies
+      </button>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .container { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+  .policy { padding: 5rem 0 4rem; }
+  h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1rem; }
+  .lead { color: var(--color-text-light); line-height: 1.75; font-size: 1.05rem; margin-bottom: 2.5rem; }
+  h2 {
+    font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-text);
+    margin: 2.5rem 0 1rem;
+  }
+  h3 { font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--color-text); }
+  p { color: var(--color-text-light); line-height: 1.75; }
+  code {
+    background: var(--color-bg); border: 1px solid var(--color-border);
+    border-radius: 4px; padding: 0.1em 0.4em; font-size: 0.9em;
+  }
+  .privacy-list {
+    list-style: none; padding: 0; margin: 1rem 0 0;
+    display: flex; flex-direction: column; gap: 0.85rem;
+  }
+  .privacy-list li {
+    color: var(--color-text-light); line-height: 1.7;
+    padding-left: 1.25rem; position: relative;
+  }
+  .privacy-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.6em;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--color-accent);
+  }
+  .privacy-list strong { color: var(--color-text); font-weight: 500; }
+  .text-link { color: var(--color-accent); text-decoration: underline; }
+  .cookie-cat {
+    border-left: 2px solid var(--color-accent);
+    padding-left: 1.25rem; margin-bottom: 1.75rem;
+  }
+  .manage-btn {
+    margin-top: 1rem; padding: 0.85rem 1.75rem;
+    background: var(--color-accent); color: white; border: none;
+    border-radius: 6px; font-size: 0.9rem; font-weight: 500;
+    font-family: inherit; cursor: pointer; transition: background 0.2s;
+  }
+  .manage-btn:hover { background: var(--color-accent-dark); }
+</style>

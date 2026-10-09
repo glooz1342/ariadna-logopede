@@ -1,0 +1,420 @@
+---
+// Spanish translation of src/pages/fr/index.astro (October 2026).
+// When the French page changes, update this one too.
+import { Picture } from 'astro:assets';
+import ariPortrait from '../../assets/ari.jpeg';
+import Layout from '../../layouts/Layout.astro';
+import { ROSA_URL } from '../../data/booking';
+import DomainCard from '../../components/DomainCard.astro';
+
+// ── Domaines d'intervention ──
+// APERÇU : le premier encadré remplace les 5 anciennes cartes dépliantes.
+// Les deux autres (apprentissages / alimentation-oralité) restent à rédiger
+// par Ari sur le même modèle, il suffit d'ajouter un objet à cette liste.
+const domaines = [
+  {
+    title: "Comunicación y lenguaje oral",
+    icon: 'speech' as const,
+    tint: 'lavender' as const,
+    intro: "El acompañamiento del lenguaje, el habla y la comunicación en el niño, tanto si se trata de una dificultad aislada como asociada a otra condición.",
+    headings: ["Acompaño", "Lo que puede observar en su hijo"] as [string, string],
+    terms: [
+      { term: "El lenguaje: comprender y expresarse", sub: "el léxico (conocer las palabras), la morfosintaxis (colocar las palabras en el orden correcto), la fonología (distinguir los sonidos) y la comprensión (entender lo que se le dice)" },
+      { term: "El habla: producir los sonidos", sub: "la articulación (pronunciar con claridad), la planificación y la programación del movimiento (encadenar los gestos del habla) y la fonología (organizar los sonidos de la palabra)" },
+      { term: "La comunicación: relacionarse con los demás", sub: "la comunicación social: la pragmática (adaptar el lenguaje a la situación), las habilidades sociales (relacionarse, respetar los turnos) y las competencias discursivas y narrativas (contar, mantener una conversación)" },
+    ],
+    observationsIntro: "Su hijo puede presentar alguno de estos signos, en mayor o menor grado:",
+    observations: [
+      "Habla poco, empezó tarde o habla peor que los niños de su edad",
+      "Le cuesta encontrar las palabras o las coloca desordenadas",
+      "Le cuesta entender lo que se le dice",
+      "Cuesta entenderle cuando habla: se come sonidos o sílabas",
+      "Le cuesta relacionarse, respetar los turnos o contar algo",
+    ],
+    assoc: {
+      primary: [
+        { title: "Trastorno del desarrollo del lenguaje (TDL)" },
+        { title: "Dispraxia verbal" },
+      ],
+      lead: "También acompaño la comunicación y el lenguaje cuando se asocian a otra condición. El objetivo es el mismo, adaptado a las particularidades de cada niño:",
+      conditions: [
+        {
+          title: "Trastorno del espectro autista (TEA)",
+          desc: "Evaluación y acompañamiento de la comunicación y el lenguaje, tenga o no el niño necesidades complejas de comunicación.",
+          featured: true,
+        },
+        {
+          title: "Trisomía 21",
+          desc: "Evaluación y acompañamiento del habla y el lenguaje, teniendo en cuenta las particularidades del síndrome.",
+        },
+        {
+          title: "Síndromes genéticos",
+          desc: "Un acompañamiento que tiene en cuenta las particularidades del trastorno asociado.",
+        },
+        {
+          title: "Discapacidad intelectual",
+        },
+      ],
+    },
+    note: "La <strong>comunicación aumentativa y alternativa (CAA)</strong> reúne estrategias como los gestos, los signos, los pictogramas o los soportes digitales. Enriquece el lenguaje y apoya a la vez el habla y la comunicación. Abierta a cualquier niño con necesidades complejas de comunicación, le da los medios para comprender y hacerse entender.",
+  },
+  {
+    title: "Alimentación",
+    icon: 'feeding' as const,
+    tint: 'mint' as const,
+    intro: "El acompañamiento del desarrollo de la alimentación en el niño, desde el lactante hasta el niño mayor, en sus dimensiones sensorial, motora y conductual.",
+    headings: ["Acompaño", "Lo que puede observar en su hijo"] as [string, string],
+    terms: [
+      { term: "Selectividad alimentaria" },
+      { term: "Hiper- o hiposensibilidad sensorial", sub: "(texturas, olores, sabores)" },
+      { term: "Dificultades de masticación y deglución", sub: "(disfagia)" },
+    ],
+    observations: [
+      "Solo come unos pocos alimentos, siempre los mismos",
+      "Algunas texturas u olores le dan tanto asco que escupe la comida o aparta el plato",
+      "O, al contrario, apenas nota los alimentos y se llena demasiado la boca",
+      "Retiene la comida en la boca, se atraganta o las comidas no terminan nunca",
+    ],
+    assoc: {
+      lead: "También acompaño la alimentación cuando se asocia a otra condición. El objetivo es el mismo, adaptado a las particularidades de cada niño:",
+      conditions: [
+        {
+          title: "Trastorno del espectro autista (TEA)",
+          desc: "La selectividad es muy frecuente. Amplío el repertorio al ritmo del niño, según su perfil sensorial.",
+          featured: true,
+        },
+        {
+          title: "Trisomía 21",
+          desc: "Apoyar la masticación y la deglución, a menudo más frágiles.",
+        },
+        {
+          title: "Síndromes genéticos",
+          desc: "Apoyar la alimentación según las particularidades del síndrome.",
+        },
+        {
+          title: "Prematuridad y recorrido médico",
+          desc: "Recuperar las habilidades de alimentación tras una sonda, un reflujo gastroesofágico o una hospitalización.",
+        },
+      ],
+    },
+  },
+  {
+    title: "Cognición matemática",
+    icon: 'maths' as const,
+    tint: 'blue' as const,
+    intro: "El acompañamiento de los trastornos de la <strong>cognición matemática</strong> en el niño: un término genérico que agrupa el conjunto de las dificultades en matemáticas, entre ellas el trastorno del aprendizaje de las matemáticas (TAM), que hoy sustituye a «discalculia».",
+    headings: ["Acompaño", "Lo que puede observar en su hijo"] as [string, string],
+    terms: [
+      { term: "Trastorno del aprendizaje de las matemáticas", sub: "(TAM, antes llamado «discalculia»)" },
+      { term: "Cognición numérica", sub: "(sentido numérico, transcodificación)" },
+      { term: "Cognición aritmética", sub: "(cálculo, resolución de problemas)" },
+    ],
+    observations: [
+      "Todavía <strong>cuenta con los dedos</strong> y le cuesta memorizar las <strong>tablas de multiplicar</strong>",
+      "<strong>Hacer cuentas en columna</strong>, leer la hora o dar el cambio le resulta difícil",
+      "Le <strong>cuesta resolver problemas</strong> y estimar cantidades",
+      "Sus <strong>resultados en matemáticas</strong> no mejoran, a pesar del esfuerzo",
+    ],
+    assoc: {
+      lead: "El TAM rara vez aparece aislado. Lo tengo en cuenta ante los trastornos que se le asocian con frecuencia:",
+      conditions: [
+        {
+          title: "Trastornos del lenguaje escrito (dislexia, disortografía)",
+          desc: "La comorbilidad más frecuente del TAM.",
+          featured: true,
+        },
+        {
+          title: "Trastorno del desarrollo del lenguaje (TDL)",
+          desc: "El lenguaje sostiene el razonamiento y la comprensión de los enunciados.",
+        },
+        {
+          title: "TDAH",
+          desc: "La atención y las funciones ejecutivas influyen en el aprendizaje.",
+        },
+        {
+          title: "Trastorno del desarrollo de la coordinación (TDC)",
+          desc: "Posible impacto en la escritura de los números y en la geometría.",
+        },
+      ],
+    },
+  },
+];
+---
+
+<Layout title="Ariadna Balsells | Logopeda en Bruselas" lang="es"
+  description="Ariadna Balsells, logopeda en Woluwe-Saint-Lambert, Bruselas. Acompaño a niños y niñas en el lenguaje, la comunicación, la alimentación y el aprendizaje de las matemáticas.">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Logopeda en Bruselas</p>
+      <h1>Ariadna Balsells</h1>
+      <p class="hero-sub">
+        Acompaño <span class="hl">a niños y niñas</span> en el desarrollo del lenguaje, la comunicación y la alimentación, y en el aprendizaje de las matemáticas.
+      </p>
+      <div class="hero-actions">
+        <a href={ROSA_URL.es} class="btn-primary" target="_blank" rel="noopener">Pedir cita en línea</a>
+        <a href="/es/sobre-mi/" class="btn-secondary">Sobre mí</a>
+      </div>
+    </div>
+    <div class="hero-portrait">
+      <Picture
+        src={ariPortrait}
+        alt="Ariadna Balsells, logopeda"
+        widths={[320, 440, 660, 880]}
+        sizes="(max-width: 860px) 20rem, 40vw"
+        loading="eager"
+        fetchpriority="high"
+        formats={['avif', 'webp']}
+        fallbackFormat="webp"
+      />
+    </div>
+  </section>
+
+  <!-- Domaines d'intervention -->
+  <section class="domaines" id="consultas">
+    <div class="domaines-head">
+      <h2>Ámbitos de intervención</h2>
+    </div>
+    {domaines.map((d, i) => (
+      <DomainCard
+        title={d.title}
+        intro={d.intro}
+        headings={d.headings}
+        terms={d.terms}
+        observations={d.observations}
+        observationsIntro={d.observationsIntro}
+        assoc={d.assoc}
+        note={d.note}
+        icon={d.icon}
+        tint={d.tint}
+        flip={i % 2 === 1}
+      />
+    ))}
+  </section>
+
+  <!-- À propos -->
+  <section class="about">
+    <div class="about-inner">
+      <p>¿Quiere saber más sobre mí antes de pedir cita?</p>
+      <svg class="about-arrow" viewBox="0 0 64 28" aria-hidden="true" focusable="false">
+          <path d="M3 18 C 18 6, 36 4, 56 13" />
+          <path d="M47 6 L 57 13 L 46 19" />
+        </svg>
+      <a href="/es/sobre-mi/" class="btn-outline">Conocer mi trayectoria</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta grain">
+    <div class="cta-inner">
+      <div>
+        <h2>¿Desea pedir cita?</h2>
+        <p>No dude en contactarme si tiene cualquier pregunta o para programar una primera cita.</p>
+      </div>
+      <a href="/es/contacto/" class="btn-primary">Contactarme</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* ── Hero ──
+     Asymmetric, not a centred stack. The portrait bleeds off the right
+     edge of the viewport onto a cream field, so the first thing on the
+     page is the person rather than a wordmark floating on white. */
+  /* The hero is a contained two-column composition, not a full-bleed split:
+     a 1100px measure shared with every section below, a 4:5 portrait card,
+     and the text column free to use its full width. */
+  .hero {
+    background: transparent;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-text { padding: 0; max-width: none; }
+  .hero h1 {
+    font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin-bottom: 1.5rem;
+  }
+  .hl {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .hl::after {
+    content: '';
+    position: absolute;
+    left: -0.12em;
+    right: -0.12em;
+    bottom: -0.14em;
+    height: 0.42em;
+    z-index: -1;
+    background: no-repeat center / 100% 100%
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 22' preserveAspectRatio='none'%3E%3Cpath d='M4 15.5c28-6 62-9.5 96-9.8 33-.3 68 2.2 96 7.4' stroke='%23D2CCDC' stroke-width='9' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+  }
+  .hero-sub {
+    isolation: isolate;
+    font-size: 1.15rem;
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin-bottom: 2.25rem;
+    max-width: 46ch;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .hero-portrait {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: visible;
+    background: transparent;
+  }
+  .hero-portrait::before {
+    content: "";
+    position: absolute;
+    left: -32px; bottom: -32px;
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    background: var(--color-tint-lavender);
+    z-index: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-portrait::before { animation: respire 5.5s ease-in-out infinite; }
+  }
+  @keyframes respire { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+  .hero-portrait img {
+    display: block;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* ── Domaines ──
+     The heading sits on white; each field below supplies its own colour. */
+  .domaines { background: transparent; padding-top: 3rem; }
+  .domaines-head {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4.5rem 2rem 2.5rem;
+  }
+  .domaines-head h2 {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  /* ── À propos ──
+     Same two-column rhythm as the domain fields, so the page holds
+     together instead of changing shape every section. */
+  /* ── About teaser ──
+     One line, an arrow, a button. Ari asked for a short question rather
+     than a paragraph, with a small hand-drawn arrow leading the eye to the
+     link. On narrow screens the button drops below and the arrow turns
+     down to follow it. */
+  .about { background: transparent; padding: 1rem 0 4rem; }
+  .about-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
+  }
+  .about-inner p {
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 1.9vw, 1.4rem);
+    font-weight: 500;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .about-arrow {
+    width: 3.5rem;
+    height: auto;
+    flex: none;
+    fill: none;
+    stroke: var(--color-purple);
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ── CTA ──
+     Horizontal, not another centred band. The ask sits on the left and
+     the action on the right, so it reads as a line rather than a third
+     hero. */
+  .cta {
+    background: var(--color-surface);
+    padding: 3.5rem 2.5rem;
+    max-width: 1240px;
+    margin: 0 auto 4rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+  .cta-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+  }
+  .cta h2 {
+    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    font-weight: 500;
+    margin: 0 0 0.4rem;
+  }
+  .cta p {
+    color: var(--color-text-light);
+    margin: 0;
+    max-width: 56ch;
+  }
+  .cta .btn-primary { flex-shrink: 0; }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 2rem 1.5rem 3rem;
+      gap: 2.5rem;
+    }
+    .hero-text { padding: 0; }
+    .hero-sub { max-width: 100%; }
+    .hero-portrait { max-width: 20rem; margin: 0 auto; }
+    .hero-portrait img { object-position: center 18%; }
+
+    .domaines-head { padding: 3rem 1.5rem 2rem; }
+
+    .about { padding: 3rem 0; }
+    .about-inner {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.75rem;
+      padding: 0 1.5rem;
+    }
+    .about-arrow { transform: rotate(90deg); width: 2.75rem; }
+
+    .cta { padding: 2.5rem 0; }
+    .cta-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 0 1.5rem;
+    }
+    .cta .btn-primary { width: 100%; text-align: center; }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-secondary { width: 100%; text-align: center; }
+  }
+</style>
