@@ -1,0 +1,245 @@
+---
+// Italian translation of src/pages/fr/apropos.astro (October 2026).
+// When the French page changes, update this one too.
+import { Picture } from 'astro:assets';
+import ariPortrait from '../../assets/ari.jpeg';
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Chi sono | Ariadna Balsells" lang="it"
+  description="Scoprite il percorso di Ariadna Balsells, logopedista abilitata con studio a Woluwe-Saint-Lambert, Bruxelles.">
+
+  <section class="intro soft-band soft-band-top grain">
+    <div class="container">
+      <div class="intro-inner">
+        <div class="intro-photo">
+          <Picture
+            src={ariPortrait}
+            alt="Ariadna Balsells"
+            widths={[160, 220, 320, 440]}
+            sizes="(max-width: 700px) 160px, 220px"
+            loading="eager"
+        formats={['avif', 'webp']}
+        fallbackFormat="webp"
+          />
+        </div>
+        <div class="intro-text">
+          <p class="eyebrow">Chi sono</p>
+          <h1>Ariadna Balsells</h1>
+          <p class="tagline">Logopedista libera professionista · Bruxelles</p>
+          <p>
+            Laureata con un master in Logopedia, con specializzazione in disturbi del neurosviluppo
+            e disturbi sensoriali, lavoro oggi come logopedista libera professionista al CAP'S
+            (Centre d'Accompagnement Pédiatrique Spécialisé) a Bruxelles.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="approach reveal soft-band band-on-ground">
+    <div class="container">
+      <h2>Il mio approccio</h2>
+      <div class="pillars">
+        <div class="pillar">
+          <h3>Individualizzato</h3>
+          <p>Parto dai punti di forza e dalle difficoltà di ogni bambino per costruire con voi un percorso su misura per lui.</p>
+        </div>
+        <div class="pillar">
+          <h3>Collaborativo</h3>
+          <p>Lavoro in stretta collaborazione con le famiglie e con le équipe educative.</p>
+        </div>
+        <div class="pillar">
+          <h3>Fondato sulla ricerca</h3>
+          <p>Leggo la letteratura scientifica e mi formo continuamente perché la mia pratica resti aggiornata.
+          Mi piace collegare ciò che la ricerca raccomanda, ciò che osservo in vostro figlio e le domande che vi ponete.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="languages reveal">
+    <div class="container">
+      <p class="section-label">Comunicazione</p>
+      <h2>Lingue di lavoro</h2>
+      <div class="lang-grid">
+        <div class="lang-card">
+          <p class="lang-name">Francese</p>
+          <p class="lang-level">Lingua madre</p>
+        </div>
+        <div class="lang-card">
+          <p class="lang-name">Spagnolo</p>
+          <p class="lang-level">Lingua madre</p>
+        </div>
+        <div class="lang-card">
+          <p class="lang-name">Italiano</p>
+          <p class="lang-level">Lingua madre</p>
+        </div>
+        <div class="lang-card">
+          <p class="lang-name">Inglese</p>
+          <p class="lang-level">Livello C2</p>
+          <p class="lang-note">Solo per il percorso sull'alimentazione e il sostegno ai genitori.</p>
+        </div>
+        <div class="lang-card">
+          <p class="lang-name">LSFB</p>
+          <p class="lang-level">Livello A2</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="continuous reveal">
+    <div class="container">
+      <p class="section-label">Sviluppo professionale</p>
+      <h2>Formazione continua</h2>
+      <ol class="parcours" aria-label="Percorso formativo">
+          <li class="parcours-item">
+            <span class="parcours-year">2020-2023</span>
+            <p>Laurea triennale in Scienze psicologiche e dell'educazione, indirizzo Logopedia &middot; UCLouvain</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2023-2025</span>
+            <p>Laurea magistrale in Logopedia, specializzazione in disturbi del neurosviluppo e disturbi sensoriali &middot; UCLouvain</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2024</span>
+            <p>A.B.A. e disturbi gravi del comportamento (comportamenti problema)</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2025</span>
+            <p>L'intervento logopedico in CAA, Ornella Thys</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2026</span>
+            <p>Disturbo pediatrico dell'alimentazione, Pascale Grevesse, Bruxelles</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2026</span>
+            <p>Colloquio motivazionale (Miller e Rollnick)</p>
+          </li>
+          <li class="parcours-item">
+            <span class="parcours-year">2026</span>
+            <p>Disprassia verbale: identificazione e intervento, Meloni e Charron, Parigi</p>
+          </li>
+          <li class="parcours-item parcours-upcoming">
+            <span class="parcours-year">In corso</span>
+            <p>Certificato in musicoterapia</p>
+          </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="cta reveal">
+    <div class="container">
+      <h2>Avete una domanda?</h2>
+      <p>Non esitate a contattarmi per saperne di più sul mio approccio o per prendere appuntamento.</p>
+      <a href="/it/contatti/" class="btn-primary">Contattami</a>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+  /* Intro */
+  .intro { padding: 5rem 0 4rem; }
+  .intro-inner { display: grid; grid-template-columns: auto 1fr; gap: 4rem; align-items: start; }
+  .intro-photo img {
+    width: 220px; height: 220px; object-fit: cover; object-position: center 15%;
+    border-radius: 50%; border: 4px solid var(--color-tint-mint);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08); display: block;
+  }
+  .intro-text h1 { font-size: clamp(2rem, 3.5vw, 2.8rem); margin-bottom: 0.4rem; }
+  .tagline { font-size: 0.85rem; color: var(--color-accent); letter-spacing: 0.05em; margin-bottom: 1.5rem; text-transform: uppercase; }
+  .intro-text p { color: var(--color-text-light); line-height: 1.8; margin-bottom: 1rem; }
+
+  /* Approach */
+  .approach { background: white; padding: 5rem 0; }
+  .approach h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 3rem; color: var(--color-accent); }
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .pillar { border-top: 2px solid var(--color-accent); padding-top: 1.5rem; }
+  .pillar h3 { font-size: 1.05rem; margin-bottom: 0.75rem; }
+  .pillar p { font-size: 0.9rem; color: var(--color-text-light); line-height: 1.7; }
+
+  /* Formation */
+
+  /* Languages */
+  .languages { background: white; padding: 5rem 0; }
+  .languages h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 2rem; }
+
+  /* Formation continue */
+  .continuous { padding: 5rem 0; }
+  .continuous h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 2rem; }
+
+  /* CTA */
+  .lang-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    max-width: 1100px;
+  }
+  .lang-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow-soft);
+  }
+  .lang-name { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; }
+  .lang-level { font-size: 0.85rem; color: var(--color-text-light); margin-top: 0.15rem; }
+  /* English is offered for a narrower scope than the other languages, so the
+     limit sits on the card itself rather than in a footnote nobody reads. */
+  .lang-note {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--color-purple-dark);
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Formation continue is the one place on this site where accumulated years
+     genuinely build trust, so it is set as a dated parcours rather than a
+     list. It is a real chronological sequence, which is what earns the rule
+     and the markers — they encode order, they are not ornament. */
+  .parcours { list-style: none; margin: 0; padding: 0; max-width: 760px; }
+  .parcours-item {
+    display: grid; grid-template-columns: 96px 1fr; gap: 1.5rem;
+    align-items: baseline; padding: 1.15rem 0 1.15rem 0;
+    position: relative; border-bottom: 1px solid var(--color-border);
+  }
+  .parcours-item:last-child { border-bottom: 0; }
+  .parcours-year {
+    font-family: var(--font-heading); font-weight: 700;
+    font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+    font-size: 0.95rem; color: var(--color-purple); text-align: right;
+    white-space: nowrap;
+  }
+  .parcours-item p { margin: 0; }
+  /* An in-progress qualification is real information, not a footnote:
+     muted year plus italic marks it as ongoing rather than completed. */
+  .parcours-upcoming .parcours-year { color: var(--color-text-light); }
+  .parcours-upcoming p { color: var(--color-text-light); font-style: italic; }
+
+  /* Five working languages is unusual in Brussels and was buried in five
+     identical boxes. Rows let the list read as one fact about her rather
+     than five separate cards competing for attention. */
+
+  @media (max-width: 640px) {
+    .parcours-item { grid-template-columns: 78px 1fr; gap: 1rem; }
+  }
+
+  .cta { background: white; padding: 5rem 0; text-align: center; }
+  .cta h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 1rem; }
+  .cta p { color: var(--color-text-light); margin-bottom: 2rem; }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .intro { padding: 3rem 0; }
+    .intro-inner { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+    .intro-photo { display: flex; justify-content: center; }
+    .intro-photo img { width: 160px; height: 160px; }
+    .pillars { grid-template-columns: 1fr; }
+    .cta { padding: 3rem 0; }
+  }
+</style>

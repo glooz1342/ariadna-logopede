@@ -1,0 +1,435 @@
+---
+// Italian translation of src/pages/fr/consultation/en-cabinet.astro (October 2026).
+// When the French page changes, update this one too.
+import Layout from '../../../layouts/Layout.astro';
+import { ROSA_URL, WHATSAPP_URL } from '../../../data/booking';
+
+// ⚠️ À FAIRE VALIDER PAR ARI : textes des étapes et des boutons par domaine,
+// fréquence des séances, compte rendu écrit, bloc « Bon à savoir ».
+
+// Ligne du temps : ici l'ordre compte, d'où la numérotation.
+// Sous chaque étape, un bouton par domaine déplie le détail propre à ce suivi.
+const domains = [
+  {
+    "key": "langage",
+    "label": "Linguaggio orale"
+  },
+  {
+    "key": "tap",
+    "label": "Alimentazione"
+  },
+  {
+    "key": "maths",
+    "label": "Cognizione matematica"
+  }
+] as const;
+
+const steps = [
+  {
+    "title": "Il primo appuntamento",
+    "text": "Ci prendiamo il tempo di parlare di vostro figlio: il suo sviluppo, la sua quotidianità, le domande che vi ponete e ciò che avete già osservato. Parliamo anche delle vostre preoccupazioni e di ciò che vi porta a rivolgervi a me.",
+    "loop": false,
+    "details": null,
+    "notice": "In alcuni casi è possibile presentare alla vostra mutua una richiesta di autorizzazione al rimborso. Per farlo è necessaria una prescrizione medica per una valutazione logopedica. Ricordatevi di chiederla al vostro medico prima del primo appuntamento."
+  },
+  {
+    "title": "La valutazione",
+    "text": "La valutazione si svolge in una o più sedute. Quando possibile, utilizzo prove standardizzate per oggettivare le osservazioni. Valuto anche vostro figlio in modo qualitativo, osservando come affronta situazioni diverse. La valutazione è costruita in base alla vostra richiesta, per capire con precisione come funziona vostro figlio: i suoi punti di forza e le sue fragilità.",
+    "loop": false,
+    "details": {
+      "langage": "Valuto il linguaggio (vocabolario, costruzione delle frasi, suoni della lingua, comprensione), la parola e la comunicazione: il modo in cui vostro figlio entra in relazione, si fa capire e racconta. Se vostro figlio cresce con più lingue, ne tengo conto nella valutazione.",
+      "tap": "Osservo un pasto, idealmente con alimenti che vostro figlio accetta e altri per lui più difficili. Valuto le sue competenze nel mangiare e nel bere: masticazione, deglutizione, gestione delle consistenze, comportamento di fronte al cibo.",
+      "maths": "Valuto le basi del numero (percezione delle quantità, conteggio, collegamento tra cifre, parole e quantità), il calcolo e la risoluzione di problemi. Poi colloco i risultati rispetto a quanto atteso per la sua classe."
+    },
+    "notice": null
+  },
+  {
+    "title": "Gli obiettivi",
+    "text": "Dopo la valutazione, ci accordiamo sugli obiettivi. Fissiamo insieme obiettivi concreti, che abbiano senso per vostro figlio e per voi.",
+    "loop": false,
+    "details": {
+      "langage": "Un obiettivo può essere, ad esempio, farsi capire dai compagni di classe o chiedere aiuto con una parola, un gesto o un pittogramma.",
+      "tap": "Un obiettivo può essere, ad esempio, assaggiare una nuova consistenza o mangiare a tavola con il resto della famiglia. Quando è in gioco la crescita, gli obiettivi si decidono anche con il medico.",
+      "maths": "Un obiettivo può essere, ad esempio, confrontare due quantità senza contare una per una o capire che cosa rappresenta una sottrazione in un problema."
+    },
+    "notice": null
+  },
+  {
+    "title": "La terapia",
+    "text": "La terapia inizia poi, con la frequenza consigliata al momento di fissare gli obiettivi. Ci tengo a sottolinearlo: la vostra presenza nel percorso è importante. Per alcuni tipi di intervento vi verrà persino chiesto di assistere alle sedute.",
+    "loop": false,
+    "details": {
+      "langage": "Le sedute si basano sul gioco e su situazioni comunicative reali. Quando è utile, introduco la comunicazione aumentativa e alternativa (CAA): pittogrammi, gesti o uno strumento digitale. La CAA sostiene lo sviluppo del linguaggio orale e dà a vostro figlio un modo per esprimersi fin da subito.",
+      "tap": "I disturbi pediatrici dell'alimentazione toccano più dimensioni insieme: medica, nutrizionale, competenze alimentari e vissuto familiare. Per questo lavoro in collegamento con il medico di vostro figlio e con gli altri professionisti che lo seguono. Le nuove consistenze e i nuovi alimenti vengono introdotti gradualmente. Gran parte del lavoro si fa con voi, intorno ai pasti a casa.",
+      "maths": "Il lavoro punta alla comprensione prima dell'automatizzazione, con materiale concreto e rappresentazioni visive. Quando è possibile, resto in contatto con la scuola perché le nostre sedute sostengano ciò che si fa in classe."
+    },
+    "notice": null
+  },
+  {
+    "title": "Fare il punto",
+    "text": "A intervalli regolari guardiamo insieme il cammino percorso. Quando gli obiettivi sono raggiunti, ne fissiamo di nuovi oppure concludiamo il percorso.",
+    "loop": true,
+    "details": {
+      "langage": "Ripropongo alcune prove della valutazione per misurare l'evoluzione. Guardiamo anche che cosa è cambiato nella comunicazione quotidiana, a casa e a scuola.",
+      "tap": "Guardiamo l'evoluzione degli alimenti accettati, dello svolgimento dei pasti a casa e, con il medico, della crescita.",
+      "maths": "Ripropongo alcune prove della valutazione e confrontiamo i risultati con ciò che la scuola osserva in classe."
+    },
+    "notice": null
+  }
+];
+---
+
+<Layout title="Consulenza in studio | Ariadna Balsells" lang="it"
+  description="Sedute di logopedia al CAP'S a Woluwe-Saint-Lambert: primo appuntamento, valutazione, obiettivi e terapia per linguaggio orale, alimentazione e cognizione matematica.">
+
+  <section class="page-hero soft-band soft-band-top grain">
+    <div class="container">
+      <p class="eyebrow section-label">Consulenza</p>
+      <h1>In studio</h1>
+      <p class="tagline">
+        Le sedute si svolgono al CAP'S, a Woluwe-Saint-Lambert, in uno spazio
+        pensato per i bambini e le loro famiglie.
+      </p>
+      <a href={ROSA_URL.it} class="btn-primary" target="_blank" rel="noopener">Prenota online</a>
+    </div>
+  </section>
+
+  <section class="journey reveal soft-band band-on-ground">
+    <div class="container">
+      <p class="section-label">Come funziona</p>
+      <h2>Come si svolge un percorso</h2>
+      <p class="journey-intro">In ogni tappa, cliccate su un ambito per vedere che cosa comporta nella vostra situazione.</p>
+
+      <ol class="timeline">
+        {steps.map((s, i) => (
+          <li class:list={['step', { 'step-loop': s.loop }]}>
+            <span class="step-marker" aria-hidden="true"></span>
+            <div class="step-body">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              {s.notice && (
+                <p class="notice"><strong>Rimborso.</strong> {s.notice}</p>
+              )}
+              {s.details && (<>
+              <div class="pills" role="group" aria-label={s.title}>
+                {domains.map(d => (
+                  <button type="button" class="pill" aria-expanded="false"
+                    aria-controls={`step${i + 1}-${d.key}`}>{d.label}</button>
+                ))}
+              </div>
+              {domains.map(d => (
+                <div class="pill-panel" id={`step${i + 1}-${d.key}`} data-pill-panel>
+                  <span class="pill-panel-label">{d.label}</span>
+                  <p>{s.details[d.key]}</p>
+                </div>
+              ))}
+              </>)}
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <p class="helper">Non sapete da dove cominciare? Prenotate un primo appuntamento: ne parleremo insieme.</p>
+    </div>
+  </section>
+
+  <section class="practical reveal">
+    <div class="container practical-grid">
+      <div class="practical-block">
+        <h3>Dove?</h3>
+        <p>
+          CAP'S, Centre d'Accompagnement Pédiatrique Spécialisé<br />
+          Pl. de la Sainte-Famille 23<br />
+          1200 Woluwe-Saint-Lambert
+        </p>
+      </div>
+      <div class="practical-block">
+        <h3>Buono a sapersi</h3>
+        <ul>
+          <li>Portate al primo appuntamento i documenti utili: relazioni scolastiche, valutazioni precedenti, lettere mediche.</li>
+          <li>
+            Per conoscere le tariffe, <a href={WHATSAPP_URL} target="_blank" rel="noopener">scrivetemi</a>:
+            ve le invierò via messaggio.
+          </li>
+          <li>In caso di impedimento, avvisatemi il prima possibile per liberare l'orario.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta reveal">
+    <div class="container">
+      <h2>Prenotare un appuntamento</h2>
+      <p>
+        I miei appuntamenti si prenotano online tramite Rosa, la mia piattaforma di prenotazione
+        (disponibile in francese). Lì vedrete le mie disponibilità in tempo reale.
+      </p>
+      <a href={ROSA_URL.it} class="btn-primary" target="_blank" rel="noopener">Prenota online</a>
+      <p class="cta-alt">
+        Preferite una seduta a domicilio?
+        <a href="/it/consulenza/a-domicilio/">Compilate il modulo di richiesta</a>.
+      </p>
+    </div>
+  </section>
+
+</Layout>
+
+
+<script>
+  // Panels stay visible without JS; with JS they start closed and each
+  // step's buttons work as a small toggle group (one panel open at a time).
+  document.querySelectorAll<HTMLElement>('[data-pill-panel]').forEach(p => (p.hidden = true));
+  document.querySelectorAll<HTMLElement>('.step-body').forEach(step => {
+    const pills = step.querySelectorAll<HTMLButtonElement>('.pill');
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        const open = pill.getAttribute('aria-expanded') === 'true';
+        pills.forEach(other => {
+          other.setAttribute('aria-expanded', 'false');
+          const panel = document.getElementById(other.getAttribute('aria-controls')!);
+          if (panel) panel.hidden = true;
+        });
+        if (!open) {
+          pill.setAttribute('aria-expanded', 'true');
+          const panel = document.getElementById(pill.getAttribute('aria-controls')!);
+          if (panel) panel.hidden = false;
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── Hero ── */
+  .page-hero { padding: 5rem 0 3rem; }
+  .page-hero .btn-primary { margin-top: 1.25rem; }
+  .page-hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 0.6rem;
+  }
+  .tagline {
+    color: var(--color-text-light);
+    font-size: 1.05rem;
+    max-width: 620px;
+    line-height: 1.7;
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Timeline ── */
+  .journey {
+    background: white;
+    padding: 4.5rem 0;
+  }
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 760px;
+  }
+  .step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1rem 1fr;
+    gap: 1.25rem;
+    padding-bottom: 2.25rem;
+  }
+  /* Connecting line between markers */
+  .step::before {
+    content: '';
+    position: absolute;
+    left: calc(0.55rem - 1px);
+    top: 1.9rem;
+    bottom: 0;
+    width: 2px;
+    background: var(--color-tint-lavender);
+  }
+  .step:last-child { padding-bottom: 0; }
+  .step:last-child::before { display: none; }
+
+  .step-marker {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.65rem;
+    border-radius: 50%;
+    background: var(--color-purple);
+    box-shadow: 0 0 0 5px var(--color-tint-lavender);
+    position: relative;
+    z-index: 1;
+  }
+  .notice {
+    margin-top: 1rem !important;
+    padding: 0.9rem 1.15rem;
+    border-left: 3px solid var(--color-pink-dark);
+    background: #FBF1F2;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 0.9rem !important;
+    color: var(--color-text) !important;
+  }
+  .notice strong { color: var(--color-pink-dark); }
+
+  .step-loop .step-marker {
+    background: var(--color-pink);
+    box-shadow: 0 0 0 5px #F3DDE0;
+  }
+  .step-body h3 {
+    font-size: 1.1rem;
+    margin: 0.55rem 0 0.5rem;
+  }
+  .step-body p {
+    font-size: 0.95rem;
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .journey h2 { margin-bottom: 0.75rem; }
+  .journey-intro {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .helper {
+    margin-top: 2.5rem;
+    font-size: 0.92rem;
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+
+  /* ── Domain pills under each step ── */
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .pill {
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-tint-lavender);
+    background: white;
+    color: var(--color-purple-dark);
+    cursor: pointer;
+    transition: background 180ms, color 180ms, border-color 180ms;
+  }
+  .pill:hover { border-color: var(--color-purple); }
+  .pill[aria-expanded='true'] {
+    background: var(--color-purple);
+    border-color: var(--color-purple);
+    color: white;
+  }
+  .pill:focus-visible {
+    outline: 2px solid var(--color-purple);
+    outline-offset: 2px;
+  }
+  .pill-panel {
+    margin-top: 0.85rem;
+    padding: 1.1rem 1.35rem;
+    background: var(--color-bg);
+    border-radius: var(--radius-sm);
+  }
+  .pill-panel p {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  .pill-panel .pill-panel-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-purple-dark);
+    margin-bottom: 0.4rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pill { transition: none; }
+  }
+
+  /* ── Practical ── */
+  .practical {
+    padding: 4.5rem 0;
+  }
+  .practical-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 2.5rem;
+  }
+  .practical-block h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.9rem;
+  }
+  .practical-block p,
+  .practical-block li {
+    font-size: 0.92rem;
+    color: var(--color-text-light);
+    line-height: 1.75;
+  }
+  .practical-block ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .practical-block li {
+    position: relative;
+    padding-left: 1.2rem;
+  }
+  .practical-block li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-purple);
+  }
+  .practical-block a {
+    color: var(--color-purple-dark);
+    text-decoration: underline;
+  }
+
+  /* ── CTA ── */
+  .cta {
+    padding: 4rem 0 5rem;
+    text-align: center;
+  }
+  .cta h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 0.75rem;
+  }
+  .cta p {
+    color: var(--color-text-light);
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    font-size: 0.95rem;
+  }
+  .cta-alt {
+    margin-top: 1.5rem !important;
+    font-size: 0.88rem !important;
+  }
+  .cta-alt a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 1.25rem; }
+    .page-hero { padding: 3.5rem 0 2rem; }
+    .practical-grid { grid-template-columns: 1fr; }
+  }
+</style>
