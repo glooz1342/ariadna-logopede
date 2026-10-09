@@ -4,10 +4,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import { PHONE_E164 } from '../data/booking';
+import { LANGS, LANG_META, routeOf, counterpart, type Lang } from '../data/i18n';
 
 interface Props {
   title: string;
-  lang: 'fr' | 'en';
+  lang: Lang;
   description?: string;
 }
 
@@ -15,34 +16,25 @@ const { title, lang, description } = Astro.props;
 
 const defaultDescription = {
   fr: "Ariadna Balsells, logopède à Woluwe-Saint-Lambert, Bruxelles. J'accompagne les enfants : langage, communication, alimentation, apprentissage des mathématiques.",
-  en: "Ariadna Balsells, speech therapist in Woluwe-Saint-Lambert, Brussels. I support children with language, communication, feeding and mathematical learning."
+  en: "Ariadna Balsells, speech therapist in Woluwe-Saint-Lambert, Brussels. I support children with language, communication, feeding and mathematical learning.",
+  es: "Ariadna Balsells, logopeda en Woluwe-Saint-Lambert, Bruselas. Acompaño a niños y niñas en el lenguaje, la comunicación, la alimentación y el aprendizaje de las matemáticas.",
+  it: "Ariadna Balsells, logopedista a Woluwe-Saint-Lambert, Bruxelles. Accompagno i bambini nel linguaggio, nella comunicazione, nell'alimentazione e nell'apprendimento della matematica."
 };
 
 const metaDescription = description ?? defaultDescription[lang];
 const siteUrl = "https://ariadna-logopede.be";
 const canonicalUrl = `${siteUrl}${Astro.url.pathname}`;
 
-// ── FR ↔ EN counterpart pages ──
-// Used for hreflang alternates and the header language switcher,
-// so switching language keeps you on the same page.
-const pathPairs: [string, string][] = [
-  ['/fr', '/en'],
-  ['/fr/apropos', '/en/about'],
-  ['/fr/contact', '/en/contact'],
-  ['/fr/actualites', '/en/news'],
-  ['/fr/cookies', '/en/cookies'],
-  ['/fr/consultation/en-cabinet', '/en/consultation/at-the-practice'],
-  ['/fr/consultation/a-domicile', '/en/consultation/at-home'],
-];
-const pathMap: Record<string, string> = {};
-for (const [fr, en] of pathPairs) {
-  pathMap[fr] = en;
-  pathMap[en] = fr;
-}
+// ── Same page in the other languages ──
+// Routes live in src/data/i18n.ts. Alternates are only emitted for mapped
+// pages: a news post may not exist in every language, and an hreflang that
+// points at a different page (as the old FR/EN fallback to the home page
+// did) is reported as an error by Search Console.
 const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const altPath = pathMap[currentPath] ?? (lang === 'fr' ? '/en' : '/fr');
-const frPath = lang === 'fr' ? currentPath : altPath;
-const enPath = lang === 'en' ? currentPath : altPath;
+const alternates = routeOf(currentPath);
+const switchHrefs = Object.fromEntries(
+  LANGS.map(l => [l, counterpart(currentPath, l)]),
+) as Record<Lang, string>;
 
 // ── Structured data (local SEO) ──
 const schema = {
@@ -78,7 +70,7 @@ const schema = {
     "@type": "City",
     "name": "Bruxelles"
   },
-  "availableLanguage": ["fr", "en", "es"],
+  "availableLanguage": ["fr", "en", "es", "it"],
   // Names the practitioner as a Person, distinct from the practice, so
   // a query on her name has an entity to match.
   "founder": {
@@ -106,16 +98,17 @@ const schema = {
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- Language alternates -->
-    <link rel="alternate" hreflang="fr-BE" href={`${siteUrl}${frPath}/`} />
-    <link rel="alternate" hreflang="en" href={`${siteUrl}${enPath}/`} />
-    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${frPath}/`} />
+    {alternates && LANGS.map(l => (
+      <link rel="alternate" hreflang={LANG_META[l].hreflang} href={`${siteUrl}${alternates[l]}/`} />
+    ))}
+    {alternates && <link rel="alternate" hreflang="x-default" href={`${siteUrl}${alternates.fr}/`} />}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={metaDescription} />
-    <meta property="og:locale" content={lang === 'fr' ? 'fr_BE' : 'en_GB'} />
+    <meta property="og:locale" content={LANG_META[lang].ogLocale} />
     <meta property="og:site_name" content="Ariadna Balsells, Logopède" />
     <meta property="og:image" content={`${siteUrl}/Ari.jpeg`} />
     <meta name="twitter:card" content="summary" />
@@ -138,7 +131,7 @@ const schema = {
     <Font cssVariable="--font-caveat" />
   </head>
   <body>
-    <Header lang={lang} altHref={altPath} />
+    <Header lang={lang} switchHrefs={switchHrefs} />
     <main>
       <slot />
     </main>

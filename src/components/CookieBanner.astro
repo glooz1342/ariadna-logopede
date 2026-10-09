@@ -1,5 +1,7 @@
 ---
-interface Props { lang: 'fr' | 'en'; }
+import { ROUTES, type Lang } from '../data/i18n';
+
+interface Props { lang: Lang; }
 const { lang } = Astro.props as Props;
 
 // ── Google Analytics ──
@@ -7,7 +9,7 @@ const { lang } = Astro.props as Props;
 // (Google Analytics → Admin → Data Streams → your stream).
 const GA_MEASUREMENT_ID = "G-YBZBCZ3R3W";
 
-const t = {
+const t: Record<Lang, { text: string; accept: string; reject: string; policy: string; policyHref: string }> = {
   fr: {
     text: "Ce site utilise des cookies pour mesurer son audience et afficher une carte. Vous pouvez accepter ou refuser les cookies non essentiels.",
     accept: "Accepter",
@@ -21,6 +23,20 @@ const t = {
     reject: "Decline",
     policy: "Learn more",
     policyHref: "/en/cookies/",
+  },
+  es: {
+    text: "Este sitio utiliza cookies para medir su audiencia y mostrar un mapa. Puede aceptar o rechazar las cookies no esenciales.",
+    accept: "Aceptar",
+    reject: "Rechazar",
+    policy: "Más información",
+    policyHref: `${ROUTES.cookies.es}/`,
+  },
+  it: {
+    text: "Questo sito utilizza cookie per misurare il pubblico e mostrare una mappa. Potete accettare o rifiutare i cookie non essenziali.",
+    accept: "Accetta",
+    reject: "Rifiuta",
+    policy: "Maggiori informazioni",
+    policyHref: `${ROUTES.cookies.it}/`,
   },
 };
 const c = t[lang];

@@ -1,12 +1,10 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { LANG_META, ROUTES, type Lang } from './i18n';
 
-export type Lang = 'fr' | 'en';
+export type { Lang };
 
 /** Section of the site each locale lives under. */
-export const indexPath: Record<Lang, string> = {
-  fr: '/fr/actualites',
-  en: '/en/news',
-};
+export const indexPath: Record<Lang, string> = ROUTES.news;
 
 /** Entry ids are `<lang>/<slug>`; strip the locale prefix for the URL. */
 export const slugOf = (id: string) => id.split('/').slice(1).join('/');
@@ -51,7 +49,7 @@ export async function getArticles(lang: Lang) {
 }
 
 export const formatDate = (d: Date, lang: Lang) =>
-  d.toLocaleDateString(lang === 'fr' ? 'fr-BE' : 'en-GB', {
+  d.toLocaleDateString(LANG_META[lang].dateLocale, {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -64,7 +62,12 @@ export function formatRange(start: Date, end: Date | undefined, lang: Lang) {
 }
 
 // ⚠️ À FAIRE VALIDER PAR ARI : tous les intitulés ci-dessous.
-export const t = {
+type Key =
+  | 'eyebrow' | 'h1' | 'subtitle' | 'upcoming' | 'articles' | 'readMore' | 'empty'
+  | 'back' | 'when' | 'where' | 'price' | 'with' | 'register' | 'draft';
+
+/** Every language must define every key: a missing one is a type error. */
+export const t: Record<Lang, Record<Key, string>> = {
   fr: {
     eyebrow: 'Actualités',
     h1: 'Actualités & articles',
@@ -99,4 +102,38 @@ export const t = {
     register: 'Register',
     draft: 'Draft — only visible locally',
   },
-} as const;
+  es: {
+    eyebrow: 'Noticias',
+    h1: 'Noticias y artículos',
+    subtitle:
+      'Los próximos cursos, formaciones y talleres, y algunos artículos sobre el desarrollo del lenguaje y la comunicación.',
+    upcoming: 'Próximos eventos',
+    articles: 'Artículos',
+    readMore: 'Leer más',
+    empty: 'Por ahora no hay novedades. Vuelva pronto ✨',
+    back: '← Todas las noticias',
+    when: 'Cuándo',
+    where: 'Dónde',
+    price: 'Precio',
+    with: 'En colaboración con',
+    register: 'Inscribirse',
+    draft: 'Borrador — solo visible en local',
+  },
+  it: {
+    eyebrow: 'Notizie',
+    h1: 'Notizie e articoli',
+    subtitle:
+      'I prossimi corsi, formazioni e laboratori, e alcuni articoli sullo sviluppo del linguaggio e della comunicazione.',
+    upcoming: 'Prossimi eventi',
+    articles: 'Articoli',
+    readMore: 'Continua a leggere',
+    empty: 'Per ora nessuna novità. Tornate presto ✨',
+    back: '← Tutte le notizie',
+    when: 'Quando',
+    where: 'Dove',
+    price: 'Prezzo',
+    with: 'In collaborazione con',
+    register: 'Iscriviti',
+    draft: 'Bozza — visibile solo in locale',
+  },
+};

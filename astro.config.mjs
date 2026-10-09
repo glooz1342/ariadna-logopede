@@ -68,6 +68,8 @@ export default defineConfig({
         locales: {
           fr: 'fr-BE',
           en: 'en',
+          es: 'es',
+          it: 'it',
         },
       },
     }),

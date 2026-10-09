@@ -3,11 +3,19 @@
 // Change them here, not in the pages.
 // ─────────────────────────────────────────────────────────────
 
-/** Ariadna's Rosa profile (online booking). */
-export const ROSA_URL = {
+import type { Lang } from './i18n';
+
+/**
+ * Ariadna's Rosa profile (online booking).
+ * Rosa only exists in French, Dutch and English, so the Spanish and Italian
+ * pages send visitors to the French one.
+ */
+export const ROSA_URL: Record<Lang, string> = {
   fr: 'https://rosa.be/fr/hp/ariadna-balsells-mencaroni-poiani/',
   en: 'https://rosa.be/en/hp/ariadna-balsells-mencaroni-poiani/',
-} as const;
+  es: 'https://rosa.be/fr/hp/ariadna-balsells-mencaroni-poiani/',
+  it: 'https://rosa.be/fr/hp/ariadna-balsells-mencaroni-poiani/',
+};
 
 /** WhatsApp number in wa.me format (no +, no spaces). */
 export const WHATSAPP_NUMBER = '32490461294';
@@ -29,10 +37,12 @@ export const PHONE_E164 = `+${WHATSAPP_NUMBER}`;
  * While these still say PASTE_, the page shows a WhatsApp fallback
  * instead of a broken embed.
  */
-export const HOME_VISIT_FORM = {
+export const HOME_VISIT_FORM: Record<Lang, string> = {
   fr: 'https://docs.google.com/forms/d/e/PASTE_FR_FORM_ID/viewform',
   en: 'https://docs.google.com/forms/d/e/PASTE_EN_FORM_ID/viewform',
-} as const;
+  es: 'https://docs.google.com/forms/d/e/PASTE_ES_FORM_ID/viewform',
+  it: 'https://docs.google.com/forms/d/e/PASTE_IT_FORM_ID/viewform',
+};
 
 /** True once a real form URL has been pasted in above. */
 export function isFormConfigured(url: string): boolean {

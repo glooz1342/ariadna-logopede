@@ -1,8 +1,17 @@
 ---
 import { WHATSAPP_URL } from '../data/booking';
+import { ROUTES, type Lang } from '../data/i18n';
 
-interface Props { lang: 'fr' | 'en'; }
+interface Props { lang: Lang; }
 const { lang } = Astro.props;
+
+const t: Record<Lang, { role: string; credit: string; privacy: string }> = {
+  fr: { role: 'Logopède · Bruxelles', credit: 'Site réalisé par Jonathan Geurts', privacy: 'Confidentialité & cookies' },
+  en: { role: 'Speech Therapist · Brussels', credit: 'Site by Jonathan Geurts', privacy: 'Privacy & cookies' },
+  es: { role: 'Logopeda · Bruselas', credit: 'Sitio web de Jonathan Geurts', privacy: 'Privacidad y cookies' },
+  it: { role: 'Logopedista · Bruxelles', credit: 'Sito realizzato da Jonathan Geurts', privacy: 'Privacy e cookie' },
+};
+const s = t[lang];
 ---
 
 <footer>
@@ -11,13 +20,13 @@ const { lang } = Astro.props;
       <img src="/logo-mark.svg" alt="" width="30" height="32" class="footer-mark" />
       <div class="footer-text">
         <p class="footer-name">Ariadna Balsells</p>
-        <p class="footer-role">{lang === 'fr' ? 'Logopède · Bruxelles' : 'Speech Therapist · Brussels'}</p>
+        <p class="footer-role">{s.role}</p>
       </div>
     </div>
     <div class="footer-right">
       <p class="footer-copy">© {new Date().getFullYear()} Ariadna Balsells</p>
-      <p class="footer-credit">{lang === 'fr' ? 'Site réalisé par Jonathan Geurts' : 'Site by Jonathan Geurts'}</p>
-      <a href={lang === 'fr' ? '/fr/cookies/' : '/en/cookies/'} class="footer-link">{lang === 'fr' ? 'Confidentialité & cookies' : 'Privacy & cookies'}</a>
+      <p class="footer-credit">{s.credit}</p>
+      <a href={`${ROUTES.cookies[lang]}/`} class="footer-link">{s.privacy}</a>
       <div class="socials">
         <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">

@@ -1,16 +1,18 @@
 ---
+import { LANGS, LANG_META, ROUTES, type Lang } from '../data/i18n';
+
 interface Props {
-  lang: 'fr' | 'en';
-  /** Path to the same page in the other language (falls back to that language's home). */
-  altHref?: string;
+  lang: Lang;
+  /** Path to the same page in each language (falls back to that language's home). */
+  switchHrefs?: Record<Lang, string>;
 }
-const { lang, altHref } = Astro.props as Props;
+const { lang, switchHrefs } = Astro.props as Props;
 
 /** A sub-item in a dropdown. No href = not clickable yet (e.g. "coming soon"). */
 type NavChild = { label: string; href?: string; note?: string };
 type NavItem = { label: string; href: string; children?: NavChild[] };
 
-const nav: Record<'fr' | 'en', NavItem[]> = {
+const nav: Record<Lang, NavItem[]> = {
   fr: [
     { label: 'Accueil', href: '/fr' },
     { label: 'À propos', href: '/fr/apropos' },
@@ -41,11 +43,47 @@ const nav: Record<'fr' | 'en', NavItem[]> = {
     { label: 'News', href: '/en/news' },
     { label: 'Contact', href: '/en/contact' },
   ],
+  es: [
+    { label: 'Inicio', href: ROUTES.home.es },
+    { label: 'Sobre mí', href: ROUTES.about.es },
+    {
+      label: 'Consulta',
+      href: '/es/#consultas',
+      children: [
+        { label: 'En el centro', href: ROUTES.practice.es },
+        { label: 'A domicilio', href: ROUTES.homeVisit.es },
+        { label: 'En línea', note: 'próximamente' },
+      ],
+    },
+    { label: 'Noticias', href: ROUTES.news.es },
+    { label: 'Contacto', href: ROUTES.contact.es },
+  ],
+  it: [
+    { label: 'Home', href: ROUTES.home.it },
+    { label: 'Chi sono', href: ROUTES.about.it },
+    {
+      label: 'Consulenza',
+      href: '/it/#consulenze',
+      children: [
+        { label: 'In studio', href: ROUTES.practice.it },
+        { label: 'A domicilio', href: ROUTES.homeVisit.it },
+        { label: 'Online', note: 'prossimamente' },
+      ],
+    },
+    { label: 'Notizie', href: ROUTES.news.it },
+    { label: 'Contatti', href: ROUTES.contact.it },
+  ],
+};
+
+const role: Record<Lang, string> = {
+  fr: 'Logopède',
+  en: 'Speech Therapist',
+  es: 'Logopeda',
+  it: 'Logopedista',
 };
 
 const links = nav[lang];
-const otherLang = lang === 'fr' ? 'en' : 'fr';
-const langSwitchHref = altHref ?? `/${otherLang}`;
+const langHref = (l: Lang) => switchHrefs?.[l] ?? ROUTES.home[l];
 
 /**
  * Internal paths are emitted with a trailing slash so they match the canonical
@@ -93,7 +131,7 @@ const hasActiveChild = (children?: NavChild[]) =>
       <img src="/logo-mark.svg" alt="" width="34" height="37" class="logo-mark" />
       <span class="logo-text">
         <span class="logo-name">Ariadna Balsells</span>
-        <span class="logo-role">{lang === 'fr' ? 'Logopède' : 'Speech Therapist'}</span>
+        <span class="logo-role">{role[lang]}</span>
       </span>
     </a>
 
@@ -131,11 +169,25 @@ const hasActiveChild = (children?: NavChild[]) =>
           aria-current={isCurrent(link.href) ? 'page' : undefined}
         >{link.label}</a>
       ))}
-      <a href={withSlash(langSwitchHref)} class="lang-switch mobile-lang">{otherLang.toUpperCase()}</a>
+      <div class="lang-switch mobile-lang" role="group" aria-label={LANG_META[lang].switcherLabel}>
+        {LANGS.map(l => (
+          <a href={withSlash(langHref(l))} lang={l} hreflang={l}
+            aria-label={LANG_META[l].name}
+            aria-current={l === lang ? 'true' : undefined}
+            class:list={['lang-option', { 'is-current': l === lang }]}>{l.toUpperCase()}</a>
+        ))}
+      </div>
     </nav>
 
     <div class="header-right">
-      <a href={withSlash(langSwitchHref)} class="lang-switch desktop-lang">{otherLang.toUpperCase()}</a>
+      <div class="lang-switch desktop-lang" role="group" aria-label={LANG_META[lang].switcherLabel}>
+        {LANGS.map(l => (
+          <a href={withSlash(langHref(l))} lang={l} hreflang={l}
+            aria-label={LANG_META[l].name}
+            aria-current={l === lang ? 'true' : undefined}
+            class:list={['lang-option', { 'is-current': l === lang }]}>{l.toUpperCase()}</a>
+        ))}
+      </div>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">
         <span></span>
         <span></span>
@@ -200,6 +252,7 @@ const hasActiveChild = (children?: NavChild[]) =>
   .logo-mark { width: 34px; height: auto; flex-shrink: 0; display: block; }
   .logo-text { display: flex; flex-direction: column; }
   .logo-name {
+    white-space: nowrap;
     font-family: var(--font-heading);
     font-size: 1.1rem;
     font-weight: 600;
@@ -215,6 +268,7 @@ const hasActiveChild = (children?: NavChild[]) =>
   /* Nav */
   nav { display: flex; gap: 2rem; align-items: center; }
   .nav-link {
+    white-space: nowrap;
     font-size: 0.9rem;
     color: var(--color-text-light);
     padding-bottom: 2px;
@@ -303,18 +357,32 @@ const hasActiveChild = (children?: NavChild[]) =>
     white-space: nowrap;
   }
 
-  /* Lang switch */
+  /* Lang switch: four codes in one outlined group. The current language is
+     marked by weight and an underline, not colour alone. */
   .lang-switch {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--color-text-light);
+    display: flex;
+    align-items: center;
     border: 1px solid var(--color-border);
-    padding: 0.3rem 0.75rem;
     border-radius: 4px;
-    transition: all 0.2s;
-    letter-spacing: 0.05em;
+    padding: 0.15rem;
   }
-  .lang-switch:hover { border-color: var(--color-accent); color: var(--color-accent); }
+  .lang-option {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--color-text-light);
+    padding: 0.2rem 0.45rem;
+    border-radius: 3px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, background 0.2s;
+  }
+  .lang-option:hover { color: var(--color-accent); background: var(--color-surface); }
+  .lang-option.is-current {
+    color: var(--color-text);
+    font-weight: 700;
+    border-bottom-color: var(--color-purple);
+    border-radius: 3px 3px 0 0;
+  }
   .mobile-lang { display: none; }
 
   /* Hamburger */
@@ -340,11 +408,20 @@ const hasActiveChild = (children?: NavChild[]) =>
   .hamburger.open span:nth-child(2) { opacity: 0; }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+  /* Four languages in the switcher leave less room for the nav. Measured
+     need with the tighter gap: ~830px for French (the longest labels), so
+     the hamburger takes over below 860px rather than the old 768px. */
+  @media (max-width: 1000px) {
+    nav { gap: 1.25rem; }
+    .header-inner { padding: 0 1.5rem; }
+  }
+
   /* ── Mobile ── */
-  @media (max-width: 768px) {
+  @media (max-width: 860px) {
     .hamburger { display: flex; }
     .desktop-lang { display: none; }
-    .mobile-lang { display: block; border: none; padding: 0.75rem 0; }
+    .mobile-lang { display: flex; border: none; padding: 0.6rem 0 0; gap: 0.5rem; }
+    .mobile-lang .lang-option { font-size: 0.9rem; padding: 0.45rem 0.6rem; }
 
     nav {
       display: none;

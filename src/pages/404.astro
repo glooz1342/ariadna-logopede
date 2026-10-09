@@ -1,20 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { langFromPath } from '../data/i18n';
 
-const urlLang = Astro.url.pathname.startsWith('/en') ? 'en' : 'fr';
+const urlLang = langFromPath(Astro.url.pathname);
 ---
 
-<Layout title="404 | Page introuvable / Not found" lang={urlLang}>
+<Layout title="404 | Page introuvable / Not found / Página no encontrada / Pagina non trovata" lang={urlLang}>
   <section class="not-found">
     <div class="container">
-      {/* One h1 per page. Both language blocks are visible and equal, so the
-          single heading covers both and is hidden visually rather than
-          promoting one language over the other in the document outline. */}
-      <h1 class="sr-only">Page introuvable — Page not found</h1>
+      {/* One h1 per page. All language blocks are visible and equal, so the
+          single heading covers them all and is hidden visually rather than
+          promoting one language over the others in the document outline. */}
+      <h1 class="sr-only">Page introuvable — Page not found — Página no encontrada — Pagina non trovata</h1>
       <span class="error-code" aria-hidden="true">404</span>
 
       <div class="messages">
-        <div class="message fr">
+        <div class="message fr" lang="fr">
           <h2>Page introuvable</h2>
           <p>Cette page n'existe pas ou a été déplacée.</p>
           <a href="/fr/" class="btn">Retour à l'accueil</a>
@@ -22,10 +23,26 @@ const urlLang = Astro.url.pathname.startsWith('/en') ? 'en' : 'fr';
 
         <div class="divider"></div>
 
-        <div class="message en">
+        <div class="message en" lang="en">
           <h2>Page not found</h2>
           <p>This page doesn't exist or has been moved.</p>
           <a href="/en/" class="btn">Back to home</a>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="message es" lang="es">
+          <h2>Página no encontrada</h2>
+          <p>Esta página no existe o ha sido trasladada.</p>
+          <a href="/es/" class="btn">Volver al inicio</a>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="message it" lang="it">
+          <h2>Pagina non trovata</h2>
+          <p>Questa pagina non esiste o è stata spostata.</p>
+          <a href="/it/" class="btn">Torna alla home</a>
         </div>
       </div>
     </div>

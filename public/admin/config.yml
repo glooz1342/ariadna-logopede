@@ -14,10 +14,11 @@ backend:
 media_folder: public/media
 public_folder: /media
 
-# French is the source language; English is optional per entry.
+# French is the source language; English, Spanish and Italian are optional
+# per entry.
 i18n:
   structure: multiple_folders
-  locales: [fr, en]
+  locales: [fr, en, es, it]
   default_locale: fr
 
 publish_mode: simple

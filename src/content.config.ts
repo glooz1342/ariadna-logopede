@@ -3,13 +3,13 @@ import { glob } from 'astro/loaders';
 import type { ZodTypeAny } from 'astro/zod';
 
 /**
- * Two collections, each split by locale into an `fr/` and an `en/` subfolder.
- * Sveltia CMS writes into those folders directly (i18n structure:
+ * Two collections, each split by locale into `fr/`, `en/`, `es/` and `it/`
+ * subfolders. Sveltia CMS writes into those folders directly (i18n structure:
  * multiple_folders), so an entry's id is `fr/mon-article` or `en/my-article`.
  *
- * English is optional per entry: a post that only exists in `fr/` simply
- * never appears on the English index. That keeps Ari from having to write
- * everything twice.
+ * Every language but French is optional per entry: a post that only exists in
+ * `fr/` simply never appears on the other indexes. That keeps Ari from having
+ * to write everything four times.
  */
 
 /**

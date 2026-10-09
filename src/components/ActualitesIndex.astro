@@ -3,6 +3,7 @@ import {
   getEvents, getArticles, indexPath, slugOf, formatRange, formatDate, t,
   type Lang,
 } from '../data/actualites';
+import { LANG_META } from '../data/i18n';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props as Props;
@@ -36,7 +37,7 @@ const href = (id: string) => `${base}/${slugOf(id)}/`;
               <span class="day">{e.data.startDate.getDate()}</span>
               <span class="month">
                 {e.data.startDate.toLocaleDateString(
-                  lang === 'fr' ? 'fr-BE' : 'en-GB', { month: 'short' })}
+                  LANG_META[lang].dateLocale, { month: 'short' })}
               </span>
             </div>
             <div class="event-body">
